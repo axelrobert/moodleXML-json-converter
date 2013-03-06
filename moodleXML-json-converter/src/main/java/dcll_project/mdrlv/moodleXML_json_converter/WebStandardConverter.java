@@ -20,6 +20,8 @@ public abstract class WebStandardConverter {
 		if (!accordanceWithMoodleStandard(inputFile))
 			return FileConformity.WRONG_MOODLE;
 		return FileConformity.OK;
+		
+		//test
 	}
 
 	public abstract boolean accordanceWithMoodleStandard(File f) throws FileNotFoundException, SAXException;
