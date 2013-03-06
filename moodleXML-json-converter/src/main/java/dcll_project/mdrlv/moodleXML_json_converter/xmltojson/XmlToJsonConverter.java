@@ -45,7 +45,7 @@ public class XmlToJsonConverter extends WebStandardConverter {
 	@Override
 	public final boolean accordanceWithMoodleStandard(final File f) {
 		// TODO Auto-generated method stub
-		File xsd = new File("moodleXMLSchema");
+		File xsd = new File("ressources/moodleXMLSchema.xsd"); //A définir
 		try {
 			accordanceWithMoodleXML(f, xsd);
 		} catch (SAXException e) {
@@ -123,7 +123,6 @@ public class XmlToJsonConverter extends WebStandardConverter {
 		return false;
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public final int convert(String inputFileUri,
 			String outputFileUri)
@@ -141,8 +140,7 @@ public class XmlToJsonConverter extends WebStandardConverter {
 		StreamResult out = new StreamResult(outputFile);
 		transformXmlToJsonViaXSLT(inputFile, xslTransformer, out);
 		String text = new Scanner(new File(
-				"results/quiz-moodle-exemple.json")).useDelimiter(
-						"\\A").next();
+				outputFileUri)).useDelimiter("\\A").next();
 		System.out.println(text);
 	
 		//Creating the JSON object, and getting as String:
