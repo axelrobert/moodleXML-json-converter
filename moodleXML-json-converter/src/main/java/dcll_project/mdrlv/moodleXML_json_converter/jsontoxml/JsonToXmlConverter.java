@@ -11,20 +11,22 @@ import dcll_project.mdrlv.moodleXML_json_converter.WebStandardConverter;
 public class JsonToXmlConverter extends WebStandardConverter {
 
 	@Override
-	public boolean accordanceWithMoodleStandard(File f) {
+	public final boolean accordanceWithMoodleStandard(final File f) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean accordanceWithStandard(File f) {
+	public final boolean accordanceWithStandard(final File f) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public int convert(String inputFileUri, String outputFileUri)
-			throws IOException, URISyntaxException, TransformerException {
+	public final int convert(final String inputFileUri,
+			final String outputFileUri)
+			throws IOException, URISyntaxException,
+			TransformerException {
 		// TODO Auto-generated method stub
 		return 0;
 	}
