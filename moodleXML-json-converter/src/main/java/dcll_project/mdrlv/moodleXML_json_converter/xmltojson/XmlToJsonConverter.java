@@ -32,7 +32,7 @@ public class XmlToJsonConverter extends WebStandardConverter {
 
 	public XmlToJsonConverter(final String ch) {
 		super();
-		transformationStylesheet = ch;
+		transformationStylesheet = "ressources/"+ch;
 		}
 
 	@Override
@@ -115,10 +115,12 @@ public class XmlToJsonConverter extends WebStandardConverter {
 	}
 
 	@Override
-	public final int convert(final String inputFileUri,
-			final String outputFileUri)
+	public final int convert(String inputFileUri,
+			String outputFileUri)
 			throws IOException, URISyntaxException,
 			TransformerException {
+		inputFileUri = "ressources/" + inputFileUri;
+		outputFileUri = "results/" + outputFileUri;
 		// TODO Auto-generated method stub
 		StreamSource inputFile = new StreamSource(
 				new File(inputFileUri));
@@ -149,6 +151,7 @@ public class XmlToJsonConverter extends WebStandardConverter {
 		}
 	}
 
+
 	public static void main(final String[] arg)
 			throws IOException, URISyntaxException,
 			TransformerException {
@@ -157,6 +160,8 @@ public class XmlToJsonConverter extends WebStandardConverter {
 		test.convert("quiz-moodle-exemple.xml",
 				"quiz-moodle-exemple.json");
 	}
+
+
 
 
 }
