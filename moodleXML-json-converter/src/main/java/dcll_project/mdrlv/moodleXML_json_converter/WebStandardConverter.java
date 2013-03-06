@@ -23,6 +23,8 @@ public abstract class WebStandardConverter {
 			return FileConformity.WRONG_MOODLE;
 		}
 		return FileConformity.OK;
+		
+		//test
 	}
 
 	public abstract boolean accordanceWithMoodleStandard(File f)
