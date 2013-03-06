@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.Scanner;
 
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
@@ -23,7 +24,13 @@ import javax.xml.validation.Validator;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+
 import dcll_project.mdrlv.moodleXML_json_converter.WebStandardConverter;
+import dcll_project.mdrlv.moodleXML_json_converter.tools.Tools;
 
 public class XmlToJsonConverter extends WebStandardConverter {
 
@@ -91,6 +98,8 @@ public class XmlToJsonConverter extends WebStandardConverter {
 		outputDoc = docBuilder.parse(f);
 		return outputDoc;
 	}
+	
+
 
 	@Override
 	public final boolean accordanceWithStandard(final File f) {
@@ -114,6 +123,7 @@ public class XmlToJsonConverter extends WebStandardConverter {
 		return false;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public final int convert(String inputFileUri,
 			String outputFileUri)
@@ -130,8 +140,21 @@ public class XmlToJsonConverter extends WebStandardConverter {
 				new File(outputFileUri));
 		StreamResult out = new StreamResult(outputFile);
 		transformXmlToJsonViaXSLT(inputFile, xslTransformer, out);
+		String text = new Scanner(new File(
+				"results/quiz-moodle-exemple.json")).useDelimiter(
+						"\\A").next();
+		System.out.println(text);
+	
+		//Creating the JSON object, and getting as String:
+		//Trying to pretify JSON String:
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		JsonElement jsonElement = new JsonParser().parse(text);
+		String json = gson.toJson(jsonElement);
+		Tools.writeStringIntoFile(json, outputFileUri);
 		return 0;
 	}
+	
+	
 
 	private void transformXmlToJsonViaXSLT(final StreamSource inputFile,
 			final StreamSource transformationStylesheet,
@@ -143,12 +166,15 @@ public class XmlToJsonConverter extends WebStandardConverter {
 		Transformer transformer =
 				transfact.newTransformer(
 						transformationStylesheet);
+		
 		try {
 			transformer.transform(inputFile, out);
 		} catch (TransformerException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		
 	}
 
 
