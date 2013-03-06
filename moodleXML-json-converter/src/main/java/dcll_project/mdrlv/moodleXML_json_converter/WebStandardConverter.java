@@ -13,7 +13,7 @@ import dcll_project.mdrlv.moodleXML_json_converter.tools.FileConformity;
 
 public abstract class WebStandardConverter {
 
-	public FileConformity rightMoodleFile(String inputFileUri) throws FileNotFoundException {
+	public FileConformity rightMoodleFile(String inputFileUri) throws FileNotFoundException, SAXException {
 		File inputFile = new File(inputFileUri);
 		if (!accordanceWithStandard(inputFile))
 			return FileConformity.WRONG_STANDARD;
