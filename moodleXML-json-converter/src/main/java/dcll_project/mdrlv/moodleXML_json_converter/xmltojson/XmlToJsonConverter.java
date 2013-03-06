@@ -1,11 +1,14 @@
 package dcll_project.mdrlv.moodleXML_json_converter.xmltojson;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
+import javax.xml.XMLConstants;
 import javax.xml.crypto.dsig.spec.XSLTTransformParameterSpec;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -14,8 +17,13 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.sax.SAXSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
 
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
@@ -30,11 +38,41 @@ public class XmlToJsonConverter extends WebStandardConverter {
 		transformationStylesheet=ch;
 	}
 	@Override
-	public boolean accordanceWithMoodleStandard(File f) {
+	public boolean accordanceWithMoodleStandard(File f){
 		// TODO Auto-generated method stub
-		return false;
+		File xsd=new File("moodleXMLSchema");
+		try {
+			accordanceWithMoodleXML(f, xsd);
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			return false;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
 	}
 	
+	private boolean accordanceWithMoodleXML(File f, File xsd) throws SAXException, IOException, ParserConfigurationException {
+		// TODO Auto-generated method stub
+	    SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+        Schema schema = factory.newSchema(xsd);
+        Validator validator = schema.newValidator(); 
+		Document doc=extractDocumentFromFile(f);
+	    try {
+			validator.validate(new DOMSource(doc));
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			return false;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    return true;
+	}
 	public Document extractDocumentFromFile(File f) throws ParserConfigurationException, SAXException, IOException{
 		Document outputDoc=null;
 		DocumentBuilderFactory dbfact=DocumentBuilderFactory.newInstance();
@@ -51,7 +89,7 @@ public class XmlToJsonConverter extends WebStandardConverter {
 				return true;
 			} catch (ParserConfigurationException e) {
 				System.out.println("Erreur de configuration du parseur DOM");
-			} catch (SAXException e) {
+			} catch (SAXException e) {			e.printStackTrace();
 				// TODO Auto-generated catch block
 				System.out.println("Erreur lors du parsing du document");
 			} catch (IOException e) {
@@ -67,7 +105,7 @@ public class XmlToJsonConverter extends WebStandardConverter {
 		StreamSource inputFile=new StreamSource(new File(inputFileUri));
 		StreamSource xslTransformer=new StreamSource(new File(transformationStylesheet));
 		FileWriter outputFile=new FileWriter(new File(outputFileUri));
-		StreamResult out=new StreamResult(outputFile);
+		StreamResult out=new StreamResult(outputFile);			
 		transformXmlToJsonViaXSLT(inputFile, xslTransformer, out);
 		return 0;
 	}
