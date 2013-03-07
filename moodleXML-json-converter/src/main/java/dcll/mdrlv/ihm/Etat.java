@@ -1,4 +1,4 @@
-package dcll_project.mdrlv.ihm;
+package dcll.mdrlv.ihm;
 
 
 //Classe des tous les états de l'interface.

@@ -1,4 +1,4 @@
-package dcll_project.mdrlv.ihm;
+package dcll.mdrlv.ihm;
 
 public class Test {
 

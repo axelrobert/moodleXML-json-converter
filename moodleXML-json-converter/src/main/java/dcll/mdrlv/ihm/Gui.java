@@ -1,15 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
-/*
- * ConverterGui.java
- *
- * Created on 7 mars 2013, 14:31:14
- */
-
-package dcll_project.mdrlv.ihm;
+package dcll.mdrlv.ihm;
 
 /**
  *
@@ -311,9 +301,7 @@ public class Gui extends javax.swing.JFrame {
         // TODO add your handling code here:
     	SelecteurDeFichier selct = new SelecteurDeFichier(xmlFilter);
 		selct.setSize(300, 300);
-		selct.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-	    selct.setLocationRelativeTo(null);
-	    selct.setResizable(false);
+		selct.setVisible(true);
 		
     }
     

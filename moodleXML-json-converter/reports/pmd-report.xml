@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pmd version="4.2.5" timestamp="2013-03-07T12:52:26.828">
+<file name="src/main/java/dcll_project/mdrlv/WebStandardConverter.java">
+<violation beginline="11" endline="11" begincolumn="0" endcolumn="0" rule="UnusedImports" ruleset="Type Resolution Rules" package="dcll_project.mdrlv" class="WebStandardConverter" externalInfoUrl="http://pmd.sourceforge.net/rules/typeresolution.html#UnusedImports" priority="4">
+Avoid unused imports such as 'org.apache.log4j.BasicConfigurator'
+</violation>
+<violation beginline="11" endline="11" begincolumn="0" endcolumn="0" rule="UnusedImports" ruleset="Type Resolution Rules" package="dcll_project.mdrlv" class="WebStandardConverter" externalInfoUrl="http://pmd.sourceforge.net/rules/typeresolution.html#UnusedImports" priority="4">
+Avoid unused imports such as 'org.apache.log4j.BasicConfigurator'
+</violation>
+<violation beginline="16" endline="43" begincolumn="0" endcolumn="0" rule="AbstractNaming" ruleset="Naming Rules" package="dcll_project.mdrlv" class="WebStandardConverter" externalInfoUrl="http://pmd.sourceforge.net/rules/naming.html#AbstractNaming" priority="3">
+Abstract classes should be named AbstractXXX
+</violation>
+<violation beginline="24" endline="24" begincolumn="0" endcolumn="0" rule="OnlyOneReturn" ruleset="Controversial Rules" package="dcll_project.mdrlv" class="WebStandardConverter" externalInfoUrl="http://pmd.sourceforge.net/rules/controversial.html#OnlyOneReturn" priority="3">
+A method should have only one exit point, and that should be the last statement in the method
+</violation>
+<violation beginline="27" endline="27" begincolumn="0" endcolumn="0" rule="OnlyOneReturn" ruleset="Controversial Rules" package="dcll_project.mdrlv" class="WebStandardConverter" externalInfoUrl="http://pmd.sourceforge.net/rules/controversial.html#OnlyOneReturn" priority="3">
+A method should have only one exit point, and that should be the last statement in the method
+</violation>
+</file>
+<file name="src/main/java/dcll_project/mdrlv/jsontoxml/JsonToXmlConverter.java">
+<violation beginline="14" endline="14" begincolumn="0" endcolumn="0" rule="ShortVariable" ruleset="Naming Rules" package="dcll_project.mdrlv.jsontoxml" class="JsonToXmlConverter" externalInfoUrl="http://pmd.sourceforge.net/rules/naming.html#ShortVariable" priority="3">
+Avoid variables with short names like f
+</violation>
+<violation beginline="20" endline="20" begincolumn="0" endcolumn="0" rule="ShortVariable" ruleset="Naming Rules" package="dcll_project.mdrlv.jsontoxml" class="JsonToXmlConverter" externalInfoUrl="http://pmd.sourceforge.net/rules/naming.html#ShortVariable" priority="3">
+Avoid variables with short names like f
+</violation>
+</file>
+<file name="src/main/java/dcll_project/mdrlv/tools/Tools.java">
+<violation beginline="10" endline="33" begincolumn="0" endcolumn="0" rule="UseSingleton" ruleset="Design Rules" package="dcll_project.mdrlv.tools" class="Tools" externalInfoUrl="http://pmd.sourceforge.net/rules/design.html#UseSingleton" priority="3">
+All methods are static.  Consider using Singleton instead.  Alternatively, you could add a private constructor or make the class abstract to silence this warning.
+</violation>
+</file>
+<file name="src/main/java/dcll_project/mdrlv/xmltojson/XmlToJsonConverter.java">
+<violation beginline="37" endline="37" begincolumn="0" endcolumn="0" rule="BeanMembersShouldSerialize" ruleset="JavaBean Rules" package="dcll_project.mdrlv.xmltojson" class="XmlToJsonConverter" externalInfoUrl="http://pmd.sourceforge.net/rules/javabeans.html#BeanMembersShouldSerialize" priority="3">
+Found non-transient, non-static member. Please mark as transient or provide accessors.
+</violation>
+<violation beginline="76" endline="76" begincolumn="0" endcolumn="0" rule="OnlyOneReturn" ruleset="Controversial Rules" package="dcll_project.mdrlv.xmltojson" class="XmlToJsonConverter" externalInfoUrl="http://pmd.sourceforge.net/rules/controversial.html#OnlyOneReturn" priority="3">
+A method should have only one exit point, and that should be the last statement in the method
+</violation>
+<violation beginline="88" endline="100" begincolumn="0" endcolumn="0" rule="DataflowAnomalyAnalysis" ruleset="Controversial Rules" package="dcll_project.mdrlv.xmltojson" class="XmlToJsonConverter" externalInfoUrl="http://pmd.sourceforge.net/rules/controversial.html#DataflowAnomalyAnalysis" priority="5">
+Found 'DD'-anomaly for variable 'outputDoc' (lines '88'-'100').
+</violation>
+<violation beginline="91" endline="93" begincolumn="0" endcolumn="0" rule="DataflowAnomalyAnalysis" ruleset="Controversial Rules" package="dcll_project.mdrlv.xmltojson" class="XmlToJsonConverter" externalInfoUrl="http://pmd.sourceforge.net/rules/controversial.html#DataflowAnomalyAnalysis" priority="5">
+Found 'DD'-anomaly for variable 'docBuilder' (lines '91'-'93').
+</violation>
+<violation beginline="127" endline="128" begincolumn="0" endcolumn="0" rule="LocalVariableCouldBeFinal" ruleset="Optimization Rules" package="dcll_project.mdrlv.xmltojson" class="XmlToJsonConverter" externalInfoUrl="http://pmd.sourceforge.net/rules/optimizations.html#LocalVariableCouldBeFinal" priority="3">
+Local variable 'xslTransformer' could be declared final
+</violation>
+<violation beginline="129" endline="130" begincolumn="0" endcolumn="0" rule="LocalVariableCouldBeFinal" ruleset="Optimization Rules" package="dcll_project.mdrlv.xmltojson" class="XmlToJsonConverter" externalInfoUrl="http://pmd.sourceforge.net/rules/optimizations.html#LocalVariableCouldBeFinal" priority="3">
+Local variable 'outputFile' could be declared final
+</violation>
+<violation beginline="131" endline="131" begincolumn="0" endcolumn="0" rule="LocalVariableCouldBeFinal" ruleset="Optimization Rules" package="dcll_project.mdrlv.xmltojson" class="XmlToJsonConverter" externalInfoUrl="http://pmd.sourceforge.net/rules/optimizations.html#LocalVariableCouldBeFinal" priority="3">
+Local variable 'out' could be declared final
+</violation>
+<violation beginline="133" endline="133" begincolumn="0" endcolumn="0" rule="LocalVariableCouldBeFinal" ruleset="Optimization Rules" package="dcll_project.mdrlv.xmltojson" class="XmlToJsonConverter" externalInfoUrl="http://pmd.sourceforge.net/rules/optimizations.html#LocalVariableCouldBeFinal" priority="3">
+Local variable 'scan' could be declared final
+</violation>
+<violation beginline="134" endline="134" begincolumn="0" endcolumn="0" rule="LocalVariableCouldBeFinal" ruleset="Optimization Rules" package="dcll_project.mdrlv.xmltojson" class="XmlToJsonConverter" externalInfoUrl="http://pmd.sourceforge.net/rules/optimizations.html#LocalVariableCouldBeFinal" priority="3">
+Local variable 'text' could be declared final
+</violation>
+</file>
+</pmd>
