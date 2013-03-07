@@ -4,27 +4,40 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.filechooser.FileFilter;
 
-public class SelecteurDeFichier extends JFrame{
+public class SelecteurDeFichier extends JFileChooser{
 
-	private JFileChooser fc;
+	private String chosenFile;
 	
 	public SelecteurDeFichier(FileFilter f){
 		//Sélecteur de fichiers
-		fc = new JFileChooser();
-		fc.setFileFilter(f);
-		fc.setAcceptAllFileFilterUsed(false); //Bloque le sélecteur d'extensions 
+		super();
+		this.setFileFilter(f);
+		this.setAcceptAllFileFilterUsed(false); //Bloque le sélecteur d'extensions 
 		
-		this.add(fc);
 		this.setVisible(true);
 		
-		
+		this.handlerSelecteurDeFichiers();
 	}
 	
+	private void handlerSelecteurDeFichiers() {
+		//Gestion du choix.
+		int result = this.showOpenDialog(null);
+	       switch(result){
+	        	case JFileChooser.APPROVE_OPTION: 
+		       	 chosenFile= this.getCheminAbsolu();
+		       	 this.setVisible(false);
+		        	
+	        	case JFileChooser.CANCEL_OPTION:
+	        	chosenFile = "";
+		      	this.setVisible(false);
+	        }
+	}
+
 	public JFileChooser getFileChooser(){
-		return fc;
+		return this;
 	}
 	
 	public String getCheminAbsolu(){
-		return fc.getSelectedFile().getAbsolutePath();
+		return this.getSelectedFile().getAbsolutePath();
 	}
 }
