@@ -299,25 +299,22 @@ public class Gui extends javax.swing.JFrame {
 
     private void jButtonParcourirINActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-    	SelecteurDeFichier selct = new SelecteurDeFichier(xmlFilter);
+    	SelecteurDeFichier selct = new SelecteurDeFichier(xmlFilter, this);
 		selct.setSize(300, 300);
 		selct.setVisible(true);
 		
     }
     
+    public void setPathIN(String s){
+    	jTextFieldPathIN.setText(s);
+    }
+    
+    public void setPathOut(String s){
+    	jTextFieldPathOut.setText(s);
+    }
     
 
-    /**
-    * @param args the command line arguments
-    */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Gui().setVisible(true);
-            }
-        });
-    }
-
+ 
 
     
 public void gestionEtat(Etat e){

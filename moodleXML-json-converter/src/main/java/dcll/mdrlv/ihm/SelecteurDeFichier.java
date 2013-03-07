@@ -7,10 +7,12 @@ import javax.swing.filechooser.FileFilter;
 public class SelecteurDeFichier extends JFileChooser{
 
 	private String chosenFile;
+	private Gui parent;
 	
-	public SelecteurDeFichier(FileFilter f){
+	public SelecteurDeFichier(FileFilter f, Gui p){
 		//Sélecteur de fichiers
 		super();
+		parent = p;
 		this.setFileFilter(f);
 		this.setAcceptAllFileFilterUsed(false); //Bloque le sélecteur d'extensions 
 		
@@ -25,6 +27,7 @@ public class SelecteurDeFichier extends JFileChooser{
 	       switch(result){
 	        	case JFileChooser.APPROVE_OPTION: 
 		       	 chosenFile= this.getCheminAbsolu();
+		       	 parent.setPathIN(this.chosenFile);
 		       	 this.setVisible(false);
 		        	
 	        	case JFileChooser.CANCEL_OPTION:
