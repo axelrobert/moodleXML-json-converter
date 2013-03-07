@@ -10,15 +10,13 @@ import dcll_project.mdrlv.WebStandardConverter;
 
 public class JsonToXmlConverter extends WebStandardConverter {
 
-	@Override
-	public final boolean accordanceWithMoodleStandard(final File f) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public final boolean accordanceWithMoodleStandard(final File file) {
+    	return false;
+    }
 
 	@Override
-	public final boolean accordanceWithStandard(final File f) {
-		// TODO Auto-generated method stub
+	public final boolean accordanceWithStandard(final File file) {
 		return false;
 	}
 
@@ -27,7 +25,6 @@ public class JsonToXmlConverter extends WebStandardConverter {
 			final String outputFileUri)
 			throws IOException, URISyntaxException,
 			TransformerException {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 

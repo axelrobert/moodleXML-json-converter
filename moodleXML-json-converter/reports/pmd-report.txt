@@ -1,0 +1,18 @@
+
+src/main/java/dcll_project/mdrlv/WebStandardConverter.java:11	Avoid unused imports such as 'org.apache.log4j.BasicConfigurator'
+src/main/java/dcll_project/mdrlv/WebStandardConverter.java:11	Avoid unused imports such as 'org.apache.log4j.BasicConfigurator'
+src/main/java/dcll_project/mdrlv/WebStandardConverter.java:16	Abstract classes should be named AbstractXXX
+src/main/java/dcll_project/mdrlv/WebStandardConverter.java:24	A method should have only one exit point, and that should be the last statement in the method
+src/main/java/dcll_project/mdrlv/WebStandardConverter.java:27	A method should have only one exit point, and that should be the last statement in the method
+src/main/java/dcll_project/mdrlv/jsontoxml/JsonToXmlConverter.java:14	Avoid variables with short names like f
+src/main/java/dcll_project/mdrlv/jsontoxml/JsonToXmlConverter.java:20	Avoid variables with short names like f
+src/main/java/dcll_project/mdrlv/tools/Tools.java:10	All methods are static.  Consider using Singleton instead.  Alternatively, you could add a private constructor or make the class abstract to silence this warning.
+src/main/java/dcll_project/mdrlv/xmltojson/XmlToJsonConverter.java:37	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/main/java/dcll_project/mdrlv/xmltojson/XmlToJsonConverter.java:76	A method should have only one exit point, and that should be the last statement in the method
+src/main/java/dcll_project/mdrlv/xmltojson/XmlToJsonConverter.java:88	Found 'DD'-anomaly for variable 'outputDoc' (lines '88'-'100').
+src/main/java/dcll_project/mdrlv/xmltojson/XmlToJsonConverter.java:91	Found 'DD'-anomaly for variable 'docBuilder' (lines '91'-'93').
+src/main/java/dcll_project/mdrlv/xmltojson/XmlToJsonConverter.java:127	Local variable 'xslTransformer' could be declared final
+src/main/java/dcll_project/mdrlv/xmltojson/XmlToJsonConverter.java:129	Local variable 'outputFile' could be declared final
+src/main/java/dcll_project/mdrlv/xmltojson/XmlToJsonConverter.java:131	Local variable 'out' could be declared final
+src/main/java/dcll_project/mdrlv/xmltojson/XmlToJsonConverter.java:133	Local variable 'scan' could be declared final
+src/main/java/dcll_project/mdrlv/xmltojson/XmlToJsonConverter.java:134	Local variable 'text' could be declared final
