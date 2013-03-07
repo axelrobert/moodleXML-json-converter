@@ -1,4 +1,4 @@
-package dcll_project.mdrlv.tools;
+package dcll.mdrlv.tools;
 
 public enum FileConformity {
 	OK, WRONG_STANDARD, WRONG_MOODLE;
