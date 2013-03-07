@@ -1,4 +1,4 @@
-package dcll_project.mdrlv.jsontoxml;
+package dcll.mdrlv.jsontoxml;
 
 import java.io.File;
 import java.io.IOException;
@@ -6,19 +6,17 @@ import java.net.URISyntaxException;
 
 import javax.xml.transform.TransformerException;
 
-import dcll_project.mdrlv.WebStandardConverter;
+import dcll.mdrlv.WebStandardConverter;
 
 public class JsonToXmlConverter extends WebStandardConverter {
 
-	@Override
-	public final boolean accordanceWithMoodleStandard(final File f) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public final boolean accordanceWithMoodleStandard(final File file) {
+    	return false;
+    }
 
 	@Override
-	public final boolean accordanceWithStandard(final File f) {
-		// TODO Auto-generated method stub
+	public final boolean accordanceWithStandard(final File file) {
 		return false;
 	}
 
@@ -27,7 +25,6 @@ public class JsonToXmlConverter extends WebStandardConverter {
 			final String outputFileUri)
 			throws IOException, URISyntaxException,
 			TransformerException {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 

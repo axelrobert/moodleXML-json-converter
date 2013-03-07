@@ -1,4 +1,4 @@
-package dcll_project.mdrlv.ihm;
+package dcll.mdrlv.ihm;
 
 
 import java.awt.BorderLayout;
@@ -33,7 +33,6 @@ public class Gui extends JFrame{
 		
 		initComponents();
 		
-		// Fin de la gestion du Panel Général
 		this.setTitle("Converter XML et JSON");
 	    this.setSize(800, 600);
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

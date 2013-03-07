@@ -1,4 +1,4 @@
-package dcll_project.mdrlv.ihm;
+package dcll.mdrlv.ihm;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
