@@ -1,4 +1,4 @@
-package dcll_project.mdrlv.moodleXML_json_converter.xmltojson;
+package dcll_project.mdrlv.xmltojson;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -29,8 +29,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
-import dcll_project.mdrlv.moodleXML_json_converter.WebStandardConverter;
-import dcll_project.mdrlv.moodleXML_json_converter.tools.Tools;
+import dcll_project.mdrlv.WebStandardConverter;
+import dcll_project.mdrlv.tools.Tools;
 
 public class XmlToJsonConverter extends WebStandardConverter {
 

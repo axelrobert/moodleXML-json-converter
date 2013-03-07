@@ -1,4 +1,4 @@
-package dcll_project.mdrlv.moodleXML_json_converter;
+package dcll_project.mdrlv;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -9,7 +9,7 @@ import javax.xml.transform.TransformerException;
 
 import org.xml.sax.SAXException;
 
-import dcll_project.mdrlv.moodleXML_json_converter.tools.FileConformity;
+import dcll_project.mdrlv.tools.FileConformity;
 
 public abstract class WebStandardConverter {
 

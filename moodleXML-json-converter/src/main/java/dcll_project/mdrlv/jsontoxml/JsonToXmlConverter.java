@@ -1,4 +1,4 @@
-package dcll_project.mdrlv.moodleXML_json_converter.jsontoxml;
+package dcll_project.mdrlv.jsontoxml;
 
 import java.io.File;
 import java.io.IOException;
@@ -6,7 +6,7 @@ import java.net.URISyntaxException;
 
 import javax.xml.transform.TransformerException;
 
-import dcll_project.mdrlv.moodleXML_json_converter.WebStandardConverter;
+import dcll_project.mdrlv.WebStandardConverter;
 
 public class JsonToXmlConverter extends WebStandardConverter {
 

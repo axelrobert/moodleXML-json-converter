@@ -1,4 +1,4 @@
-package dcll_project.mdrlv.moodleXML_json_converter.tools;
+package dcll_project.mdrlv.tools;
 
 public enum FileConformity {
 	OK, WRONG_STANDARD, WRONG_MOODLE;

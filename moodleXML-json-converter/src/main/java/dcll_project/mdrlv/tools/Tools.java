@@ -1,4 +1,4 @@
-package dcll_project.mdrlv.moodleXML_json_converter.tools;
+package dcll_project.mdrlv.tools;
 
 import java.io.BufferedWriter;
 import java.io.File;
