@@ -7,14 +7,14 @@ import javax.swing.filechooser.FileFilter;
 public class CustomFileFilter extends FileFilter {
     
     private String description;
-    private String[] extensions;
+    private String[] extensions; 
 
     public CustomFileFilter(String description, String extension) {
         this(description, new String[]{extension});
     }
 
     /**
-     * Constructeur principal.
+     * Constructeur principal...
      *
      * @param description L'intitulé affiché dans le selecteur de fichier.
      * @param extensions La liste des extensions à filtrer.
