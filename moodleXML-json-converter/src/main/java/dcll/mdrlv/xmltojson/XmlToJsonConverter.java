@@ -1,4 +1,4 @@
-package dcll_project.mdrlv.xmltojson;
+package dcll.mdrlv.xmltojson;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -22,15 +22,20 @@ import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 
 import org.w3c.dom.Document;
-import org.xml.sax.SAXException;
+import org.xml.sax.SAXExcept<dependency>
+<groupId>log4j</groupId>
+<artifactId>log4j</artifactId>
+<version>1.2.15</version>
+</dependency>
+        ion;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
-import dcll_project.mdrlv.WebStandardConverter;
-import dcll_project.mdrlv.tools.Tools;
+import dcll.mdrlv.WebStandardConverter;
+import dcll.mdrlv.tools.Tools;
 
 public class XmlToJsonConverter extends WebStandardConverter {
 

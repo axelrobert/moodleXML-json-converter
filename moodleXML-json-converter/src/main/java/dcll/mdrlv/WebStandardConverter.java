@@ -1,16 +1,16 @@
-package dcll_project.mdrlv;
+package dcll.mdrlv;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.logging.Logger;
 
 import javax.xml.transform.TransformerException;
 
-import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
 
-import dcll_project.mdrlv.tools.FileConformity;
+import dcll.mdrlv.tools.FileConformity;
 
 public abstract class WebStandardConverter {
 

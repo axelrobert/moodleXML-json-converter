@@ -1,4 +1,4 @@
-package dcll_project.mdrlv.jsontoxml;
+package dcll.mdrlv.jsontoxml;
 
 import java.io.File;
 import java.io.IOException;
@@ -6,7 +6,7 @@ import java.net.URISyntaxException;
 
 import javax.xml.transform.TransformerException;
 
-import dcll_project.mdrlv.WebStandardConverter;
+import dcll.mdrlv.WebStandardConverter;
 
 public class JsonToXmlConverter extends WebStandardConverter {
 

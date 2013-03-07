@@ -1,4 +1,4 @@
-package dcll_project.mdrlv.ihm;
+package dcll.mdrlv.ihm;
 
 import java.io.File;
 
