@@ -13,25 +13,28 @@ public class Tools {
 
 	public static void writeStringIntoFile(final String chaine,
 			final String pathname) throws IOException {
+		//On crée un FileWriter à partir du pathname
 		final FileWriter fwriter = new FileWriter(new File(pathname));
-		//le BufferedWriter output auquel on donne comme argument
-		//le FileWriter fw cree juste au dessus
+		//On crée un BufferedWriter output auquel on donne comme argument
+		//le FileWriter fwriter cree juste au dessus
 		final BufferedWriter output = new BufferedWriter(fwriter);
-		//on marque dans le fichier ou plutot dans
-		//le BufferedWriter qui sert comme un tampon(stream)
 		try {
+			//On écrit la chaine dans le BufferedWriter
+			//qui sert de tampon(buffer)
 			output.write(chaine);
 		} catch (Exception e1) {
 			LOGGER.error("Erreur d'écriture du fichier");
 		}
-		//on peut utiliser plusieurs fois la methode write
+
 		try {
+			//On fait appel à la méthode flush() qui permet
+			//d'écrire le contenu du tampon dans le fichier
 			output.flush();
 		} catch (Exception e) {
 			LOGGER.error("Flush erreur");
 		}
-		//ensuite flush envoie dans le fichier,
-		//ne pas oublier cette methode pour le BufferedWriter
+
+		//On ferme le BufferedWriter
 		output.close();
 	}
 }

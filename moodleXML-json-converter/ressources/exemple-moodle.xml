@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<quiz>
+    <question type="multichoice">
+       <name>
+           <text>Demo multichoice question</text>
+       </name>
+       <questiontext format="html">
+           <text>What is the best answer?</text>
+       </questiontext>
+       <shuffleanswers>1</shuffleanswers>
+       <single>true</single>
+       <answernumbering>123</answernumbering>
+       <answer fraction="100">
+          <text>The correct answer</text>
+         <feedback><text>Correct!</text></feedback>
+       </answer>
+       <answer fraction="0">
+          <text>A distractor</text>
+          <feedback><text>Ooops!</text></feedback>
+       </answer>
+       <answer fraction="-25">
+          <text>Another distractor</text>
+          <feedback><text>Ooops!</text></feedback>
+       </answer>
+    </question>
+	<question type="truefalse">
+		<name>
+		   <text>Demo truefalse question</text>
+		</name>
+	   <questiontext format="html">
+		   <text>What is the best answer?</text>
+	   </questiontext>  
+		<answer fraction="100">
+		   <text>true</text>
+		   <feedback><text>Correct!</text></feedback>
+		</answer>
+		<answer fraction="0">
+		   <text>false</text>
+		   <feedback><text>Ooops!</text></feedback>
+		</answer>
+	</question>
+</quiz>

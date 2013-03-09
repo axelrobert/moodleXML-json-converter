@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="quiz">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="question">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="name">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="text" type="xs:string" />
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="questiontext">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="text" type="xs:string" />
+                                    </xs:sequence>
+                                    <xs:attribute name="format" type="xs:string" use="optional" />
+                                </xs:complexType>
+                            </xs:element> 
+                            <xs:element name="image" type="xs:string" minOccurs="0" maxOccurs="1" />
+                            <xs:element name="image_base64" type="xs:base64Binary" minOccurs="0" maxOccurs="1" />
+                            <xs:element name="generalfeedback" minOccurs="0" maxOccurs="1">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="text" type="xs:string" />
+                                    </xs:sequence>
+                                    <xs:attribute name="format" type="xs:string" use="optional" />
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="defaultgrade" type="xs:integer" minOccurs="0" maxOccurs="1" />
+                            <xs:element name="penalty" type="xs:integer" minOccurs="0" maxOccurs="1" />
+                            <xs:element name="hidden" type="xs:integer" minOccurs="0" maxOccurs="1" />
+                            <xs:element name="shuffleanswers" type="xs:integer" />
+                            <xs:element name="single" type="xs:boolean" />
+                            <xs:element name="correctfeedback" minOccurs="0" maxOccurs="1">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="text" type="xs:string" />
+                                    </xs:sequence>
+                                    <xs:attribute name="format" type="xs:string" use="optional" />
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="partiallycorrectfeedback" minOccurs="0" maxOccurs="1">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="text" type="xs:string" />
+                                    </xs:sequence>
+                                    <xs:attribute name="format" type="xs:string" use="optional" />
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="incorrectfeedback" minOccurs="0" maxOccurs="1">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="text" type="xs:string" />
+                                    </xs:sequence>
+                                    <xs:attribute name="format" type="xs:string" use="optional" />
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="answernumbering">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:enumeration value="none" />
+										<xs:enumeration value="abc" />
+										<xs:enumeration value="ABCD" />
+										<xs:enumeration value="123" />
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+                            <xs:element name="answer" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="text" type="xs:string" />
+                                        <xs:element name="feedback" minOccurs="0" maxOccurs="1">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="text" type="xs:string" />
+                                                </xs:sequence>
+                                                <xs:attribute name="format" type="xs:string" use="optional" />
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                    <xs:attribute name="fraction" type="xs:decimal" use="required" />
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="type" type="xs:string" use="required" />
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>  

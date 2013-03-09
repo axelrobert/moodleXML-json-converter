@@ -17,19 +17,8 @@ public abstract class WebStandardConverter {
 	protected static final Logger LOGGER =
 			Logger.getLogger(WebStandardConverter.class);
 
-	public final FileConformity rightMoodleFile(final String inputFileUri)
-			throws FileNotFoundException, SAXException {
-		final File inputFile = new File(inputFileUri);
-		if (!accordanceWithStandard(inputFile)) {
-			return FileConformity.WRONG_STANDARD;
-		}
-		if (!accordanceWithMoodleStandard(inputFile)) {
-			return FileConformity.WRONG_MOODLE;
-		}
-		return FileConformity.OK;
-
-		//test
-	}
+	public abstract FileConformity validationXML(final File xmlFile)
+			throws FileNotFoundException, SAXException;
 
 	public abstract boolean accordanceWithMoodleStandard(File file)
 			throws FileNotFoundException, SAXException;

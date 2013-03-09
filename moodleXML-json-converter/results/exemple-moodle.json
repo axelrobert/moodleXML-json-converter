@@ -1,0 +1,35 @@
+{
+  "quiz": [
+    {
+      "name": {
+        "text": "Demo multichoice question"
+      },
+      "questiontext": {
+        "text": "What is the best answer?"
+      },
+      "shuffleanswers": 1,
+      "single": true,
+      "answernumbering": 123,
+      "answer": {
+        "text": "Another distractor",
+        "feedback": {
+          "text": "Ooops!"
+        }
+      }
+    },
+    {
+      "name": {
+        "text": "Demo truefalse question"
+      },
+      "questiontext": {
+        "text": "What is the best answer?"
+      },
+      "answer": {
+        "text": false,
+        "feedback": {
+          "text": "Ooops!"
+        }
+      }
+    }
+  ]
+}

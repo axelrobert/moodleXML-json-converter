@@ -1,0 +1,113 @@
+package dcll.mdrlv.jsontoxml;
+
+
+import java.io.IOException;
+
+import org.codehaus.jackson.JsonFactory;
+import org.codehaus.jackson.JsonParser;
+import org.xml.sax.ContentHandler;
+import org.xml.sax.DTDHandler;
+import org.xml.sax.EntityResolver;
+import org.xml.sax.ErrorHandler;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXNotRecognizedException;
+import org.xml.sax.SAXNotSupportedException;
+import org.xml.sax.XMLReader;
+
+/**
+* Helper class that can be used for JSON -> XML transformation.
+* <pre>
+* Transformer transformer = TransformerFactory.newInstance().newTransformer();
+* InputSource source = new InputSource(...);
+* Result result = ...;
+* transformer.transform(new SAXSource(new JsonXmlReader(namespace),source), result);
+* </pre>
+*/
+public class JSONXmlReader implements XMLReader {
+
+    private ContentHandler contentHandler;
+    private final String namespaceUri;
+    private final boolean addTypeAttributes;
+
+
+    public JSONXmlReader() {
+        this("");
+    }
+
+    public JSONXmlReader(String namespaceUri) {
+     this(namespaceUri, false);
+    }
+
+    public JSONXmlReader(String namespaceUri, boolean addTypeAttributes) {
+     this.namespaceUri = namespaceUri;
+this.addTypeAttributes = addTypeAttributes;
+}
+
+public boolean getFeature(String name) throws SAXNotRecognizedException, SAXNotSupportedException {
+        throw new UnsupportedOperationException();
+    }
+
+    public void setFeature(String name, boolean value) throws SAXNotRecognizedException, SAXNotSupportedException {
+
+    }
+
+    public Object getProperty(String name) throws SAXNotRecognizedException, SAXNotSupportedException {
+        throw new UnsupportedOperationException();
+    }
+
+
+    public void setProperty(String name, Object value) throws SAXNotRecognizedException, SAXNotSupportedException {
+        //ignore
+    }
+
+    public void setEntityResolver(EntityResolver resolver) {
+     //ignore
+    }
+
+    public EntityResolver getEntityResolver() {
+        throw new UnsupportedOperationException();
+    }
+
+    public void setDTDHandler(DTDHandler handler) {
+        //ignore
+    }
+
+    public DTDHandler getDTDHandler() {
+        throw new UnsupportedOperationException();
+    }
+
+    public void setContentHandler(ContentHandler handler) {
+        this.contentHandler = handler;
+    }
+
+    public ContentHandler getContentHandler() {
+        return contentHandler;
+    }
+
+    public void setErrorHandler(ErrorHandler handler) {
+     //ignore
+
+    }
+
+    public ErrorHandler getErrorHandler() {
+        throw new UnsupportedOperationException();
+    }
+
+
+    public void parse(InputSource input) throws IOException, SAXException {
+        JsonParser jsonParser = new JsonFactory().createJsonParser(input.getCharacterStream());
+        new JSONSaxAdapter(jsonParser, contentHandler, namespaceUri, addTypeAttributes).parse();
+
+    }
+
+    public void parse(String systemId) throws IOException, SAXException {
+        throw new UnsupportedOperationException();
+    }
+
+    public String getNamespaceUri() {
+        return namespaceUri;
+    }
+
+
+}

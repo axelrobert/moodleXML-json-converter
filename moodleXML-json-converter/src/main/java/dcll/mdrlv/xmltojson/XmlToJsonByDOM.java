@@ -12,7 +12,7 @@ import org.w3c.dom.NodeList;
 
 
 /**
- * @author Fran�ois Manciet
+ * @author Francois Manciet
  *
  */
 public class XmlToJsonByDOM {
