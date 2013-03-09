@@ -1,0 +1,50 @@
+{"quiz": {"question": [
+    {
+        "answernumbering": 123,
+        "single": true,
+        "name": {"text": "Demo multichoice question"},
+        "answer": [
+            {
+                "feedback": {"text": "Correct!"},
+                "text": "The correct answer",
+                "fraction": 100
+            },
+            {
+                "feedback": {"text": "Ooops!"},
+                "text": "A distractor",
+                "fraction": 0
+            },
+            {
+                "feedback": {"text": "Ooops!"},
+                "text": "Another distractor",
+                "fraction": -25
+            }
+        ],
+        "shuffleanswers": 1,
+        "type": "multichoice",
+        "questiontext": {
+            "text": "What is the best answer?",
+            "format": "html"
+        }
+    },
+    {
+        "name": {"text": "Demo truefalse question"},
+        "answer": [
+            {
+                "feedback": {"text": "Correct!"},
+                "text": true,
+                "fraction": 100
+            },
+            {
+                "feedback": {"text": "Ooops!"},
+                "text": false,
+                "fraction": 0
+            }
+        ],
+        "type": "truefalse",
+        "questiontext": {
+            "text": "What is the best answer?",
+            "format": "html"
+        }
+    }
+]}}

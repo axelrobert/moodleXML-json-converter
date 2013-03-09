@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glossary>
+  <title>example glossary</title>
+  <GlossDiv>
+    <GlossList>
+      <GlossEntry>
+        <SortAs>SGML</SortAs>
+        <GlossDef>
+          <GlossSeeAlso>GML</GlossSeeAlso>
+          <GlossSeeAlso>XML</GlossSeeAlso>
+          <para>A meta-markup language, used to create markup languages such as DocBook.</para>
+        </GlossDef>
+        <GlossSee>markup</GlossSee>
+        <GlossTerm>Standard Generalized Markup Language</GlossTerm>
+        <ID>SGML</ID>
+        <Acronym>SGML</Acronym>
+        <Abbrev>ISO 8879:1986</Abbrev>
+      </GlossEntry>
+    </GlossList>
+    <title>S</title>
+  </GlossDiv>
+</glossary>

@@ -115,79 +115,61 @@ public class XmlToJsonConverter extends WebStandardConverter {
 			if(!validate) {
 				return false;
 			}
-        } else {
-	       	if(type.toLowerCase().equals("truefalse")) {
+        } else if(type.toLowerCase().equals("truefalse")) {
 	       		final File xsdFile = new File("ressources/truefalse.xsd");
 					boolean validate = isValidateXSD(xmlFile, xsdFile);
 					if(!validate) {
 						return false;
 					}
-	       	} else {
-	       		if(type.toLowerCase().equals("category")) {
-		       		final File xsdFile = new File("ressources/category.xsd");
-						boolean validate = isValidateXSD(xmlFile, xsdFile);
-						if(!validate) {
-							return false;
-						}
-		       	} else {
-		       		if(type.toLowerCase().equals("calculated")) {
-			       		final File xsdFile = new File("ressources/calculated.xsd");
-							boolean validate = isValidateXSD(xmlFile, xsdFile);
-							if(!validate) {
-								return false;
-							}
-			       	} else {
-			       		if(type.toLowerCase().equals("description")) {
-				       		final File xsdFile = new File("ressources/description.xsd");
-								boolean validate = isValidateXSD(xmlFile, xsdFile);
-								if(!validate) {
-									return false;
-								}
-				       	} else {
-				       		if(type.toLowerCase().equals("essay")) {
-					       		final File xsdFile = new File("ressources/essay.xsd");
-									boolean validate = isValidateXSD(xmlFile, xsdFile);
-									if(!validate) {
-										return false;
-									}
-					       	} else {
-					       		if(type.toLowerCase().equals("matching")) {
-						       		final File xsdFile = new File("ressources/matching.xsd");
-										boolean validate = isValidateXSD(xmlFile, xsdFile);
-										if(!validate) {
-											return false;
-										}
-						       	} else {
-						       		if(type.toLowerCase().equals("cloze")) {
-							       		final File xsdFile = new File("ressources/clozed.xsd");
-											boolean validate = isValidateXSD(xmlFile, xsdFile);
-											if(!validate) {
-												return false;
-											}
-							       	} else {
-							       		if(type.toLowerCase().equals("numerical")) {
-								       		final File xsdFile = new File("ressources/numerical.xsd");
-												boolean validate = isValidateXSD(xmlFile, xsdFile);
-												if(!validate) {
-													return false;
-												}
-								       	} else {
-								       		if(type.toLowerCase().equals("shortanswer")) {
-									       		final File xsdFile = new File("ressources/shortanswer.xsd");
-													boolean validate = isValidateXSD(xmlFile, xsdFile);
-													if(!validate) {
-														return false;
-													}
-									       	}
-								       	}
-							       	}
-						       	}
-					       	}
-				       	}
-			       	}
-		       	}
-	       	}
-        }
+	    } else if(type.toLowerCase().equals("category")) {
+	       		final File xsdFile = new File("ressources/category.xsd");
+					boolean validate = isValidateXSD(xmlFile, xsdFile);
+					if(!validate) {
+						return false;
+					}
+	    } else if(type.toLowerCase().equals("calculated")) {
+	       		final File xsdFile = new File("ressources/calculated.xsd");
+					boolean validate = isValidateXSD(xmlFile, xsdFile);
+					if(!validate) {
+						return false;
+					}
+       	} else if(type.toLowerCase().equals("description")) {
+	       		final File xsdFile = new File("ressources/description.xsd");
+					boolean validate = isValidateXSD(xmlFile, xsdFile);
+					if(!validate) {
+						return false;
+					}
+       	} else if(type.toLowerCase().equals("essay")) {
+	       		final File xsdFile = new File("ressources/essay.xsd");
+					boolean validate = isValidateXSD(xmlFile, xsdFile);
+					if(!validate) {
+						return false;
+					}
+       	} else if(type.toLowerCase().equals("matching")) {
+	       		final File xsdFile = new File("ressources/matching.xsd");
+					boolean validate = isValidateXSD(xmlFile, xsdFile);
+					if(!validate) {
+						return false;
+					}
+		} else if(type.toLowerCase().equals("cloze")) {
+	       		final File xsdFile = new File("ressources/clozed.xsd");
+					boolean validate = isValidateXSD(xmlFile, xsdFile);
+					if(!validate) {
+						return false;
+					}
+       	} else if(type.toLowerCase().equals("numerical")) {
+	       		final File xsdFile = new File("ressources/numerical.xsd");
+					boolean validate = isValidateXSD(xmlFile, xsdFile);
+					if(!validate) {
+						return false;
+					}
+       	} else if(type.toLowerCase().equals("shortanswer")) {
+	       		final File xsdFile = new File("ressources/shortanswer.xsd");
+					boolean validate = isValidateXSD(xmlFile, xsdFile);
+					if(!validate) {
+						return false;
+					}
+       	}
 
         return true;
 	}
@@ -347,6 +329,7 @@ public class XmlToJsonConverter extends WebStandardConverter {
 		Scanner scan = new Scanner(new File(outFileUri));
 		String text = scan.useDelimiter("\\A").next();
 		scan.close();
+		//System.out.println(text);
 		//Creating the JSON object, and getting as String:
 		//Trying to pretify JSON String:
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -366,7 +349,7 @@ public class XmlToJsonConverter extends WebStandardConverter {
 			throws IOException, URISyntaxException,
 			TransformerException {
 		XmlToJsonConverter converter =
-				new XmlToJsonConverter("xmltojsontransformer.xslt");
+				new XmlToJsonConverter("xmltojsonml.xslt");
 		if(converter.validationXML(new File("ressources/exemple-moodle.xml")) == FileConformity.OK) {
 			converter.convert("exemple-moodle.xml","exemple-moodle.json");
 			LOGGER.info("Fin de la conversion : le ficher a bien été converti.");
@@ -374,5 +357,26 @@ public class XmlToJsonConverter extends WebStandardConverter {
 			LOGGER.warn("Le ficher n'est pas valide, conversion annulée.");
 		}
 		converter.getXMLFile().delete();
+
+	      /*SAXBuilder sxb = new SAXBuilder();
+
+	      try
+	      {
+	         //On crée un nouveau document JDOM avec en argument le fichier XML
+	         //Le parsing est terminé ;)
+	    	 Document doc = sxb.build(new File("ressources/exemple-moodle.xml"));
+	    	 XMLOutputter sortie = new XMLOutputter(Format.getPrettyFormat());
+	    	 String s = sortie.outputString(doc);
+	    	 JSONObject js = XML.toJSONObject(s);
+	    	 String json = js.toString(4);
+	    	 System.out.println(json);
+
+
+	    	 //Tools.writeStringIntoFile(json, "results/exemple-moodle-result2.json");
+	      }
+	      catch(Exception e){
+	    	  LOGGER.error("Erreur lors de la creation du JDOM");
+	      }*/
+
 	}
 }
