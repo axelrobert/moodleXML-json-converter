@@ -14,9 +14,15 @@ public class Tools {
 	protected static final Logger LOGGER = Logger.getLogger(Tools.class);
 
 	public static void writeStringIntoFile(final String chaine,
-			final String pathname) throws IOException {
+			final String pathname){
 		//On crée un FileWriter à partir du pathname
-		final FileWriter fwriter = new FileWriter(new File(pathname));
+		FileWriter fwriter = null;
+		try {
+			fwriter = new FileWriter(new File(pathname));
+		} catch (IOException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
 		//On crée un BufferedWriter output auquel on donne comme argument
 		//le FileWriter fwriter cree juste au dessus
 		final BufferedWriter output = new BufferedWriter(fwriter);
@@ -37,7 +43,12 @@ public class Tools {
 		}
 
 		//On ferme le BufferedWriter
-		output.close();
+		try {
+			output.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public static String readStringFromFile(File f){
