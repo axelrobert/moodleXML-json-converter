@@ -32,7 +32,7 @@
                                 </xs:complexType>
                             </xs:element>
                             <xs:element name="defaultgrade" type="xs:integer" minOccurs="0" maxOccurs="1" />
-                            <xs:element name="penalty" type="xs:integer" minOccurs="0" maxOccurs="1" />
+                            <xs:element name="penalty" type="xs:decimal" minOccurs="0" maxOccurs="1" />
                             <xs:element name="hidden" type="xs:integer" minOccurs="0" maxOccurs="1" />
                             <xs:element name="shuffleanswers" type="xs:integer" />
                             <xs:element name="single" type="xs:boolean" />

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="quiz">
+		<xs:complexType>
+			<xs:sequence>
+				  <xs:element name="question">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="name">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="text" type="xs:string" />
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="questiontext">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="text" type="xs:string" />
+									</xs:sequence>
+									<xs:attribute name="format" type="xs:string" use="optional" />
+								</xs:complexType>
+							</xs:element> 
+							<xs:element name="image" type="xs:string" minOccurs="0" maxOccurs="1" />
+							<xs:element name="image_base64" type="xs:base64Binary" minOccurs="0" maxOccurs="1" />
+							<xs:element name="generalfeedback" minOccurs="0" maxOccurs="1">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="text" type="xs:string" />
+									</xs:sequence>
+									<xs:attribute name="format" type="xs:string" use="optional" />
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="defaultgrade" type="xs:integer" minOccurs="0" maxOccurs="1" />
+							<xs:element name="penalty" type="xs:decimal" minOccurs="0" maxOccurs="1" />
+							<xs:element name="hidden" type="xs:integer" minOccurs="0" maxOccurs="1" />
+							<xs:element type="xs:integer" name="shuffleanswers" minOccurs="0" maxOccurs="1"/>
+							<xs:element name="answer">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element type="xs:string" name="text" minOccurs="0" maxOccurs="1" />
+										<xs:element type="xs:decimal" name="tolerance" minOccurs="0" maxOccurs="1" />
+										<xs:element type="xs:integer" name="tolerancetype" minOccurs="0" maxOccurs="1" />
+										<xs:element type="xs:integer" name="correctanswerformat" minOccurs="0" maxOccurs="1" />
+										<xs:element type="xs:integer" name="correctanswerlength" minOccurs="0" maxOccurs="1" />
+										<xs:element name="feedback" minOccurs="0" maxOccurs="1">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="text" type="xs:string" />
+												</xs:sequence>
+												<xs:attribute name="format" type="xs:string" use="optional" />
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+									<xs:attribute type="xs:integer" name="fraction" use="optional"/>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="units"  minOccurs="0" maxOccurs="1" >
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="unit"  minOccurs="0" maxOccurs="unbounded" >
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element type="xs:integer" name="multiplier"  minOccurs="0" maxOccurs="1" />
+													<xs:element type="xs:string" name="unit_name"  minOccurs="0" maxOccurs="1" />
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="dataset_definitions"  minOccurs="0" maxOccurs="1" >
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="dataset_definition"  minOccurs="0" maxOccurs="1"  >
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="status"  minOccurs="0" maxOccurs="1" >
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element type="xs:string" name="text"  minOccurs="0" maxOccurs="1" />
+															</xs:sequence>
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="name">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element type="xs:string" name="text"  minOccurs="0" maxOccurs="1" />
+															</xs:sequence>
+														</xs:complexType>
+													</xs:element>
+													<xs:element type="xs:string" name="type"  minOccurs="0" maxOccurs="1" />
+													<xs:element name="distribution"  minOccurs="0" maxOccurs="1" >
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element type="xs:string" name="text"  minOccurs="0" maxOccurs="1" />
+															</xs:sequence>
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="minimum"  minOccurs="0" maxOccurs="1" >
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element type="xs:decimal" name="text"  minOccurs="0" maxOccurs="1" />
+															</xs:sequence>
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="maximum" minOccurs="0" maxOccurs="1" >
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element type="xs:decimal" name="text" minOccurs="0" maxOccurs="1" />
+															</xs:sequence>
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="decimals" minOccurs="0" maxOccurs="1" >
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element type="xs:integer" name="text" minOccurs="0" maxOccurs="1" />
+															</xs:sequence>
+														</xs:complexType>
+													</xs:element>
+													<xs:element type="xs:integer" name="itemcount" minOccurs="0" maxOccurs="1" />
+													<xs:element name="dataset_items" minOccurs="0" maxOccurs="1" >
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="dataset_item" maxOccurs="unbounded" minOccurs="0">
+																	<xs:complexType>
+																		<xs:sequence>
+																			<xs:element type="xs:integer" name="number"  minOccurs="0" maxOccurs="1" />
+																			<xs:element type="xs:decimal" name="value"  minOccurs="0" maxOccurs="1" />
+																		</xs:sequence>
+																	</xs:complexType>
+																</xs:element>
+															</xs:sequence>
+														</xs:complexType>
+													</xs:element>
+													<xs:element type="xs:integer" name="number_of_items"  minOccurs="0" maxOccurs="1" />
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+						<xs:attribute type="xs:string" name="type" use="required"/>
+					</xs:complexType>
+				  </xs:element>
+				</xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>  
+				 

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="quiz">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="question">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="name">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element type="xs:string" name="text"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="questiontext">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element type="xs:string" name="text"/>
+									</xs:sequence>
+									<xs:attribute type="xs:string" name="format" use="optional"/>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="generalfeedback" minOccurs="0" maxOccurs="1">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element type="xs:string" name="text"minOccurs="0" maxOccurs="1"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element type="xs:integer" name="shuffleanswers" minOccurs="0" maxOccurs="1"/>
+						</xs:sequence>
+					<xs:attribute type="xs:string" name="type" use="required"/>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
