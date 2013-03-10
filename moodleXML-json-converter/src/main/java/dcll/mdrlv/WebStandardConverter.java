@@ -17,8 +17,20 @@ public abstract class WebStandardConverter {
 	protected static final Logger LOGGER =
 			Logger.getLogger(WebStandardConverter.class);
 
-	public abstract FileConformity validationXML(final File xmlFile)
-			throws FileNotFoundException, SAXException;
+	public FileConformity fileValidation(final File file) throws FileNotFoundException, SAXException {
+		//On teste si le fichier est bien valide selon son format (XML ou JSON)
+		if(!accordanceWithStandard(file)) {
+			LOGGER.warn("Le fichier n'est pas conforme au format attendu.");
+			return FileConformity.WRONG_STANDARD;
+		} else {
+			//On teste si le XML est bien conforme à un MoodleXML format
+			if(!accordanceWithMoodleStandard(file)) {
+				LOGGER.warn("Le fichier n'est pas conforme au format Moodle.");
+				return FileConformity.WRONG_MOODLE;
+			}
+		}
+		return FileConformity.OK;
+	}
 
 	public abstract boolean accordanceWithMoodleStandard(File file)
 			throws FileNotFoundException, SAXException;

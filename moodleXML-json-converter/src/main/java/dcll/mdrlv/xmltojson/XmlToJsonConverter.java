@@ -61,22 +61,6 @@ public class XmlToJsonConverter extends WebStandardConverter {
 			return(accordanceWithMoodleXML(file));
 	}
 
-	@Override
-	public FileConformity validationXML(final File xmlFile) {
-		//On teste si le XML est bien valide
-		if(!accordanceWithStandard(xmlFile)) {
-			LOGGER.warn("Le fichier n'est pas conforme au format XML.");
-			return FileConformity.WRONG_STANDARD;
-		} else {
-			//On teste si le XML est bien conforme à un MoodleXML format
-			if(!accordanceWithMoodleStandard(xmlFile)) {
-				LOGGER.warn("Le fichier n'est pas conforme au format MoodleXML.");
-				return FileConformity.WRONG_MOODLE;
-			}
-		}
-		return FileConformity.OK;
-	}
-
 	public boolean isValidateXSD(File xmlFile, File xsdFile) {
 		//Création d'un schéma XML (XSD) factory
 		XMLReaderJDOMFactory schemafac = null;
@@ -109,69 +93,9 @@ public class XmlToJsonConverter extends WebStandardConverter {
 		//Selon le type on fait appel au XSD adéquat et
 		//on fait appel à la méthode isValidateXSD pour
 		//vérifier si la question est valide ou pas
-        if(type.toLowerCase().equals("multichoice")) {
-			final File xsdFile = new File("ressources/multichoice.xsd");
-			boolean validate = isValidateXSD(xmlFile, xsdFile);
-			if(!validate) {
-				return false;
-			}
-        } else if(type.toLowerCase().equals("truefalse")) {
-	       		final File xsdFile = new File("ressources/truefalse.xsd");
-					boolean validate = isValidateXSD(xmlFile, xsdFile);
-					if(!validate) {
-						return false;
-					}
-	    } else if(type.toLowerCase().equals("category")) {
-	       		final File xsdFile = new File("ressources/category.xsd");
-					boolean validate = isValidateXSD(xmlFile, xsdFile);
-					if(!validate) {
-						return false;
-					}
-	    } else if(type.toLowerCase().equals("calculated")) {
-	       		final File xsdFile = new File("ressources/calculated.xsd");
-					boolean validate = isValidateXSD(xmlFile, xsdFile);
-					if(!validate) {
-						return false;
-					}
-       	} else if(type.toLowerCase().equals("description")) {
-	       		final File xsdFile = new File("ressources/description.xsd");
-					boolean validate = isValidateXSD(xmlFile, xsdFile);
-					if(!validate) {
-						return false;
-					}
-       	} else if(type.toLowerCase().equals("essay")) {
-	       		final File xsdFile = new File("ressources/essay.xsd");
-					boolean validate = isValidateXSD(xmlFile, xsdFile);
-					if(!validate) {
-						return false;
-					}
-       	} else if(type.toLowerCase().equals("matching")) {
-	       		final File xsdFile = new File("ressources/matching.xsd");
-					boolean validate = isValidateXSD(xmlFile, xsdFile);
-					if(!validate) {
-						return false;
-					}
-		} else if(type.toLowerCase().equals("cloze")) {
-	       		final File xsdFile = new File("ressources/clozed.xsd");
-					boolean validate = isValidateXSD(xmlFile, xsdFile);
-					if(!validate) {
-						return false;
-					}
-       	} else if(type.toLowerCase().equals("numerical")) {
-	       		final File xsdFile = new File("ressources/numerical.xsd");
-					boolean validate = isValidateXSD(xmlFile, xsdFile);
-					if(!validate) {
-						return false;
-					}
-       	} else if(type.toLowerCase().equals("shortanswer")) {
-	       		final File xsdFile = new File("ressources/shortanswer.xsd");
-					boolean validate = isValidateXSD(xmlFile, xsdFile);
-					if(!validate) {
-						return false;
-					}
-       	}
-
-        return true;
+		String uriFile="ressources/"+type+".xsd";
+		final  File xsdFile = new File(uriFile);
+		return (isValidateXSD(xmlFile, xsdFile));
 	}
 
 	public boolean accordanceWithMoodleXML(File file) {
@@ -347,10 +271,10 @@ public class XmlToJsonConverter extends WebStandardConverter {
 
 	public static void main(final String[] arg)
 			throws IOException, URISyntaxException,
-			TransformerException {
+			TransformerException, SAXException {
 		XmlToJsonConverter converter =
 				new XmlToJsonConverter("xmltojsonml.xslt");
-		if(converter.validationXML(new File("ressources/exemple-moodle.xml")) == FileConformity.OK) {
+		if(converter.fileValidation(new File("ressources/exemple-moodle.xml")) == FileConformity.OK) {
 			converter.convert("exemple-moodle.xml","exemple-moodle.json");
 			LOGGER.info("Fin de la conversion : le ficher a bien été converti.");
 		} else {
