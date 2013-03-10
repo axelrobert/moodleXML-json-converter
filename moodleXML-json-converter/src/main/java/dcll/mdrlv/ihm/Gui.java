@@ -1,10 +1,13 @@
 package dcll.mdrlv.ihm;
 
+import java.awt.Dimension;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.URISyntaxException;
+import java.net.UnknownHostException;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
@@ -62,6 +65,9 @@ public class Gui extends javax.swing.JFrame {
 		initComponents();
 		this.setTitle("Converter XML et JSON");
 
+
+		this.setSize(600, 550);
+		this.setResizable(false);
 		etat = Etat.INIT_XML_JSON;
 		gestionEtat(etat);
 	}
@@ -843,9 +849,12 @@ public class Gui extends javax.swing.JFrame {
 
 	public String getDesktopEmplacementFile(String pathO) {
 
-		String desktop = "C:\\Users\\Emilien\\Desktop";
+		String hostName = System.getProperty("user.name");
+		String desktop = "C:\\Users\\"+ hostName +"\\Desktop";
 		String fichier = pathO.substring(pathO.lastIndexOf("\\"));
 		return desktop.concat(fichier);
+        
+		
 	}
 
 	public void gestionEtat(Etat e) {
@@ -854,11 +863,12 @@ public class Gui extends javax.swing.JFrame {
 		case INIT_JSON_XML:
 			jTextArea1.setText("");
 			jTextArea2.setText("");
+			jTextFieldPathIN.setText("");
+			jTextFieldPathOut.setText("");
 			
 			jButtonParcourirIN.setEnabled(true);
 			jButtonValider.setEnabled(true);
 			jTextFieldPathIN.setEnabled(true);
-			jTextFieldPathIN.setText("");
 			jTextFieldPathIN.setEditable(true);
 			jButtonAnnuler.setEnabled(false);
 
@@ -881,11 +891,12 @@ public class Gui extends javax.swing.JFrame {
 		case INIT_XML_JSON:
 			jTextArea1.setText("");
 			jTextArea2.setText("");
+			jTextFieldPathIN.setText("");
+			jTextFieldPathOut.setText("");
 			
 			jButtonParcourirIN.setEnabled(true);
 			jButtonValider.setEnabled(true);
 			jTextFieldPathIN.setEnabled(true);
-			jTextFieldPathIN.setText("");
 			jTextFieldPathIN.setEditable(true);
 			jButtonAnnuler.setEnabled(false);
 
