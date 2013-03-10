@@ -106,7 +106,7 @@ public class Gui extends javax.swing.JFrame {
 		
 		jTextArea1.setEditable(false);
 		jTextArea2.setEditable(false);
-
+		
 		sync = new Synchronizer(jScrollPane1, jScrollPane2);
 		jScrollPane1.getVerticalScrollBar().addAdjustmentListener(sync);
 		jScrollPane1.getHorizontalScrollBar().addAdjustmentListener(sync);
@@ -519,11 +519,12 @@ public class Gui extends javax.swing.JFrame {
 						.showMessageDialog(this,
 								"Veuillez renseigner un chemin pour le fichier à convertir");
 			} else {
-				etat = Etat.OUTPUT_JSON_XML;
+				
 				afficherTextArea(jTextArea1, jTextFieldPathIN.getText());
 				jTextFieldPathOut
 						.setText(getDesktopEmplacementFile(jTextFieldPathIN
 								.getText()));
+				etat = Etat.OUTPUT_JSON_XML;
 			}
 			break;
 		case INIT_XML_JSON:
@@ -533,11 +534,11 @@ public class Gui extends javax.swing.JFrame {
 								"Veuillez renseigner un chemin pour le fichier à convertir");
 			} else {
 
-				etat = Etat.OUTPUT_XML_JSON;
 				afficherTextArea(jTextArea1, jTextFieldPathIN.getText());
 				jTextFieldPathOut
 						.setText(getDesktopEmplacementFile(jTextFieldPathIN
 								.getText()));
+				etat = Etat.OUTPUT_XML_JSON;
 			}
 			break;
 		case OUTPUT_JSON_XML:
@@ -618,7 +619,7 @@ public class Gui extends javax.swing.JFrame {
 								"Veuillez renseigner un chemin pour le fichier en sortie");
 			} else {
 				
-				String fichierOut = jTextFieldPathOut.getText().concat(".json");
+				String fichierOut = jTextFieldPathOut.getText();
 				
 				try {
 					if(xmlConverter.fileValidation(new File(jTextFieldPathIN.getText())) == FileConformity.OK) {
@@ -851,8 +852,18 @@ public class Gui extends javax.swing.JFrame {
 
 		String hostName = System.getProperty("user.name");
 		String desktop = "C:\\Users\\"+ hostName +"\\Desktop";
-		String fichier = pathO.substring(pathO.lastIndexOf("\\"));
-		return desktop.concat(fichier);
+		String fichier = pathO.substring(pathO.lastIndexOf("\\"), pathO.lastIndexOf("."));
+		String extend = "";
+	switch (etat){
+	case INIT_XML_JSON : extend = ".json";
+			break;
+	case INIT_JSON_XML : extend = ".xml";
+	break;
+	default:extend = "caca";
+		break;
+	}
+	fichier = fichier + extend;
+	return desktop.concat(fichier);
         
 		
 	}
