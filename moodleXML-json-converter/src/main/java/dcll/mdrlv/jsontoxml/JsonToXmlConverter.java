@@ -28,20 +28,19 @@ import dcll.mdrlv.jsontoxml.JSONSaxAdapter.ParserException;
 import dcll.mdrlv.tools.Tools;
 import dcll.mdrlv.xmltojson.XmlToJsonConverter;
 
+public class JsonToXmlConverter extends WebStandardConverter {
 
-
-public class JsonToXmlConverter extends WebStandardConverter{
-
-	public JsonToXmlConverter(){
+	public JsonToXmlConverter() {
 		super();
 	}
-	
-	public String convertJsonStringToCompactedXmlString(String json) {
+
+	public final String convertJsonStringToCompactedXmlString(
+			final String json) {
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		Transformer transformer = null;
 		try {
-			transformer = TransformerFactory.newInstance()
-					.newTransformer();
+			transformer = TransformerFactory.
+					newInstance().newTransformer();
 		} catch (TransformerConfigurationException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -67,40 +66,46 @@ public class JsonToXmlConverter extends WebStandardConverter{
 		return new String(out.toByteArray());
 	}
 
-	
 	@Override
-	public boolean accordanceWithMoodleStandard(File file)
-			throws SAXException{
+	public final boolean accordanceWithMoodleStandard(final File file)
+			throws SAXException {
 		// TODO Auto-generated method stub
 		String json = Tools.readStringFromFile(file);
 		String xml = convertJsonStringToCompactedXmlString(json);
-		File temp = new File("ressources/temp.xml");
-		Tools.writeStringIntoFile(xml, temp.getPath());
-		return (XmlToJsonConverter.accordanceWithXML(temp) !=null);
+		String tempPathFile = "ressources/temp.xml";
+		File temp = new File(tempPathFile);
+		Tools.writeStringIntoFile(xml, tempPathFile);
+		org.w3c.dom.Document res =
+				XmlToJsonConverter.accordanceWithXML(temp);
+		temp.delete();
+		return (res != null);
 
 	}
 
 	@Override
-	public boolean accordanceWithStandard(File file){
+	public final boolean accordanceWithStandard(final File file) {
 		// TODO Auto-generated method stub
 		String json = Tools.readStringFromFile(file);
-		return ((!convertJsonStringToCompactedXmlString(json).contentEquals("error")));
+		return ((!convertJsonStringToCompactedXmlString(json)
+				.contentEquals("error")));
 	}
 
 	@Override
-	public int convert(String inputFileUri, String outputFileUri)
-			throws IOException, URISyntaxException, TransformerException {
+	public final int convert(final String inputFileUri,
+			final String outputFileUri) throws IOException,
+			URISyntaxException, TransformerException {
 		// TODO Auto-generated method stub
 		String text = Tools.readStringFromFile(new File(inputFileUri));
 		String output = convertJsonStringToCompactedXmlString(text);
-		Tools.writeStringIntoFile(output, "results/output.xml");
+		Tools.writeStringIntoFile(output, outputFileUri);
 		SAXBuilder sb = new SAXBuilder();
 		Document doc;
 		try {
-			doc = sb.build("results/output.xml");
-			XMLOutputter xmlOutputter = new XMLOutputter(Format.getPrettyFormat());
+			doc = sb.build(outputFileUri);
+			XMLOutputter xmlOutputter = new XMLOutputter(
+					Format.getPrettyFormat());
 			String xmlIndent = xmlOutputter.outputString(doc);
-			Tools.writeStringIntoFile(xmlIndent, "results/output.xml");
+			Tools.writeStringIntoFile(xmlIndent, outputFileUri);
 		} catch (JDOMException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -108,17 +113,21 @@ public class JsonToXmlConverter extends WebStandardConverter{
 
 		return 0;
 	}
-	
-	public static void main(String args[]) throws SAXException, IOException, URISyntaxException, TransformerException{
+
+	public static void main(final String[] args) 
+			throws SAXException, IOException,
+			URISyntaxException, TransformerException {
 		JsonToXmlConverter converter = new JsonToXmlConverter();
 		String testPath = "ressources/exemple.json";
 		File testFile = new File(testPath);
 		boolean validate = converter.accordanceWithStandard(testFile);
-		System.out.println(testPath + " is a " + validate + " json file." );
+		System.out.println(testPath + " is a "
+				+ validate + " json file.");
 		validate = converter.accordanceWithMoodleStandard(testFile);
-		System.out.println(testPath + " is a " + validate + " moodle file." );
-		converter.convert(testPath, "results/output.xml");	
+		System.out.println(testPath + " is a "
+				+ validate + " moodle file.");
+		if (validate) {
+			converter.convert(testPath, "results/output.xml");
+		}
 	}
-	
-
 }
