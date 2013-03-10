@@ -23,7 +23,7 @@ public abstract class WebStandardConverter {
 			LOGGER.warn("Le fichier n'est pas conforme au format attendu.");
 			return FileConformity.WRONG_STANDARD;
 		} else {
-			//On teste si le XML est bien conforme à un MoodleXML format
+			//On teste si le fichier est bien conforme à un Moodle format
 			if(!accordanceWithMoodleStandard(file)) {
 				LOGGER.warn("Le fichier n'est pas conforme au format Moodle.");
 				return FileConformity.WRONG_MOODLE;

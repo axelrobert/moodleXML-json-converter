@@ -222,12 +222,17 @@ public class XmlToJsonConverter extends WebStandardConverter {
 	public void transformXmlToJsonViaXSLT(final StreamSource inputFile,
 			final StreamSource xsltStylesheet, final StreamResult out)
 			throws TransformerConfigurationException {
+		//On crée une nouvelle instance de Transformer factory
 		TransformerFactory transfact =
 				TransformerFactory.newInstance();
+		//A partir de cette factory on créer une nouvelle instance
+		//de la classe Transformer avec en paramètre le XSLT
 		Transformer transformer =
 				transfact.newTransformer(
 						xsltStylesheet);
 		try {
+			//On applique la méthode transform qui va modifier le XML
+			//en fonction du XSLT
 			transformer.transform(inputFile, out);
 		} catch (TransformerException e) {
 			LOGGER.error("Erreur durant la transformation du fichier");
@@ -242,23 +247,37 @@ public class XmlToJsonConverter extends WebStandardConverter {
 		final String inFileUri = "ressources/" + inputFileUri;
 		final String outFileUri = "results/" + outputFileUri;
 
+		//On créé un flux du XML
 		final StreamSource inputFile = new StreamSource(
 				new File(inFileUri));
+		//On crée un flux du XSLT
 		StreamSource xslTransformer = new StreamSource(
 				new File(xsltStylesheet));
+		//On créer un FileWriter du fichier résultat
+		//pour permettre l'écriture de flux de caractères
 		FileWriter outputFile = new FileWriter(
 				new File(outFileUri));
+		//On crée un StreamResult à partir du FileWriter
+		//pour pouvoir écrire dedans le résultat
+		//de la transformation du XML par le XSLT
 		StreamResult out = new StreamResult(outputFile);
+		//On fait appel à la méthode de transformation
 		transformXmlToJsonViaXSLT(inputFile, xslTransformer, out);
+		//On scanne le fichier résultat pour pouvoir
+		//le récupérer sous forme de string
 		Scanner scan = new Scanner(new File(outFileUri));
 		String text = scan.useDelimiter("\\A").next();
 		scan.close();
 		//System.out.println(text);
-		//Creating the JSON object, and getting as String:
-		//Trying to pretify JSON String:
+		//On crée un Gson builder avec propriété d'indentation
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		//On parse le string récupérer précédemment
+		//On obtient un Json Element
 		JsonElement jsonElement = new JsonParser().parse(text);
+		//On transforme le Json Element en string
 		String json = gson.toJson(jsonElement);
+		//On fait appel à la méthode d'écriture
+		//d'un string dans un fichier
 		Tools.writeStringIntoFile(json, outFileUri);
 		return 0;
 	}
@@ -281,26 +300,5 @@ public class XmlToJsonConverter extends WebStandardConverter {
 			LOGGER.warn("Le ficher n'est pas valide, conversion annulée.");
 		}
 		converter.getXMLFile().delete();
-
-	      /*SAXBuilder sxb = new SAXBuilder();
-
-	      try
-	      {
-	         //On crée un nouveau document JDOM avec en argument le fichier XML
-	         //Le parsing est terminé ;)
-	    	 Document doc = sxb.build(new File("ressources/exemple-moodle.xml"));
-	    	 XMLOutputter sortie = new XMLOutputter(Format.getPrettyFormat());
-	    	 String s = sortie.outputString(doc);
-	    	 JSONObject js = XML.toJSONObject(s);
-	    	 String json = js.toString(4);
-	    	 System.out.println(json);
-
-
-	    	 //Tools.writeStringIntoFile(json, "results/exemple-moodle-result2.json");
-	      }
-	      catch(Exception e){
-	    	  LOGGER.error("Erreur lors de la creation du JDOM");
-	      }*/
-
 	}
 }
