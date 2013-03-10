@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
@@ -22,6 +23,7 @@ public class Gui extends javax.swing.JFrame {
 	private CustomFileFilter xmlFilter;
 	private CustomFileFilter jsonFilter;
 	private SelecteurDeFichier selct;
+	private SelecteurDeDossier selctD;
 	private Synchronizer sync;
 	// Variables declaration - do not modify
 	private javax.swing.ButtonGroup buttonGroupSensConverter;
@@ -85,13 +87,17 @@ public class Gui extends javax.swing.JFrame {
 		jTextArea1 = new javax.swing.JTextArea();
 		jScrollPane2 = new javax.swing.JScrollPane();
 		jTextArea2 = new javax.swing.JTextArea();
-
-		Synchronizer sync = new Synchronizer(jScrollPane1, jScrollPane2);  
-        jScrollPane1.getVerticalScrollBar().addAdjustmentListener(sync);  
-        jScrollPane1.getHorizontalScrollBar().addAdjustmentListener(sync);  
-        jScrollPane2.getVerticalScrollBar().addAdjustmentListener(sync);  
-        jScrollPane2.getHorizontalScrollBar().addAdjustmentListener(sync); 
 		
+		
+		jTextArea1.setEditable(false);
+		jTextArea2.setEditable(false);
+
+		Synchronizer sync = new Synchronizer(jScrollPane1, jScrollPane2);
+		jScrollPane1.getVerticalScrollBar().addAdjustmentListener(sync);
+		jScrollPane1.getHorizontalScrollBar().addAdjustmentListener(sync);
+		jScrollPane2.getVerticalScrollBar().addAdjustmentListener(sync);
+		jScrollPane2.getHorizontalScrollBar().addAdjustmentListener(sync);
+
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
 		// Filtre de fichiers
@@ -112,11 +118,11 @@ public class Gui extends javax.swing.JFrame {
 		buttonGroupSensConverter.add(jRadioButtonJSONtoXML);
 		jRadioButtonJSONtoXML.setText("JSON vers XML");
 		jRadioButtonJSONtoXML
-		.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jRadioButtonJSONtoXMLActionPerformed(evt);
-			}
-		});
+				.addActionListener(new java.awt.event.ActionListener() {
+					public void actionPerformed(java.awt.event.ActionEvent evt) {
+						jRadioButtonJSONtoXMLActionPerformed(evt);
+					}
+				});
 
 		jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(
 				0, 0, 0), 1, true));
@@ -225,6 +231,12 @@ public class Gui extends javax.swing.JFrame {
 				0, 0, 0), 1, true));
 
 		jButtonParcourirOut.setText("Parcourir");
+		jButtonParcourirOut
+				.addActionListener(new java.awt.event.ActionListener() {
+					public void actionPerformed(java.awt.event.ActionEvent evt) {
+						jButtonParcourirOutActionPerformed(evt);
+					}
+				});
 
 		jTextFieldPathOut
 				.addActionListener(new java.awt.event.ActionListener() {
@@ -316,14 +328,13 @@ public class Gui extends javax.swing.JFrame {
 				jButtonResetActionPerformed(evt);
 			}
 		});
-		
-		jButtonFermer.setText("Fermer");		
+
+		jButtonFermer.setText("Fermer");
 		jButtonFermer.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				jButtonFermerActionPerformed(evt);
 			}
 		});
-		
 
 		jLabelFichierIN.setText("Fichier XML");
 
@@ -488,14 +499,33 @@ public class Gui extends javax.swing.JFrame {
 		// TODO add your handling co
 		switch (etat) {
 		case INIT_JSON_XML:
-			etat = Etat.OUTPUT_JSON_XML;
-			afficherTextArea(jTextArea1, jTextFieldPathIN.getText());
-			afficherTextArea(jTextArea2, jTextFieldPathIN.getText());
+			if (jTextFieldPathIN.getText().equals("")) {
+				JOptionPane
+						.showMessageDialog(this,
+								"Veuillez renseigner un chemin pour le fichier à convertir");
+			} else {
+				etat = Etat.OUTPUT_JSON_XML;
+				afficherTextArea(jTextArea1, jTextFieldPathIN.getText());
+				afficherTextArea(jTextArea2, jTextFieldPathIN.getText());
+				jTextFieldPathOut
+						.setText(getDesktopEmplacementFile(jTextFieldPathIN
+								.getText()));
+			}
 			break;
 		case INIT_XML_JSON:
-			etat = Etat.OUTPUT_XML_JSON;
-			afficherTextArea(jTextArea1, jTextFieldPathIN.getText());
-			afficherTextArea(jTextArea2, jTextFieldPathIN.getText());
+			if (jTextFieldPathIN.getText().equals("")) {
+				JOptionPane
+						.showMessageDialog(this,
+								"Veuillez renseigner un chemin pour le fichier à convertir");
+			} else {
+
+				etat = Etat.OUTPUT_XML_JSON;
+				afficherTextArea(jTextArea1, jTextFieldPathIN.getText());
+				afficherTextArea(jTextArea2, jTextFieldPathIN.getText());
+				jTextFieldPathOut
+						.setText(getDesktopEmplacementFile(jTextFieldPathIN
+								.getText()));
+			}
 			break;
 		case OUTPUT_JSON_XML:
 			throw new RuntimeException(
@@ -524,32 +554,38 @@ public class Gui extends javax.swing.JFrame {
 	private void jButtonConvertirActionPerformed(java.awt.event.ActionEvent evt) {
 		switch (etat) {
 		case INIT_JSON_XML:
-			throw new RuntimeException("Bouton Convertir : action interdite car Etat INIT_JSON_XML");
+			throw new RuntimeException(
+					"Bouton Convertir : action interdite car Etat INIT_JSON_XML");
 		case INIT_XML_JSON:
-			throw new RuntimeException("Bouton Convertir : action interdite car Etat INIT_XML_JSON");
+			throw new RuntimeException(
+					"Bouton Convertir : action interdite car Etat INIT_XML_JSON");
 		case OUTPUT_JSON_XML:
-			
-			if (jTextFieldPathOut.getText()=="")
-			{
-				JOptionPane.showMessageDialog(this,"Veuillez renseigner un chemin pour le fichier en sortie");
-			}else{
+
+			if (jTextFieldPathOut.getText().equals("")) {
+				JOptionPane
+						.showMessageDialog(this,
+								"Veuillez renseigner un chemin pour le fichier en sortie");
+			} else {
 				etat = Etat.VIEW_JSON_XML;
 				afficherTextArea(jTextArea2, jTextFieldPathOut.getText());
 			}
 			break;
-		case OUTPUT_XML_JSON:			
-			if (jTextFieldPathOut.getText()=="")
-			{
-				JOptionPane.showMessageDialog(this,"Veuillez renseigner un chemin pour le fichier en sortie");
-			}else{
+		case OUTPUT_XML_JSON:
+			if (jTextFieldPathOut.getText().equals("")) {
+				JOptionPane
+						.showMessageDialog(this,
+								"Veuillez renseigner un chemin pour le fichier en sortie");
+			} else {
 				etat = Etat.VIEW_XML_JSON;
 				afficherTextArea(jTextArea2, jTextFieldPathOut.getText());
 			}
 			break;
 		case VIEW_JSON_XML:
-			throw new RuntimeException("Bouton Convertir : action interdite car Etat VIEW_JSON_XML");
+			throw new RuntimeException(
+					"Bouton Convertir : action interdite car Etat VIEW_JSON_XML");
 		case VIEW_XML_JSON:
-			throw new RuntimeException("Bouton Convertir : action interdite car Etat VIEW_XML_JSON");
+			throw new RuntimeException(
+					"Bouton Convertir : action interdite car Etat VIEW_XML_JSON");
 		}
 		gestionEtat(etat);
 	}
@@ -558,19 +594,23 @@ public class Gui extends javax.swing.JFrame {
 			java.awt.event.ActionEvent evt) {
 		switch (etat) {
 		case INIT_JSON_XML:
-			etat= Etat.INIT_XML_JSON;
+			etat = Etat.INIT_XML_JSON;
 			break;
 		case INIT_XML_JSON:
-			etat= Etat.INIT_XML_JSON;
+			etat = Etat.INIT_XML_JSON;
 			break;
 		case OUTPUT_JSON_XML:
-			throw new RuntimeException("Bouton Convertir : action interdite car Etat OUTPUT_JSON_XML");
+			throw new RuntimeException(
+					"Bouton Convertir : action interdite car Etat OUTPUT_JSON_XML");
 		case OUTPUT_XML_JSON:
-			throw new RuntimeException("Bouton Convertir : action interdite car Etat OUTPUT_XML_JSON");
+			throw new RuntimeException(
+					"Bouton Convertir : action interdite car Etat OUTPUT_XML_JSON");
 		case VIEW_JSON_XML:
-			throw new RuntimeException("Bouton Convertir : action interdite car Etat VIEW_JSON_XML");
+			throw new RuntimeException(
+					"Bouton Convertir : action interdite car Etat VIEW_JSON_XML");
 		case VIEW_XML_JSON:
-			throw new RuntimeException("Bouton Convertir : action interdite car Etat VIEW_XML_JSON");
+			throw new RuntimeException(
+					"Bouton Convertir : action interdite car Etat VIEW_XML_JSON");
 		}
 		gestionEtat(etat);
 	}
@@ -579,35 +619,39 @@ public class Gui extends javax.swing.JFrame {
 			java.awt.event.ActionEvent evt) {
 		switch (etat) {
 		case INIT_JSON_XML:
-			etat= Etat.INIT_JSON_XML;
+			etat = Etat.INIT_JSON_XML;
 			break;
 		case INIT_XML_JSON:
-			etat= Etat.INIT_JSON_XML;
+			etat = Etat.INIT_JSON_XML;
 			break;
 		case OUTPUT_JSON_XML:
-			throw new RuntimeException("Bouton Convertir : action interdite car Etat OUTPUT_JSON_XML");
+			throw new RuntimeException(
+					"Bouton Convertir : action interdite car Etat OUTPUT_JSON_XML");
 		case OUTPUT_XML_JSON:
-			throw new RuntimeException("Bouton Convertir : action interdite car Etat OUTPUT_XML_JSON");
+			throw new RuntimeException(
+					"Bouton Convertir : action interdite car Etat OUTPUT_XML_JSON");
 		case VIEW_JSON_XML:
-			throw new RuntimeException("Bouton Convertir : action interdite car Etat VIEW_JSON_XML");
+			throw new RuntimeException(
+					"Bouton Convertir : action interdite car Etat VIEW_JSON_XML");
 		case VIEW_XML_JSON:
-			throw new RuntimeException("Bouton Convertir : action interdite car Etat VIEW_XML_JSON");
+			throw new RuntimeException(
+					"Bouton Convertir : action interdite car Etat VIEW_XML_JSON");
 		}
 		gestionEtat(etat);
 	}
-	
+
 	private void jButtonParcourirINActionPerformed(
 			java.awt.event.ActionEvent evt) {
 		// TODO add your handling code here:
 		switch (etat) {
 		case INIT_JSON_XML:
-			selct = new SelecteurDeFichier(jsonFilter,this);
+			selct = new SelecteurDeFichier(jsonFilter, this);
 			selct.setSize(300, 300);
 			selct.setVisible(true);
 			jTextFieldPathIN.setEditable(false);
 			break;
 		case INIT_XML_JSON:
-			selct = new SelecteurDeFichier(xmlFilter,this);
+			selct = new SelecteurDeFichier(xmlFilter, this);
 			selct.setSize(300, 300);
 			selct.setVisible(true);
 			jTextFieldPathIN.setEditable(false);
@@ -628,91 +672,128 @@ public class Gui extends javax.swing.JFrame {
 
 	}
 
-	private void jButtonFermerActionPerformed(java.awt.event.ActionEvent evt) {
-	    int response = JOptionPane.showConfirmDialog(null, "Do you want to quit?", "Confirm",
-	        JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-	    if (response == JOptionPane.YES_OPTION) {
-	      System.exit(0);
-	    } 	
+	private void jButtonParcourirOutActionPerformed(
+			java.awt.event.ActionEvent evt) {
+		// TODO add your handling code here:
+		switch (etat) {
+		case INIT_JSON_XML:
+			throw new RuntimeException(
+					"Bouton Parcourir : action interdite car Etat INIT_JSON_XML");
+		case INIT_XML_JSON:
+			throw new RuntimeException(
+					"Bouton Parcourir : action interdite car Etat INIT_XML_JSON");
+		case OUTPUT_JSON_XML:
+			selctD = new SelecteurDeDossier(this);
+			selctD.setSize(300, 300);
+			selctD.setVisible(true);
+			jTextFieldPathIN.setEditable(false);
+			break;
+		case OUTPUT_XML_JSON:
+			selctD = new SelecteurDeDossier(this);
+			selctD.setSize(300, 300);
+			selctD.setVisible(true);
+			jTextFieldPathIN.setEditable(false);
+			break;
+			
+		case VIEW_JSON_XML:
+			throw new RuntimeException(
+					"Bouton Parcourir : action interdite car Etat VIEW_JSON_XML");
+		case VIEW_XML_JSON:
+			throw new RuntimeException(
+					"Bouton Parcourir : action interdite car Etat VIEW_XML_JSON");
+		}
+
 	}
-	
+
+	private void jButtonFermerActionPerformed(java.awt.event.ActionEvent evt) {
+		int response = JOptionPane.showConfirmDialog(null,
+				"Do you want to quit?", "Confirm", JOptionPane.YES_NO_OPTION,
+				JOptionPane.QUESTION_MESSAGE);
+		if (response == JOptionPane.YES_OPTION) {
+			System.exit(0);
+		}
+	}
+
 	private void jButtonResetActionPerformed(java.awt.event.ActionEvent evt) {
-	    int response = JOptionPane.showConfirmDialog(null, "Do you want to reset?", "Confirm",
-	        JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-	    if (response == JOptionPane.YES_OPTION) {
+		int response = JOptionPane.showConfirmDialog(null,
+				"Do you want to reset?", "Confirm", JOptionPane.YES_NO_OPTION,
+				JOptionPane.QUESTION_MESSAGE);
+		if (response == JOptionPane.YES_OPTION) {
 			switch (etat) {
 			case INIT_JSON_XML:
-				etat=Etat.INIT_XML_JSON;
-				break;
 			case INIT_XML_JSON:
-				etat=Etat.INIT_XML_JSON;
-				break;
 			case OUTPUT_JSON_XML:
-				etat=Etat.INIT_XML_JSON;
-				break;
 			case OUTPUT_XML_JSON:
-				etat=Etat.INIT_XML_JSON;
-				break;
 			case VIEW_JSON_XML:
-				etat=Etat.INIT_XML_JSON;
-				break;
 			case VIEW_XML_JSON:
-				etat=Etat.INIT_XML_JSON;
+				etat = Etat.INIT_XML_JSON;
 				break;
 			}
-	    } 
-	    gestionEtat(etat);
+		}
+		gestionEtat(etat);
 	}
+
 	public void setPathIN(String s) {
 		jTextFieldPathIN.setText(s);
 	}
 
 	public void setPathOut(String s) {
-		jTextFieldPathOut.setText(s);
+		
+		String fichier = jTextFieldPathIN.getText().substring(jTextFieldPathIN.getText().lastIndexOf("\\"));
+		jTextFieldPathOut.setText(s.concat(fichier));
 	}
 
 	public JTextField getPathIN() {
 		return jTextFieldPathIN;
 	}
+
 	public JTextField getPathOut(String s) {
 		return jTextFieldPathOut;
 	}
 
-	public void afficherTextArea (JTextArea txt, String file){
-		
-		FileReader flux= null;
-		BufferedReader input= null;
+	public void afficherTextArea(JTextArea txt, String file) {
+
+		FileReader flux = null;
+		BufferedReader input = null;
 		String str;
-		      try{ 
-		          flux= new FileReader (file); 
-		 
-		         input= new BufferedReader( flux);
-		        
-		       while((str=input.readLine())!=null)
-		       {
-		    	   txt.append(str + '\n');
-		         }
-		        }catch (IOException e)
-		        {
-		            System.out.println("Impossible d'ouvrir le fichier : " +e.toString()); 
-		        }
-		     finally{
-		           try {
-		               flux.close();
-		           } catch (IOException ex) {
-		        	   System.out.println("Impossible d'ouvrir le fichier : " +ex.toString());
-		           }
-		
-		           txt.setCaretPosition(0);
-		     }
-		
-		
+		try {
+			flux = new FileReader(file);
+
+			input = new BufferedReader(flux);
+
+			while ((str = input.readLine()) != null) {
+				txt.append(str + '\n');
+			}
+		} catch (IOException e) {
+			System.out.println("Impossible d'ouvrir le fichier : "
+					+ e.toString());
+		} finally {
+			try {
+				flux.close();
+			} catch (IOException ex) {
+				System.out.println("Impossible d'ouvrir le fichier : "
+						+ ex.toString());
+			}
+
+			txt.setCaretPosition(0);
+		}
+
+	}
+
+	public String getDesktopEmplacementFile(String pathO) {
+
+		String desktop = "C:\\Users\\Emilien\\Desktop";
+		String fichier = pathO.substring(pathO.lastIndexOf("\\"));
+		return desktop.concat(fichier);
 	}
 
 	public void gestionEtat(Etat e) {
 
 		switch (e) {
 		case INIT_JSON_XML:
+			jTextArea1.setText("");
+			jTextArea2.setText("");
+			
 			jButtonParcourirIN.setEnabled(true);
 			jButtonValider.setEnabled(true);
 			jTextFieldPathIN.setEnabled(true);
@@ -731,12 +812,15 @@ public class Gui extends javax.swing.JFrame {
 			jRadioButtonXMLtoJSON.setEnabled(true);
 			jRadioButtonJSONtoXML.setSelected(true);
 			jRadioButtonXMLtoJSON.setSelected(false);
-			
+
 			jLabelFichierIN.setText("Fichier JSON");
 			jLabelFichierOut.setText("Fichier XML");
 
 			break;
 		case INIT_XML_JSON:
+			jTextArea1.setText("");
+			jTextArea2.setText("");
+			
 			jButtonParcourirIN.setEnabled(true);
 			jButtonValider.setEnabled(true);
 			jTextFieldPathIN.setEnabled(true);
@@ -755,10 +839,10 @@ public class Gui extends javax.swing.JFrame {
 			jRadioButtonXMLtoJSON.setEnabled(true);
 			jRadioButtonJSONtoXML.setSelected(false);
 			jRadioButtonXMLtoJSON.setSelected(true);
-			
+
 			jLabelFichierIN.setText("Fichier XML");
 			jLabelFichierOut.setText("Fichier JSON");
-			
+
 			break;
 		case OUTPUT_JSON_XML:
 			jButtonParcourirIN.setEnabled(false);
@@ -773,10 +857,10 @@ public class Gui extends javax.swing.JFrame {
 			jButtonConvertir.setEnabled(true);
 			jButtonReset.setEnabled(true);
 			jButtonFermer.setEnabled(true);
-			
+
 			jRadioButtonJSONtoXML.setEnabled(false);
 			jRadioButtonXMLtoJSON.setEnabled(false);
-			
+
 			break;
 		case OUTPUT_XML_JSON:
 			jButtonParcourirIN.setEnabled(false);
@@ -791,7 +875,7 @@ public class Gui extends javax.swing.JFrame {
 			jButtonConvertir.setEnabled(true);
 			jButtonReset.setEnabled(true);
 			jButtonFermer.setEnabled(true);
-			
+
 			jRadioButtonJSONtoXML.setEnabled(false);
 			jRadioButtonXMLtoJSON.setEnabled(false);
 			break;
@@ -834,6 +918,3 @@ public class Gui extends javax.swing.JFrame {
 	}
 
 }
-
-
-
