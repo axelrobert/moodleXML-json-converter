@@ -2,10 +2,10 @@ package dcll.mdrlv.jsontoxml;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.StringReader;
 import java.net.URISyntaxException;
+
 import javax.xml.transform.Result;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
@@ -26,6 +26,7 @@ import org.xml.sax.SAXException;
 import dcll.mdrlv.WebStandardConverter;
 import dcll.mdrlv.jsontoxml.JSONSaxAdapter.ParserException;
 import dcll.mdrlv.tools.Tools;
+import dcll.mdrlv.xmltojson.XmlToJsonConverter;
 
 
 
@@ -69,9 +70,13 @@ public class JsonToXmlConverter extends WebStandardConverter{
 	
 	@Override
 	public boolean accordanceWithMoodleStandard(File file)
-			throws FileNotFoundException, SAXException {
+			throws SAXException{
 		// TODO Auto-generated method stub
-		return false;
+		String json = Tools.readStringFromFile(file);
+		String xml = convertJsonStringToCompactedXmlString(json);
+		Tools.writeStringIntoFile(xml, file.getPath());
+		System.out.println(file.getPath());
+		return (XmlToJsonConverter.accordanceWithXML(file) !=null);
 	}
 
 	@Override
@@ -109,6 +114,8 @@ public class JsonToXmlConverter extends WebStandardConverter{
 		File testFile = new File(testPath);
 		boolean validate = converter.accordanceWithStandard(testFile);
 		System.out.println(testPath + " is a " + validate + " json file." );
+		validate = converter.accordanceWithMoodleStandard(testFile);
+		System.out.println(testPath + " is a " + validate + " moodle file." );
 		converter.convert(testPath, "results/output.xml");	
 	}
 	
