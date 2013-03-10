@@ -1,6 +1,7 @@
 package dcll.mdrlv.ihm;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -10,6 +11,10 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.xml.transform.TransformerException;
 
+import org.apache.log4j.Logger;
+import org.xml.sax.SAXException;
+
+import dcll.mdrlv.tools.FileConformity;
 import dcll.mdrlv.xmltojson.XmlToJsonConverter;
 
 /**
@@ -25,6 +30,8 @@ public class Gui extends javax.swing.JFrame {
 	private SelecteurDeDossier selctD;
 	private Synchronizer sync;
 	private XmlToJsonConverter xmlConverter;
+	
+	protected static Logger LOGGER = Logger.getLogger(Gui.class);
 	
 	// Variables declaration - do not modify
 	private javax.swing.ButtonGroup buttonGroupSensConverter;
@@ -89,12 +96,12 @@ public class Gui extends javax.swing.JFrame {
 		jScrollPane2 = new javax.swing.JScrollPane();
 		jTextArea2 = new javax.swing.JTextArea();
 		
-		xmlConverter = new XmlToJsonConverter("xmltojsontransformer.xslt");
+		xmlConverter = new XmlToJsonConverter("xmltojsonml.xslt");
 		
 		jTextArea1.setEditable(false);
 		jTextArea2.setEditable(false);
 
-		Synchronizer sync = new Synchronizer(jScrollPane1, jScrollPane2);
+		sync = new Synchronizer(jScrollPane1, jScrollPane2);
 		jScrollPane1.getVerticalScrollBar().addAdjustmentListener(sync);
 		jScrollPane1.getHorizontalScrollBar().addAdjustmentListener(sync);
 		jScrollPane2.getVerticalScrollBar().addAdjustmentListener(sync);
@@ -508,7 +515,6 @@ public class Gui extends javax.swing.JFrame {
 			} else {
 				etat = Etat.OUTPUT_JSON_XML;
 				afficherTextArea(jTextArea1, jTextFieldPathIN.getText());
-				afficherTextArea(jTextArea2, jTextFieldPathIN.getText());
 				jTextFieldPathOut
 						.setText(getDesktopEmplacementFile(jTextFieldPathIN
 								.getText()));
@@ -523,7 +529,6 @@ public class Gui extends javax.swing.JFrame {
 
 				etat = Etat.OUTPUT_XML_JSON;
 				afficherTextArea(jTextArea1, jTextFieldPathIN.getText());
-				afficherTextArea(jTextArea2, jTextFieldPathIN.getText());
 				jTextFieldPathOut
 						.setText(getDesktopEmplacementFile(jTextFieldPathIN
 								.getText()));
@@ -562,6 +567,11 @@ public class Gui extends javax.swing.JFrame {
 			throw new RuntimeException(
 					"Bouton Convertir : action interdite car Etat INIT_XML_JSON");
 		case OUTPUT_JSON_XML:
+			JOptionPane
+			.showMessageDialog(this,
+					"Flemme, ca marche pas encore !!!");
+
+			
 /*
 			if (jTextFieldPathOut.getText().equals("")) {
 				JOptionPane
@@ -603,18 +613,16 @@ public class Gui extends javax.swing.JFrame {
 			} else {
 				
 				String fichierOut = jTextFieldPathOut.getText().concat(".json");
-				java.io.File fichier = new java.io.File(fichierOut);
-				try {
-					fichier.createNewFile();
-				} catch (IOException e1) {
-					
-					System.out.println("Impossible de créer le fichier");
-					e1.printStackTrace();
-				}
-				
 				
 				try {
-					xmlConverter.convert(jTextFieldPathIN.getText(), fichierOut);
+					if(xmlConverter.fileValidation(new File(jTextFieldPathIN.getText())) == FileConformity.OK) {
+						xmlConverter.convert(jTextFieldPathIN.getText(),fichierOut);
+						LOGGER.info("Fin de la conversion : le ficher a bien été converti.");
+					} else {
+						LOGGER.warn("Le ficher n'est pas valide, conversion annulée.");
+					}
+					xmlConverter.getXMLFile().delete();
+				
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -624,9 +632,12 @@ public class Gui extends javax.swing.JFrame {
 				} catch (TransformerException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+				} catch (SAXException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 				etat = Etat.VIEW_XML_JSON;
-				afficherTextArea(jTextArea2, jTextFieldPathOut.getText());
+				afficherTextArea(jTextArea2, fichierOut);
 			}
 			break;
 		case VIEW_JSON_XML:

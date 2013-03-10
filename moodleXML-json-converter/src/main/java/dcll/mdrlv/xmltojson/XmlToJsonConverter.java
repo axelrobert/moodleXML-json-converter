@@ -242,19 +242,17 @@ public class XmlToJsonConverter extends WebStandardConverter {
 			final String outputFileUri)
 			throws IOException, URISyntaxException,
 			TransformerException {
-		final String inFileUri = "ressources/" + inputFileUri;
-		final String outFileUri = "results/" + outputFileUri;
 
 		//On créé un flux du XML
 		final StreamSource inputFile = new StreamSource(
-				new File(inFileUri));
+				new File(inputFileUri));
 		//On crée un flux du XSLT
 		StreamSource xslTransformer = new StreamSource(
 				new File(xsltStylesheet));
 		//On créer un FileWriter du fichier résultat
 		//pour permettre l'écriture de flux de caractères
 		FileWriter outputFile = new FileWriter(
-				new File(outFileUri));
+				new File(outputFileUri));
 		//On crée un StreamResult à partir du FileWriter
 		//pour pouvoir écrire dedans le résultat
 		//de la transformation du XML par le XSLT
@@ -263,7 +261,7 @@ public class XmlToJsonConverter extends WebStandardConverter {
 		transformXmlToJsonViaXSLT(inputFile, xslTransformer, out);
 		//On scanne le fichier résultat pour pouvoir
 		//le récupérer sous forme de string
-		String text = Tools.readStringFromFile(new File(outFileUri));
+		String text = Tools.readStringFromFile(new File(outputFileUri));
 		//System.out.println(text);
 		//On crée un Gson builder avec propriété d'indentation
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -274,7 +272,7 @@ public class XmlToJsonConverter extends WebStandardConverter {
 		String json = gson.toJson(jsonElement);
 		//On fait appel à la méthode d'écriture
 		//d'un string dans un fichier
-		Tools.writeStringIntoFile(json, outFileUri);
+		Tools.writeStringIntoFile(json, outputFileUri);
 		return 0;
 	}
 
