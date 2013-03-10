@@ -2,8 +2,10 @@ package dcll.mdrlv.tools;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 
 import org.apache.log4j.Logger;
 
@@ -36,5 +38,19 @@ public class Tools {
 
 		//On ferme le BufferedWriter
 		output.close();
+	}
+	
+	public static String readStringFromFile(File f){
+		Scanner scan=null;
+		String text = null;
+		try {
+			scan = new Scanner(f);
+			text = scan.useDelimiter("\\A").next();
+			scan.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return text;
 	}
 }

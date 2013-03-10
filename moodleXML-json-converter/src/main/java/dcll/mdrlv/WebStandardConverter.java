@@ -14,9 +14,11 @@ import dcll.mdrlv.tools.FileConformity;
 
 public abstract class WebStandardConverter {
 
-	protected static final Logger LOGGER =
-			Logger.getLogger(WebStandardConverter.class);
+	protected static Logger LOGGER;
 
+	public WebStandardConverter(){
+		LOGGER=Logger.getLogger(WebStandardConverter.class);
+	}
 	public FileConformity fileValidation(final File file) throws FileNotFoundException, SAXException {
 		//On teste si le fichier est bien valide selon son format (XML ou JSON)
 		if(!accordanceWithStandard(file)) {
