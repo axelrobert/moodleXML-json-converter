@@ -72,11 +72,12 @@ public class JsonToXmlConverter extends WebStandardConverter{
 	public boolean accordanceWithMoodleStandard(File file)
 			throws SAXException{
 		// TODO Auto-generated method stub
+	
 		String json = Tools.readStringFromFile(file);
 		String xml = convertJsonStringToCompactedXmlString(json);
-		Tools.writeStringIntoFile(xml, file.getPath());
-		System.out.println(file.getPath());
-		return (XmlToJsonConverter.accordanceWithXML(file) !=null);
+		File temp = new File("ressources/temp.xml");
+		Tools.writeStringIntoFile(xml, temp.getPath());
+		return (XmlToJsonConverter.accordanceWithXML(temp) !=null);
 	}
 
 	@Override

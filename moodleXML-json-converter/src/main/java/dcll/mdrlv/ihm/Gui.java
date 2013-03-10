@@ -3,15 +3,14 @@ package dcll.mdrlv.ihm;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URISyntaxException;
 
-import javax.swing.JFileChooser;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.xml.transform.TransformerException;
 
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import dcll.mdrlv.xmltojson.XmlToJsonConverter;
 
 /**
  * 
@@ -25,6 +24,8 @@ public class Gui extends javax.swing.JFrame {
 	private SelecteurDeFichier selct;
 	private SelecteurDeDossier selctD;
 	private Synchronizer sync;
+	private XmlToJsonConverter xmlConverter;
+	
 	// Variables declaration - do not modify
 	private javax.swing.ButtonGroup buttonGroupSensConverter;
 	private javax.swing.JButton jButtonAnnuler;
@@ -88,6 +89,7 @@ public class Gui extends javax.swing.JFrame {
 		jScrollPane2 = new javax.swing.JScrollPane();
 		jTextArea2 = new javax.swing.JTextArea();
 		
+		xmlConverter = new XmlToJsonConverter("xmltojsontransformer.xslt");
 		
 		jTextArea1.setEditable(false);
 		jTextArea2.setEditable(false);
@@ -560,15 +562,38 @@ public class Gui extends javax.swing.JFrame {
 			throw new RuntimeException(
 					"Bouton Convertir : action interdite car Etat INIT_XML_JSON");
 		case OUTPUT_JSON_XML:
-
+/*
 			if (jTextFieldPathOut.getText().equals("")) {
 				JOptionPane
 						.showMessageDialog(this,
 								"Veuillez renseigner un chemin pour le fichier en sortie");
 			} else {
+
+				java.io.File fichier = new java.io.File("monfichier.dat");
+
+				try {
+					fichier.createNewFile();
+				} catch (IOException e1) {
+					
+					System.out.println("Impossible de créer le fichier");
+					e1.printStackTrace();
+				}
+				
+				try {
+					xmlConverter.convert(jTextFieldPathIN.getText(), jTextFieldPathOut.getText().concat(".xml"));
+				} catch (IOException e) {
+					System.out.println("impossible de convertir le fichier");
+					e.printStackTrace();
+				} catch (URISyntaxException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (TransformerException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				etat = Etat.VIEW_JSON_XML;
 				afficherTextArea(jTextArea2, jTextFieldPathOut.getText());
-			}
+			}*/
 			break;
 		case OUTPUT_XML_JSON:
 			if (jTextFieldPathOut.getText().equals("")) {
@@ -576,6 +601,30 @@ public class Gui extends javax.swing.JFrame {
 						.showMessageDialog(this,
 								"Veuillez renseigner un chemin pour le fichier en sortie");
 			} else {
+				
+				String fichierOut = jTextFieldPathOut.getText().concat(".json");
+				java.io.File fichier = new java.io.File(fichierOut);
+				try {
+					fichier.createNewFile();
+				} catch (IOException e1) {
+					
+					System.out.println("Impossible de créer le fichier");
+					e1.printStackTrace();
+				}
+				
+				
+				try {
+					xmlConverter.convert(jTextFieldPathIN.getText(), fichierOut);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (URISyntaxException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (TransformerException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				etat = Etat.VIEW_XML_JSON;
 				afficherTextArea(jTextArea2, jTextFieldPathOut.getText());
 			}
@@ -739,7 +788,7 @@ public class Gui extends javax.swing.JFrame {
 
 	public void setPathOut(String s) {
 		
-		String fichier = jTextFieldPathIN.getText().substring(jTextFieldPathIN.getText().lastIndexOf("\\"));
+		String fichier = jTextFieldPathIN.getText().substring(jTextFieldPathIN.getText().lastIndexOf("\\"), jTextFieldPathIN.getText().lastIndexOf("."));
 		jTextFieldPathOut.setText(s.concat(fichier));
 	}
 
@@ -756,6 +805,7 @@ public class Gui extends javax.swing.JFrame {
 		FileReader flux = null;
 		BufferedReader input = null;
 		String str;
+		txt.setText("");
 		try {
 			flux = new FileReader(file);
 
