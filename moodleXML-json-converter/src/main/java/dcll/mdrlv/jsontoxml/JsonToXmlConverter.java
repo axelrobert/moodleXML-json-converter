@@ -26,6 +26,7 @@ import org.xml.sax.SAXException;
 import dcll.mdrlv.WebStandardConverter;
 import dcll.mdrlv.jsontoxml.JSONSaxAdapter.ParserException;
 import dcll.mdrlv.tools.Tools;
+import dcll.mdrlv.xmltojson.XmlToJsonConverter;
 
 
 
@@ -71,7 +72,7 @@ public class JsonToXmlConverter extends WebStandardConverter{
 	public boolean accordanceWithMoodleStandard(File file)
 			throws FileNotFoundException, SAXException {
 		// TODO Auto-generated method stub
-		return false;
+		return (XmlToJsonConverter.accordanceWithXML(file) !=null);
 	}
 
 	@Override

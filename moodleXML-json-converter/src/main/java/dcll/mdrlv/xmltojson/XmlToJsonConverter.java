@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Scanner;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -44,7 +43,6 @@ import dcll.mdrlv.tools.Tools;
 public class XmlToJsonConverter extends WebStandardConverter {
 
 	private final String xsltStylesheet;
-	private org.w3c.dom.Document outputDoc;
 	private Document document;
     private Element racine;
     private File xmlFile;
@@ -181,8 +179,8 @@ public class XmlToJsonConverter extends WebStandardConverter {
 	      return true;
 	}
 
-	public final org.w3c.dom.Document accordanceWithXML(final File file) {
-		outputDoc = null;
+	public static final org.w3c.dom.Document accordanceWithXML(final File file) {
+		org.w3c.dom.Document outputDoc = null;
 		//On crée une nouvelle instance d'un Document factory
 		final DocumentBuilderFactory dbfact =
 				DocumentBuilderFactory.newInstance();
@@ -265,9 +263,7 @@ public class XmlToJsonConverter extends WebStandardConverter {
 		transformXmlToJsonViaXSLT(inputFile, xslTransformer, out);
 		//On scanne le fichier résultat pour pouvoir
 		//le récupérer sous forme de string
-		Scanner scan = new Scanner(new File(outFileUri));
-		String text = scan.useDelimiter("\\A").next();
-		scan.close();
+		String text = Tools.readStringFromFile(new File(outFileUri));
 		//System.out.println(text);
 		//On crée un Gson builder avec propriété d'indentation
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
