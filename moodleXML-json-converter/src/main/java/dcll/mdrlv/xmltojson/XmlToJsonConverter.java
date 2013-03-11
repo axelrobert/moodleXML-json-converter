@@ -218,16 +218,20 @@ public class XmlToJsonConverter extends WebStandardConverter {
 	}
 
 	public void transformXmlToJsonViaXSLT(final StreamSource inputFile,
-			final StreamSource xsltStylesheet, final StreamResult out)
-			throws TransformerConfigurationException {
+			final StreamSource xsltStylesheet, final StreamResult out){
 		//On crée une nouvelle instance de Transformer factory
 		TransformerFactory transfact =
 				TransformerFactory.newInstance();
 		//A partir de cette factory on créer une nouvelle instance
 		//de la classe Transformer avec en paramètre le XSLT
-		Transformer transformer =
-				transfact.newTransformer(
-						xsltStylesheet);
+		Transformer transformer = null;
+		try {
+			transformer = transfact.newTransformer(
+					xsltStylesheet);
+		} catch (TransformerConfigurationException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		try {
 			//On applique la méthode transform qui va modifier le XML
 			//en fonction du XSLT
@@ -239,9 +243,7 @@ public class XmlToJsonConverter extends WebStandardConverter {
 
 	@Override
 	public final int convert(final String inputFileUri,
-			final String outputFileUri)
-			throws IOException, URISyntaxException,
-			TransformerException {
+			final String outputFileUri) {
 
 		//On créé un flux du XML
 		final StreamSource inputFile = new StreamSource(
@@ -251,8 +253,14 @@ public class XmlToJsonConverter extends WebStandardConverter {
 				new File(xsltStylesheet));
 		//On créer un FileWriter du fichier résultat
 		//pour permettre l'écriture de flux de caractères
-		FileWriter outputFile = new FileWriter(
-				new File(outputFileUri));
+		FileWriter outputFile = null;
+		try {
+			outputFile = new FileWriter(
+					new File(outputFileUri));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		//On crée un StreamResult à partir du FileWriter
 		//pour pouvoir écrire dedans le résultat
 		//de la transformation du XML par le XSLT
