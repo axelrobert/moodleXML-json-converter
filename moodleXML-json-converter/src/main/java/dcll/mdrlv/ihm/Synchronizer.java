@@ -6,10 +6,25 @@ import java.awt.event.AdjustmentListener;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 
+/**
+ * @author Emilien DUBOIS, Romain LECHIEN, Francois MANCIET, Axel ROBERT, David VILLARD
+ *
+ */
 class Synchronizer implements AdjustmentListener  
 {  
+    /**
+     * v1 : ScrollBarre verticale du ScrollPane1
+     * h1 : ScrollBarre horizontale du ScrollPane1
+     * v2 : ScrollBarre verticale du ScrollPane2
+     * h2 : ScrollBarre horizontale du ScrollPane2
+     */
     JScrollBar v1, h1, v2, h2;  
    
+    /**
+     * @param sp1
+     * @param sp2
+     * Constructeur : Synchronise* les deux scollPane sp1 et sp2
+     */
     public Synchronizer(JScrollPane sp1, JScrollPane sp2)  
     {  
         v1 = sp1.getVerticalScrollBar();  
@@ -18,6 +33,10 @@ class Synchronizer implements AdjustmentListener
         h2 = sp2.getHorizontalScrollBar();  
     }  
    
+    /* (non-Javadoc)
+     * @see java.awt.event.AdjustmentListener#adjustmentValueChanged(java.awt.event.AdjustmentEvent)
+     * 
+     */
     public void adjustmentValueChanged(AdjustmentEvent e)  
     {  
         JScrollBar scrollBar = (JScrollBar)e.getSource();  
