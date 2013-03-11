@@ -3,6 +3,7 @@ package dcll.mdrlv.ihm;
 import java.awt.Dimension;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.InetAddress;
@@ -33,12 +34,11 @@ public class Gui extends javax.swing.JFrame {
 	private SelecteurDeDossier selctD;
 	private Synchronizer sync;
 	private XmlToJsonConverter xmlConverter;
-	
+
 	protected static Logger LOGGER = Logger.getLogger(Gui.class);
-	
+
 	// Variables declaration - do not modify
 	private javax.swing.ButtonGroup buttonGroupSensConverter;
-	private javax.swing.JButton jButtonAnnuler;
 	private javax.swing.JButton jButtonConvertir;
 	private javax.swing.JButton jButtonFermer;
 	private javax.swing.JButton jButtonParcourirIN;
@@ -65,7 +65,6 @@ public class Gui extends javax.swing.JFrame {
 		initComponents();
 		this.setTitle("Converter XML et JSON");
 
-
 		this.setSize(600, 550);
 		this.setResizable(false);
 		etat = Etat.INIT_XML_JSON;
@@ -88,7 +87,6 @@ public class Gui extends javax.swing.JFrame {
 		jButtonParcourirIN = new javax.swing.JButton();
 		jButtonValider = new javax.swing.JButton();
 		jTextFieldPathIN = new javax.swing.JTextField();
-		jButtonAnnuler = new javax.swing.JButton();
 		jPanel2 = new javax.swing.JPanel();
 		jButtonParcourirOut = new javax.swing.JButton();
 		jTextFieldPathOut = new javax.swing.JTextField();
@@ -101,12 +99,12 @@ public class Gui extends javax.swing.JFrame {
 		jTextArea1 = new javax.swing.JTextArea();
 		jScrollPane2 = new javax.swing.JScrollPane();
 		jTextArea2 = new javax.swing.JTextArea();
-		
+
 		xmlConverter = new XmlToJsonConverter("xmltojsonml.xslt");
-		
+
 		jTextArea1.setEditable(false);
 		jTextArea2.setEditable(false);
-		
+
 		sync = new Synchronizer(jScrollPane1, jScrollPane2);
 		jScrollPane1.getVerticalScrollBar().addAdjustmentListener(sync);
 		jScrollPane1.getHorizontalScrollBar().addAdjustmentListener(sync);
@@ -163,8 +161,6 @@ public class Gui extends javax.swing.JFrame {
 			}
 		});
 
-		jButtonAnnuler.setText("Annuler");
-
 		javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(
 				jPanel1);
 		jPanel1.setLayout(jPanel1Layout);
@@ -191,9 +187,9 @@ public class Gui extends javax.swing.JFrame {
 														.addGroup(
 																jPanel1Layout
 																		.createSequentialGroup()
-																		.addGap(47,
-																				47,
-																				47)
+																		.addGap(110,
+																				110,
+																				110)
 																		.addComponent(
 																				jButtonValider,
 																				javax.swing.GroupLayout.PREFERRED_SIZE,
@@ -201,9 +197,7 @@ public class Gui extends javax.swing.JFrame {
 																				javax.swing.GroupLayout.PREFERRED_SIZE)
 																		.addGap(31,
 																				31,
-																				31)
-																		.addComponent(
-																				jButtonAnnuler))
+																				31))
 														.addGroup(
 																jPanel1Layout
 																		.createSequentialGroup()
@@ -237,9 +231,7 @@ public class Gui extends javax.swing.JFrame {
 														.createParallelGroup(
 																javax.swing.GroupLayout.Alignment.BASELINE)
 														.addComponent(
-																jButtonValider)
-														.addComponent(
-																jButtonAnnuler))
+																jButtonValider))
 										.addGap(5, 5, 5)));
 
 		jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(
@@ -519,8 +511,15 @@ public class Gui extends javax.swing.JFrame {
 						.showMessageDialog(this,
 								"Veuillez renseigner un chemin pour le fichier à convertir");
 			} else {
-				
-				afficherTextArea(jTextArea1, jTextFieldPathIN.getText());
+
+				try {
+					afficherTextArea(jTextArea1, jTextFieldPathIN.getText());
+				} catch (FileNotFoundException e) {
+					JOptionPane.showMessageDialog(this,
+							"Le fichier n'a pas pu être trouvé");
+
+					e.printStackTrace();
+				}
 				jTextFieldPathOut
 						.setText(getDesktopEmplacementFile(jTextFieldPathIN
 								.getText()));
@@ -534,7 +533,15 @@ public class Gui extends javax.swing.JFrame {
 								"Veuillez renseigner un chemin pour le fichier à convertir");
 			} else {
 
-				afficherTextArea(jTextArea1, jTextFieldPathIN.getText());
+				try {
+					afficherTextArea(jTextArea1, jTextFieldPathIN.getText());
+				} catch (FileNotFoundException e) {
+					JOptionPane.showMessageDialog(this,
+							"Le fichier n'a pas pu être trouvé");
+
+					e.printStackTrace();
+				}
+
 				jTextFieldPathOut
 						.setText(getDesktopEmplacementFile(jTextFieldPathIN
 								.getText()));
@@ -574,43 +581,31 @@ public class Gui extends javax.swing.JFrame {
 			throw new RuntimeException(
 					"Bouton Convertir : action interdite car Etat INIT_XML_JSON");
 		case OUTPUT_JSON_XML:
-			JOptionPane
-			.showMessageDialog(this,
+			JOptionPane.showMessageDialog(this,
 					"Flemme, ca marche pas encore !!!");
 
-			
-/*
-			if (jTextFieldPathOut.getText().equals("")) {
-				JOptionPane
-						.showMessageDialog(this,
-								"Veuillez renseigner un chemin pour le fichier en sortie");
-			} else {
-
-				java.io.File fichier = new java.io.File("monfichier.dat");
-
-				try {
-					fichier.createNewFile();
-				} catch (IOException e1) {
-					
-					System.out.println("Impossible de créer le fichier");
-					e1.printStackTrace();
-				}
-				
-				try {
-					xmlConverter.convert(jTextFieldPathIN.getText(), jTextFieldPathOut.getText().concat(".xml"));
-				} catch (IOException e) {
-					System.out.println("impossible de convertir le fichier");
-					e.printStackTrace();
-				} catch (URISyntaxException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (TransformerException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				etat = Etat.VIEW_JSON_XML;
-				afficherTextArea(jTextArea2, jTextFieldPathOut.getText());
-			}*/
+			/*
+			 * if (jTextFieldPathOut.getText().equals("")) { JOptionPane
+			 * .showMessageDialog(this,
+			 * "Veuillez renseigner un chemin pour le fichier en sortie"); }
+			 * else {
+			 * 
+			 * java.io.File fichier = new java.io.File("monfichier.dat");
+			 * 
+			 * try { fichier.createNewFile(); } catch (IOException e1) {
+			 * 
+			 * System.out.println("Impossible de créer le fichier");
+			 * e1.printStackTrace(); }
+			 * 
+			 * try { xmlConverter.convert(jTextFieldPathIN.getText(),
+			 * jTextFieldPathOut.getText().concat(".xml")); } catch (IOException
+			 * e) { System.out.println("impossible de convertir le fichier");
+			 * e.printStackTrace(); } catch (URISyntaxException e) { // TODO
+			 * Auto-generated catch block e.printStackTrace(); } catch
+			 * (TransformerException e) { // TODO Auto-generated catch block
+			 * e.printStackTrace(); } etat = Etat.VIEW_JSON_XML;
+			 * afficherTextArea(jTextArea2, jTextFieldPathOut.getText()); }
+			 */
 			break;
 		case OUTPUT_XML_JSON:
 			if (jTextFieldPathOut.getText().equals("")) {
@@ -618,33 +613,62 @@ public class Gui extends javax.swing.JFrame {
 						.showMessageDialog(this,
 								"Veuillez renseigner un chemin pour le fichier en sortie");
 			} else {
-				
+
 				String fichierOut = jTextFieldPathOut.getText();
-				
+				String fichierIN = jTextFieldPathIN.getText();
+
 				try {
-					if(xmlConverter.fileValidation(new File(jTextFieldPathIN.getText())) == FileConformity.OK) {
-						xmlConverter.convert(jTextFieldPathIN.getText(),fichierOut);
+					if (xmlConverter.fileValidation(new File(fichierIN)) == FileConformity.OK) {
+						xmlConverter.convert(fichierIN, fichierOut);
 						LOGGER.info("Fin de la conversion : le ficher a bien été converti.");
+						xmlConverter.getXMLFile().delete();
+						etat = Etat.VIEW_XML_JSON;
+						afficherTextArea(jTextArea2, fichierOut);
+						gestionEtat(etat);
 					} else {
 						LOGGER.warn("Le ficher n'est pas valide, conversion annulée.");
+						JOptionPane
+								.showMessageDialog(this,
+										"Le ficher n'est pas valide, conversion annulée.");
+						etat = Etat.INIT_XML_JSON;
+						gestionEtat(etat);
+						jTextFieldPathIN.setText(fichierIN);
 					}
-					xmlConverter.getXMLFile().delete();
-				
+
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
+					etat = Etat.INIT_XML_JSON;
+					gestionEtat(etat);
+					jTextFieldPathIN.setText(fichierIN);
+					JOptionPane
+							.showMessageDialog(this,
+									"Problème de création du fichier, impossible d'afficher");
 					e.printStackTrace();
 				} catch (URISyntaxException e) {
 					// TODO Auto-generated catch block
+					etat = Etat.INIT_XML_JSON;
+					gestionEtat(etat);
+					jTextFieldPathIN.setText(fichierIN);
+					JOptionPane.showMessageDialog(this,
+							"Un de vos chemins de fichier n'est pas valide.");
 					e.printStackTrace();
 				} catch (TransformerException e) {
 					// TODO Auto-generated catch block
+					etat = Etat.INIT_XML_JSON;
+					gestionEtat(etat);
+					jTextFieldPathIN.setText(fichierIN);
+					JOptionPane.showMessageDialog(this,
+							"Erreur dans la transformation du fichier");
 					e.printStackTrace();
 				} catch (SAXException e) {
-					// TODO Auto-generated catch block
+					etat = Etat.INIT_XML_JSON;
+					gestionEtat(etat);
+					jTextFieldPathIN.setText(fichierIN);
+					JOptionPane.showMessageDialog(this,
+							"Problème de reconnaissance du fichier");
 					e.printStackTrace();
 				}
-				etat = Etat.VIEW_XML_JSON;
-				afficherTextArea(jTextArea2, fichierOut);
+
 			}
 			break;
 		case VIEW_JSON_XML:
@@ -654,7 +678,7 @@ public class Gui extends javax.swing.JFrame {
 			throw new RuntimeException(
 					"Bouton Convertir : action interdite car Etat VIEW_XML_JSON");
 		}
-		gestionEtat(etat);
+
 	}
 
 	private void jRadioButtonXMLtoJSONActionPerformed(
@@ -761,7 +785,7 @@ public class Gui extends javax.swing.JFrame {
 			selctD.setVisible(true);
 			jTextFieldPathIN.setEditable(false);
 			break;
-			
+
 		case VIEW_JSON_XML:
 			throw new RuntimeException(
 					"Bouton Parcourir : action interdite car Etat VIEW_JSON_XML");
@@ -774,8 +798,8 @@ public class Gui extends javax.swing.JFrame {
 
 	private void jButtonFermerActionPerformed(java.awt.event.ActionEvent evt) {
 		int response = JOptionPane.showConfirmDialog(null,
-				"Do you want to quit?", "Confirm", JOptionPane.YES_NO_OPTION,
-				JOptionPane.QUESTION_MESSAGE);
+				"Voulez vous vraiment quitter?", "Confirmation",
+				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 		if (response == JOptionPane.YES_OPTION) {
 			System.exit(0);
 		}
@@ -783,7 +807,8 @@ public class Gui extends javax.swing.JFrame {
 
 	private void jButtonResetActionPerformed(java.awt.event.ActionEvent evt) {
 		int response = JOptionPane.showConfirmDialog(null,
-				"Do you want to reset?", "Confirm", JOptionPane.YES_NO_OPTION,
+				"Voulez vous vraiment réinitialiser le converter?",
+				"Confirmation", JOptionPane.YES_NO_OPTION,
 				JOptionPane.QUESTION_MESSAGE);
 		if (response == JOptionPane.YES_OPTION) {
 			switch (etat) {
@@ -805,8 +830,10 @@ public class Gui extends javax.swing.JFrame {
 	}
 
 	public void setPathOut(String s) {
-		
-		String fichier = jTextFieldPathIN.getText().substring(jTextFieldPathIN.getText().lastIndexOf("\\"), jTextFieldPathIN.getText().lastIndexOf("."));
+
+		String fichier = jTextFieldPathIN.getText().substring(
+				jTextFieldPathIN.getText().lastIndexOf("\\"),
+				jTextFieldPathIN.getText().lastIndexOf("."));
 		jTextFieldPathOut.setText(s.concat(fichier));
 	}
 
@@ -818,7 +845,8 @@ public class Gui extends javax.swing.JFrame {
 		return jTextFieldPathOut;
 	}
 
-	public void afficherTextArea(JTextArea txt, String file) {
+	public void afficherTextArea(JTextArea txt, String file)
+			throws FileNotFoundException {
 
 		FileReader flux = null;
 		BufferedReader input = null;
@@ -851,21 +879,24 @@ public class Gui extends javax.swing.JFrame {
 	public String getDesktopEmplacementFile(String pathO) {
 
 		String hostName = System.getProperty("user.name");
-		String desktop = "C:\\Users\\"+ hostName +"\\Desktop";
-		String fichier = pathO.substring(pathO.lastIndexOf("\\"), pathO.lastIndexOf("."));
+		String desktop = "C:\\Users\\" + hostName + "\\Desktop";
+		String fichier = pathO.substring(pathO.lastIndexOf("\\"),
+				pathO.lastIndexOf("."));
 		String extend = "";
-	switch (etat){
-	case INIT_XML_JSON : extend = ".json";
+		switch (etat) {
+		case INIT_XML_JSON:
+			extend = ".json";
 			break;
-	case INIT_JSON_XML : extend = ".xml";
-	break;
-	default:extend = "caca";
-		break;
-	}
-	fichier = fichier + extend;
-	return desktop.concat(fichier);
-        
-		
+		case INIT_JSON_XML:
+			extend = ".xml";
+			break;
+		default:
+			extend = "caca";
+			break;
+		}
+		fichier = fichier + extend;
+		return desktop.concat(fichier);
+
 	}
 
 	public void gestionEtat(Etat e) {
@@ -876,12 +907,11 @@ public class Gui extends javax.swing.JFrame {
 			jTextArea2.setText("");
 			jTextFieldPathIN.setText("");
 			jTextFieldPathOut.setText("");
-			
+
 			jButtonParcourirIN.setEnabled(true);
 			jButtonValider.setEnabled(true);
 			jTextFieldPathIN.setEnabled(true);
 			jTextFieldPathIN.setEditable(true);
-			jButtonAnnuler.setEnabled(false);
 
 			jButtonParcourirOut.setEnabled(false);
 			jTextFieldPathOut.setEnabled(false);
@@ -904,12 +934,11 @@ public class Gui extends javax.swing.JFrame {
 			jTextArea2.setText("");
 			jTextFieldPathIN.setText("");
 			jTextFieldPathOut.setText("");
-			
+
 			jButtonParcourirIN.setEnabled(true);
 			jButtonValider.setEnabled(true);
 			jTextFieldPathIN.setEnabled(true);
 			jTextFieldPathIN.setEditable(true);
-			jButtonAnnuler.setEnabled(false);
 
 			jButtonParcourirOut.setEnabled(false);
 			jTextFieldPathOut.setEnabled(false);
@@ -932,7 +961,6 @@ public class Gui extends javax.swing.JFrame {
 			jButtonValider.setEnabled(false);
 			jTextFieldPathIN.setEnabled(false);
 			jTextFieldPathIN.setEditable(false);
-			jButtonAnnuler.setEnabled(true);
 
 			jButtonParcourirOut.setEnabled(true);
 			jTextFieldPathOut.setEnabled(true);
@@ -950,7 +978,6 @@ public class Gui extends javax.swing.JFrame {
 			jButtonValider.setEnabled(false);
 			jTextFieldPathIN.setEnabled(false);
 			jTextFieldPathIN.setEditable(false);
-			jButtonAnnuler.setEnabled(true);
 
 			jButtonParcourirOut.setEnabled(true);
 			jTextFieldPathOut.setEnabled(true);
@@ -967,7 +994,6 @@ public class Gui extends javax.swing.JFrame {
 			jButtonValider.setEnabled(false);
 			jTextFieldPathIN.setEnabled(false);
 			jTextFieldPathIN.setEditable(false);
-			jButtonAnnuler.setEnabled(false);
 
 			jButtonParcourirOut.setEnabled(false);
 			jTextFieldPathOut.setEnabled(false);
@@ -984,7 +1010,6 @@ public class Gui extends javax.swing.JFrame {
 			jButtonValider.setEnabled(false);
 			jTextFieldPathIN.setEnabled(false);
 			jTextFieldPathIN.setEditable(false);
-			jButtonAnnuler.setEnabled(false);
 
 			jButtonParcourirOut.setEnabled(false);
 			jTextFieldPathOut.setEnabled(false);
