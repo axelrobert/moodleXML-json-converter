@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 
 import javax.swing.JOptionPane;
@@ -15,6 +16,7 @@ import javax.xml.transform.TransformerException;
 import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
 
+import dcll.mdrlv.jsontoxml.JsonToXmlConverter;
 import dcll.mdrlv.tools.FileConformity;
 import dcll.mdrlv.xmltojson.XmlToJsonConverter;
 
@@ -62,6 +64,7 @@ public class Gui extends javax.swing.JFrame {
 	 *
 	 */
 	private XmlToJsonConverter xmlConverter;
+	private JsonToXmlConverter jsonConverter;
 
 	/**
 	 *
@@ -214,6 +217,7 @@ public class Gui extends javax.swing.JFrame {
 		jTextArea2 = new javax.swing.JTextArea();
 
 		xmlConverter = new XmlToJsonConverter("xmltojsonml.xslt");
+		jsonConverter = new JsonToXmlConverter();
 
 		jTextArea1.setEditable(false);
 		jTextArea2.setEditable(false);
@@ -722,8 +726,9 @@ public class Gui extends javax.swing.JFrame {
 					e.printStackTrace();
 				}
 				jTextFieldPathOut
+
 						.setText(
-					getDesktopEmplacementFile(
+					getEmplacementFile(
 								jTextFieldPathIN
 								.getText()));
 				etat = Etat.OUTPUT_JSON_XML;
@@ -758,7 +763,7 @@ public class Gui extends javax.swing.JFrame {
 
 				jTextFieldPathOut
 						.setText(
-						getDesktopEmplacementFile(
+						getEmplacementFile(
 							jTextFieldPathIN
 							.getText()));
 				etat = Etat.OUTPUT_XML_JSON;
@@ -824,48 +829,6 @@ public class Gui extends javax.swing.JFrame {
 			+
 				" action interdite car Etat INIT_XML_JSON");
 		case OUTPUT_JSON_XML:
-			JOptionPane.showMessageDialog(this,
-					"Flemme, ca marche pas encore !!!");
-
-			/*
-			 * if (jTextFieldPathOut.getText().equals(""))
-			 *  { JOptionPane
-			 * .showMessageDialog(this,
-			 * "Veuillez renseigner un chemin
-			 * pour le fichier en sortie"); }
-			 * else {
-			 *
-			 * java.io.File fichier =
-			 * new java.io.File("monfichier.dat");
-			 *
-			 * try { fichier.createNewFile(); }
-			 *  catch (IOException e1) {
-			 *
-			 * System.out.println(
-			 * "Impossible de créer le fichier");
-			 * e1.printStackTrace(); }
-			 *
-			 * try { xmlConverter.convert(
-			 * 	jTextFieldPathIN.getText(),
-			 * 	jTextFieldPathOut.getText().
-			 * 	concat(".xml"));
-			 * } catch (IOExceptione) {
-			 * 	System.out.println(
-			 * 	"impossible de convertir le fichier");
-			 * 	e.printStackTrace();
-			 * } catch (URISyntaxException e)
-			 * { // TODO
-			 * Auto-generated catch block
-			 * e.printStackTrace();
-			 * } catch (TransformerException e) {
-			 *  // TODO Auto-generated catch block
-			 * e.printStackTrace();
-			 * } etat = Etat.VIEW_JSON_XML;
-			 * afficherTextArea(jTextArea2,
-			 * jTextFieldPathOut.getText()); }
-			 */
-			break;
-		case OUTPUT_XML_JSON:
 			if (jTextFieldPathOut.getText().equals("")) {
 				JOptionPane
 						.showMessageDialog(this,
@@ -880,7 +843,7 @@ public class Gui extends javax.swing.JFrame {
 				String fichierIN = jTextFieldPathIN.getText();
 
 				try {
-					if (xmlConverter.fileValidation(
+						if (xmlConverter.fileValidation(
 							new File(fichierIN))
 							== FileConformity.OK) {
 						xmlConverter.convert(
@@ -916,6 +879,7 @@ public class Gui extends javax.swing.JFrame {
 						setText(fichierIN);
 					}
 
+
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					etat = Etat.INIT_XML_JSON;
@@ -927,43 +891,54 @@ public class Gui extends javax.swing.JFrame {
 							+
 					" impossible d'afficher");
 					e.printStackTrace();
-				} catch (URISyntaxException e) {
-					// TODO Auto-generated catch block
-					etat = Etat.INIT_XML_JSON;
-					gestionEtat(etat);
-					jTextFieldPathIN.setText(fichierIN);
-					JOptionPane.showMessageDialog(this,
-							"Un de vos chemins "
-					+
-							"de fichier n'est pas "
-					+
-							"valide.");
-					e.printStackTrace();
-				} catch (TransformerException e) {
-					// TODO Auto-generated catch block
-					etat = Etat.INIT_XML_JSON;
-					gestionEtat(etat);
-					jTextFieldPathIN.setText(fichierIN);
-					JOptionPane.showMessageDialog(this,
-							"Erreur dans la"
-					+
-							" transformation "
-					+
-							"du fichier");
-					e.printStackTrace();
-				} catch (SAXException e) {
-					etat = Etat.INIT_XML_JSON;
-					gestionEtat(etat);
-					jTextFieldPathIN.setText(fichierIN);
-					JOptionPane.showMessageDialog(this,
-							"Problème "
-					+
-							"de reconnaissance "
-					+
-							"du fichier");
-					e.printStackTrace();
-				}
 
+				}
+			}
+			break;
+		case OUTPUT_XML_JSON:
+			if (jTextFieldPathOut.getText().equals("")) {
+				JOptionPane
+						.showMessageDialog(this,
+								"Veuillez renseigner un chemin pour le fichier en sortie");
+			} else {
+
+				String fichierOut = jTextFieldPathOut.getText();
+				String fichierIN = jTextFieldPathIN.getText();
+
+				try {
+					if (xmlConverter.fileValidation(new File(fichierIN)) == FileConformity.OK) {
+						xmlConverter.convert(fichierIN, fichierOut);
+						LOGGER.info("Fin de la conversion : le ficher a bien été converti.");
+						xmlConverter.getXMLFile().delete();
+						afficherTextArea(jTextArea2, fichierOut);
+						etat = Etat.VIEW_XML_JSON;
+						gestionEtat(etat);
+					} else {
+						FileConformity result = xmlConverter.fileValidation(new File(fichierIN));
+						switch (result){
+
+						case WRONG_STANDARD :
+							LOGGER.warn("Le ficher n'est pas valide (Standars XML), conversion annulée.");
+							JOptionPane
+									.showMessageDialog(this,
+											"Le ficher n'est pas valide (Standars XML), conversion annulée.");
+							break;
+						case WRONG_MOODLE :
+
+								LOGGER.warn("Le ficher n'est pas valide (Standars MOODLE), conversion annulée.");
+								JOptionPane
+										.showMessageDialog(this,
+												"Le ficher n'est pas valide (Standars MOODLE), conversion annulée.");
+							break;
+							default : break;
+					}
+						etat = Etat.INIT_XML_JSON;
+						gestionEtat(etat);
+						jTextFieldPathIN.setText(fichierIN);
+				}
+				} catch (IOException e) {
+
+				}
 			}
 			break;
 		case VIEW_JSON_XML:
@@ -1135,6 +1110,9 @@ public class Gui extends javax.swing.JFrame {
 	private void jButtonParcourirOutActionPerformed(
 			final java.awt.event.ActionEvent evt) {
 		// TODO add your handling code here:
+		String currentDir = "";
+		currentDir = jTextFieldPathOut.getText();
+		currentDir = currentDir.substring(0,currentDir.lastIndexOf("\\"));
 		switch (etat) {
 		case INIT_JSON_XML:
 			throw new RuntimeException(
@@ -1151,13 +1129,13 @@ public class Gui extends javax.swing.JFrame {
 			+
 				"Etat INIT_XML_JSON");
 		case OUTPUT_JSON_XML:
-			selctD = new SelecteurDeDossier(this);
+			selctD = new SelecteurDeDossier(this, currentDir);
 			selctD.setSize(300, 300);
 			selctD.setVisible(true);
 			jTextFieldPathIN.setEditable(false);
 			break;
 		case OUTPUT_XML_JSON:
-			selctD = new SelecteurDeDossier(this);
+			selctD = new SelecteurDeDossier(this, currentDir);
 			selctD.setSize(300, 300);
 			selctD.setVisible(true);
 			jTextFieldPathIN.setEditable(false);
@@ -1302,13 +1280,18 @@ public class Gui extends javax.swing.JFrame {
 	 * @param pathO :
 	 * @return
 	 */
-	public final String getDesktopEmplacementFile(
-			final String pathO) {
-
-		String hostName = System.getProperty("user.name");
-		String desktop = "C:\\Users\\" + hostName + "\\Desktop";
+	public String getEmplacementFile(final String pathO) {
+		
+		//On récupère l'adresse absolut du dossier
+		String path=new File("").getAbsolutePath();
+		//On remonte d'un niveau comme "cd .."
+		path = path.substring(0, path.lastIndexOf("\\"));
+		System.out.println(path);
+		//On récupère le nom du fichier
+		//comptenu dans l'adresse en paramètre
 		String fichier = pathO.substring(pathO.lastIndexOf("\\"),
 				pathO.lastIndexOf("."));
+		//On définit quel extension utiliser
 		String extend = "";
 		switch (etat) {
 		case INIT_XML_JSON:
@@ -1318,12 +1301,12 @@ public class Gui extends javax.swing.JFrame {
 			extend = ".xml";
 			break;
 		default:
-			extend = "caca";
+			extend = "";
 			break;
 		}
+		//On return la concatenation de ces 3 variables
 		fichier = fichier + extend;
-		return desktop.concat(fichier);
-
+		return path.concat(fichier);
 	}
 
 	/**

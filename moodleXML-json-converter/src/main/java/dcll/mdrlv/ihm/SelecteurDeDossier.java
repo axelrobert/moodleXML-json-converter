@@ -1,5 +1,8 @@
 package dcll.mdrlv.ihm;
 
+import java.io.File;
+import java.net.MalformedURLException;
+
 import javax.swing.JFileChooser;
 
 /**
@@ -25,7 +28,7 @@ public class SelecteurDeDossier extends JFileChooser {
 	 * @param p
 	 * La fenetre à adapter en fonction du choix de dossier.
 	 */
-	public SelecteurDeDossier(final Gui p) {
+	public SelecteurDeDossier(final Gui p, final String url) {
 		// Sélecteur de fichiers
 		super();
 		parent = p;
@@ -33,7 +36,8 @@ public class SelecteurDeDossier extends JFileChooser {
 		// Bloque le sélecteur d'extensions
 		this.setAcceptAllFileFilterUsed(false);
 		this.setVisible(true);
-
+		this.setCurrentDirectory(new File(url));
+		
 		this.handlerSelecteurDeFichiers();
 	}
 

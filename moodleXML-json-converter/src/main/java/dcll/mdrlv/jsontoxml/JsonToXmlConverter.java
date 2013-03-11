@@ -78,8 +78,7 @@ public class JsonToXmlConverter extends WebStandardConverter {
 	}
 
 	@Override
-	public final boolean accordanceWithMoodleStandard(final File file)
-			throws SAXException {
+	public final boolean accordanceWithMoodleStandard(final File file){
 		// TODO Auto-generated method stub
 		String json = Tools.readStringFromFile(file);
 		String xml = convertJsonStringToCompactedXmlString(json);
