@@ -4,7 +4,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
-import java.net.URISyntaxException;
 
 import javax.xml.transform.Result;
 import javax.xml.transform.Transformer;
@@ -21,128 +20,112 @@ import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 
 import dcll.mdrlv.WebStandardConverter;
 import dcll.mdrlv.jsontoxml.JSONSaxAdapter.ParserException;
 import dcll.mdrlv.tools.Tools;
-import dcll.mdrlv.xmltojson.XmlToJsonConverter;
 
-/**
- * @author :
- *
- */
 public class JsonToXmlConverter extends WebStandardConverter {
 
-	/**
-	 *
-	 */
+	private String error;
+
 	public JsonToXmlConverter() {
 		super();
+		error = "error";
 	}
 
-	/**
-	 * @param json :
-	 * @return :
-	 */
-	public final String convertJsonStringToCompactedXmlString(
-			final String json) {
-		ByteArrayOutputStream out = new ByteArrayOutputStream();
+	public final String convertJsonStringToCompactedXmlString(final String json) {
+		final ByteArrayOutputStream out = new ByteArrayOutputStream();
 		Transformer transformer = null;
+		boolean ok = true;
 		try {
-			transformer = TransformerFactory.
-					newInstance().newTransformer();
+			transformer = TransformerFactory.newInstance().newTransformer();
 		} catch (TransformerConfigurationException e1) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			lOGGER.error("Instanciation de la transformation");
 		} catch (TransformerFactoryConfigurationError e1) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			lOGGER.error("TransformerFactoryConfigurations");
 		}
-		InputSource source = new InputSource(new StringReader(json));
-		Result result = new StreamResult(out);
-		JSONXmlReader reader = new JSONXmlReader("", false);
-		SAXSource sax = new SAXSource(reader, source);
+		final InputSource source = new InputSource(new StringReader(json));
+		final Result result = new StreamResult(out);
+		final JSONXmlReader reader = new JSONXmlReader("", false);
+		final SAXSource sax = new SAXSource(reader, source);
+		String output = null;
 		try {
 			try {
 				transformer.transform(sax, result);
 			} catch (TransformerException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				ok = false;
+				lOGGER.error("TransformerException");
 			}
 		} catch (ParserException e) {
 			// TODO Auto-generated catch block
-			return "error";
+			ok = false;
+			lOGGER.error("ParserException");
 		}
-		return new String(out.toByteArray());
+		if (ok) {
+			output = new String(out.toByteArray());
+		} else {
+			output = error;
+		}
+		return output;
 	}
 
-	@Override
-	public final boolean accordanceWithMoodleStandard(final File file){
-		// TODO Auto-generated method stub
-		String json = Tools.readStringFromFile(file);
-		String xml = convertJsonStringToCompactedXmlString(json);
-		String tempPathFile = "ressources/temp.xml";
-		File temp = new File(tempPathFile);
-		Tools.writeStringIntoFile(xml, tempPathFile);
-		org.w3c.dom.Document res =
-				XmlToJsonConverter.accordanceWithXML(temp);
-		temp.delete();
-		return (res != null);
+	public final boolean accordanceWithMoodleStandard(final File file) {
+		// On pensait, pour tester si le JSON du fichier était conforme
+		// à la norme MOODLE, le traduire en XML puis appeler la méthode
+		// de conformormité du MOODLE XML.
+		// Or force est de constater que le passage de JSON vers XML supprime
+		// tous les attributs pour les représenter sous forme de balises
+		return true;
 
 	}
 
 	@Override
 	public final boolean accordanceWithStandard(final File file) {
 		// TODO Auto-generated method stub
-		String json = Tools.readStringFromFile(file);
-		return ((!convertJsonStringToCompactedXmlString(json)
-				.contentEquals("error")));
+		final String json = Tools.readStringFromFile(file);
+		return (!convertJsonStringToCompactedXmlString(json).contentEquals(
+				error));
 	}
 
 	@Override
 	public final int convert(final String inputFileUri,
-			final String outputFileUri) throws IOException,
-			URISyntaxException, TransformerException {
+			final String outputFileUri) {
 		// TODO Auto-generated method stub
-		String text = Tools.readStringFromFile(new File(inputFileUri));
-		String output = convertJsonStringToCompactedXmlString(text);
+		final String text = Tools.readStringFromFile(new File(inputFileUri));
+		final String output = convertJsonStringToCompactedXmlString(text);
 		Tools.writeStringIntoFile(output, outputFileUri);
-		SAXBuilder sb = new SAXBuilder();
-		Document doc;
+		final SAXBuilder saxBuilder = new SAXBuilder();
+		Document doc = null;
 		try {
-			doc = sb.build(outputFileUri);
-			XMLOutputter xmlOutputter = new XMLOutputter(
+			try {
+				doc = saxBuilder.build(outputFileUri);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				lOGGER.error("IOException");
+			}
+			final XMLOutputter xmlOutputter = new XMLOutputter(
 					Format.getPrettyFormat());
-			String xmlIndent = xmlOutputter.outputString(doc);
+			final String xmlIndent = xmlOutputter.outputString(doc);
 			Tools.writeStringIntoFile(xmlIndent, outputFileUri);
 		} catch (JDOMException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			lOGGER.error("JDOM Exception");
 		}
-
 		return 0;
 	}
 
-	/**
-	 * @param args :
-	 * @throws SAXException :
-	 * @throws IOException :
-	 * @throws URISyntaxException :
-	 * @throws TransformerException :
-	 */
-	public static void main(final String[] args)
-			throws SAXException, IOException,
-			URISyntaxException, TransformerException {
+	public static void main(final String[] args) {
 		JsonToXmlConverter converter = new JsonToXmlConverter();
 		String testPath = "ressources/exemple.json";
 		File testFile = new File(testPath);
 		boolean validate = converter.accordanceWithStandard(testFile);
-		System.out.println(testPath + " is a "
-				+ validate + " json file.");
+		lOGGER.info(testPath + " is a " + validate + " json file.");
 		validate = converter.accordanceWithMoodleStandard(testFile);
-		System.out.println(testPath + " is a "
-				+ validate + " moodle file.");
+		lOGGER.info(testPath + " is a " + validate + " moodle file.");
 		if (validate) {
 			converter.convert(testPath, "results/output.xml");
 		}
