@@ -4,25 +4,41 @@ import java.io.File;
 
 import javax.swing.filechooser.FileFilter;
 
+/**
+ * @author :
+ *
+ */
 public class CustomFileFilter extends FileFilter {
-    
-    private String description;
-    private String[] extensions; 
 
-    public CustomFileFilter(String description, String extension) {
-        this(description, new String[]{extension});
+    /**
+     *
+     */
+    private String description;
+
+    /**
+     *
+     */
+    private final String[] extensions;
+
+    /**
+     * @param aDescription :
+     * @param extension :
+     */
+    public CustomFileFilter(final String aDescription, final String extension) {
+        this(aDescription, new String[]{extension});
     }
 
     /**
      * Constructeur principal...
      *
-     * @param description L'intitulé affiché dans le selecteur de fichier.
-     * @param extensions La liste des extensions à filtrer.
+     * @param aDescription L'intitulé affiché dans le selecteur de fichier.
+     * @param newExtensions La liste des extensions à filtrer.
      */
-    public CustomFileFilter(String description, String[] extensions) {
+    public CustomFileFilter(final String aDescription,
+    		final String[] newExtensions) {
         String separator = "";
-        this.description = description.concat("(");
-        this.extensions = new String[extensions.length];
+        this.description = aDescription.concat("(");
+        this.extensions = new String[newExtensions.length];
         for (int i = 0; i < extensions.length; i++) {
             this.extensions[i] = extensions[i].toLowerCase();
             this.description = this.description.concat(separator)
@@ -34,7 +50,7 @@ public class CustomFileFilter extends FileFilter {
     }
 
     @Override
-    public boolean accept(File file) {
+    public final boolean accept(final File file) {
 
         if (file.isDirectory()) {
             return true;
@@ -51,11 +67,14 @@ public class CustomFileFilter extends FileFilter {
     }
 
     @Override
-    public String getDescription() {
+    public final String getDescription() {
         return description;
     }
-    
-    public String[] getExtensions(){
+
+    /**
+     * @return :
+     */
+    public final String[] getExtensions(){
         return extensions;
     }
 

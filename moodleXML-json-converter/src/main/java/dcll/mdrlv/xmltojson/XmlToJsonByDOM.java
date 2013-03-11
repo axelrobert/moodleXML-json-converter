@@ -12,7 +12,7 @@ import org.w3c.dom.NodeList;
 
 
 /**
- * @author Francois Manciet
+ * @author Fran�ois Manciet
  *
  */
 public class XmlToJsonByDOM {
@@ -22,20 +22,21 @@ public class XmlToJsonByDOM {
      */
     private int indent;
 
-	/**
-	 * out : sortie pour l'ecrture du fichier.
-	 */
+    /**
+	* out : sortie pour l'ecrture du fichier.
+	*/
 	private BufferedWriter out;
 
 	/**
-	 * @param output
-	 * @param doc
+	 * @param output : chemin du fichier Json a creer
+	 * @param doc : document en entree, utilise par le parser
 	 * Constructeur
 	 */
 	public XmlToJsonByDOM(final String output, final Document doc) {
 		try {
-			out = new BufferedWriter(new FileWriter(
+			this.out = new BufferedWriter(new FileWriter(
 					new File(output)));
+			this.indent = 1;
 		} catch (IOException e) {
 			System.out.println("Fichier non trouv�!!");
 		}
@@ -44,15 +45,15 @@ public class XmlToJsonByDOM {
 	/**
 	 * @return out
 	 */
-    public BufferedWriter getOut() {
+    public final  BufferedWriter getOut() {
 		return out;
 	}
 
 	/**
-	 * @param out
+	 * @param buff : nouveau BufferWriter
 	 */
-	public void setOut(final BufferedWriter out) {
-		this.out = out;
+	public final void setOut(final BufferedWriter buff) {
+		this.out = buff;
 	}
 
 	/**
@@ -63,14 +64,14 @@ public class XmlToJsonByDOM {
 	}
 
 	/**
-	 * @param newIndent
+	 * @param newIndent : nouvelle valeur pour l'indentation
 	 */
 	public final void setIndent(final int newIndent) {
 		indent = newIndent;
 	}
 
 	/**
-	 * @param line : ligne � afficher
+	 * @param line : ligne a afficher
 	 */
 	public final void afficher(final String line) {
 		try {
@@ -89,6 +90,24 @@ public class XmlToJsonByDOM {
 		for (int i = 0; i < indent; i++) {
 			afficher("   ");
 		}
+	}
+
+	/**
+	 * @param str : string � tester
+	 * @return : renvoie vrai si la chaine contient un
+	 * caractere num�rique [0-9] ou alphab�tique [A-Z a-z]
+	 */
+	public final boolean contientChiffreLettre(final String str) {
+		if (str != null) {
+			for (int i = 0; i < str.length(); i++) {
+				Character c = str.charAt(i);
+				if (Character.isDigit(c)
+					|| Character.isAlphabetic(c)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -131,7 +150,7 @@ public class XmlToJsonByDOM {
 
 	/**
 	 * @param node : determination du symbole de
-	 * d�part en fonction de l'�l�ment node en entr�e
+	 * depart en fonction de l'element node en entree
 	 */
 	public final void choixSymboleDebut(final Node node) {
 		final Node precedent = node.getPreviousSibling();
@@ -165,12 +184,21 @@ public class XmlToJsonByDOM {
 				indenter();
 			} else {
 				// le noeud n'a pas d'attributs
-				//  mais a une valeur
 				NamedNodeMap map = node.getAttributes();
+				int childNumber =
+						node.getChildNodes().
+						getLength();
 				if (map.getLength() == 0) {
-					afficher("\n");
+					if (node.hasChildNodes()
+					&& childNumber >= 2) {
+
+						afficher("{\n");
+						indent++;
+						indenter();
+					} else {
+						afficher("");
+					}
 				} else {
-					//Affichage classique : {
 					afficher("{\n");
 					indent++;
 					indenter();
@@ -184,43 +212,27 @@ public class XmlToJsonByDOM {
 	 * Affiche les attributs contenus dans node, si il y en a
 	 */
 	public final void afficherAttributs(final Node node) {
-		final Node precedent = node.getPreviousSibling();
-		final Node suivant = node.getNextSibling();
-		Node frereSuivant = null;
-		Node frerePrecedent = null;
-		String nodeName = node.getNodeName();
-		if (precedent != null) {
-			frerePrecedent = precedent.getPreviousSibling();
-		}
-		if (suivant != null) {
-			frereSuivant = suivant.getNextSibling();
-		}
-		//Le noeud a un frere suivant identique
-		//ou un frere precedent identique
-		if ((suivant != null && frereSuivant != null
-			&& frereSuivant.getNodeName().equals(nodeName))
-			||
-			(precedent != null && frerePrecedent != null
-			&& frerePrecedent.getNodeName().equals(nodeName))) {
-			NamedNodeMap map = node.getAttributes();
-			for (int i = 0; i < map.getLength(); i++) {
-				Node item = map.item(i);
-				afficher("\"-" + item.getNodeName() + "\": \""
-				+ item.getNodeValue() + "\"");
-				afficher(",\n");
-				if (i < map.getLength() - 1) {
-					indenter();
-				}
-			}
-		} else {
-			//Le noeud n'a pas de freres identiques
-			NamedNodeMap map = node.getAttributes();
-			for (int i = 0; i < map.getLength(); i++) {
-				Node item = map.item(i);
-				afficher("\"-" + item.getNodeName()
-				+ "\": \"" + item.getNodeValue() + "\"");
+		NamedNodeMap map = node.getAttributes();
+		for (int i = map.getLength() - 1; i >= 0; i--) {
+			Node item = map.item(i);
+			afficher("\"-" + item.getNodeName() + "\": \""
+			+ item.getNodeValue() + "\"");
+
+			// L'attribut n'est pas le dernier
+			if (i > 0) {
 				afficher(",\n");
 				indenter();
+			//L'attribut est le dernier
+			} else {
+				//Si le noeud a un contenu textuel
+				if (node.hasChildNodes()) {
+					afficher(",\n");
+					indenter();
+				//Le noeud n'a pas de fils
+				//(=> pas de valeur non plus)
+				} else {
+					afficher("\n");
+				}
 			}
 		}
 	}
@@ -230,14 +242,21 @@ public class XmlToJsonByDOM {
 	 * Affiche la valeur du node
 	 */
 	public final void afficherValeur(final Node node) {
-		NamedNodeMap map = node.getAttributes();
-		if (node.getTextContent() != null && map.getLength() != 0) {
-			afficher("\"" + node.getTextContent()
-			+ "\" ");
-		} else {
-			if (node.getTextContent() != null) {
-				afficher("\"#text\": \""
-			    + node.getTextContent() + "\"");
+		if (node.hasChildNodes()) {
+			Node fils = node.getFirstChild();
+			if (fils.getNodeType() == Node.TEXT_NODE) {
+				if (contientChiffreLettre(
+						fils.getNodeValue())) {
+					NamedNodeMap map = node.getAttributes();
+					if (map.getLength() != 0) {
+						afficher("\"#text\": "
+						+ "\"" + fils.getNodeValue()
+						+ "\"\n");
+					} else {
+						afficher("\""
+					    + fils.getNodeValue() + "\"");
+					}
+				}
 			}
 		}
 	}
@@ -264,6 +283,8 @@ public class XmlToJsonByDOM {
 		Node frereSuivant = null;
 		Node frerePrecedent = null;
 		String nodeName = node.getNodeName();
+		int childNumber = node.getChildNodes().
+				getLength();
 		if (precedent != null) {
 			frerePrecedent = precedent.getPreviousSibling();
 		}
@@ -295,17 +316,53 @@ public class XmlToJsonByDOM {
 					indenter();
 					afficher("]\n");
 				}
+
 			} else {
-				if (suivant != null && frereSuivant != null) {
-					//on affiche rien
-					afficher("");
+				//Le noeud n'a pas de frere identique avant
+				//il a un frere apres
+				if ((suivant != null && frereSuivant != null)) {
+					//Le noeud a un fils
+					if (node.hasChildNodes()
+						&& childNumber > 1) {
+						afficher("\n");
+						indent--;
+						indenter();
+						afficher("},\n");
+						indenter();
+						//Le noeud n'a pas de fils
+					} else {
+						afficher(",\n");
+						indenter();
+					}
+					//Le noeud n'a pas de fr�re,
+					//il est le dernier
 				} else {
-					indent--;
-					indenter();
-					afficher("}\n");
+					//Si le noeud est le dernier
+					//et n'a pas de fils
+					if (childNumber <= 1) {
+						afficher("");
+					} else {
+						afficher("\n");
+						indent--;
+						indenter();
+						afficher("}\n");
+					}
 				}
 			}
 		}
+	}
+
+	/**
+	 * @param node
+	 * Fonction d'appel pour la conversion XML Json
+	 * Pr� indentation et post indentation avant l'appel
+	 * de printDocument
+	 */
+	public final void convertXMLtoJSON(final Node node) {
+		afficher("{\n");
+		indenter();
+		printDocument(node);
+		afficher("}");
 	}
 
 	/**

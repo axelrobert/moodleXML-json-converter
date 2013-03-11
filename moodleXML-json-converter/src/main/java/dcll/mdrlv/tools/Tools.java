@@ -9,12 +9,23 @@ import java.util.Scanner;
 
 import org.apache.log4j.Logger;
 
+/**
+ * @author :
+ *
+ */
 public class Tools {
 
+	/**
+	 *
+	 */
 	protected static final Logger LOGGER = Logger.getLogger(Tools.class);
 
+	/**
+	 * @param chaine :
+	 * @param pathname :
+	 */
 	public static void writeStringIntoFile(final String chaine,
-			final String pathname){
+			final String pathname) {
 		//On crée un FileWriter à partir du pathname
 		FileWriter fwriter = null;
 		try {
@@ -23,7 +34,8 @@ public class Tools {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
-		//On crée un BufferedWriter output auquel on donne comme argument
+		//On crée un BufferedWriter output
+		//auquel on donne comme argument
 		//le FileWriter fwriter cree juste au dessus
 		final BufferedWriter output = new BufferedWriter(fwriter);
 		try {
@@ -50,9 +62,13 @@ public class Tools {
 			e.printStackTrace();
 		}
 	}
-	
-	public static String readStringFromFile(File f){
-		Scanner scan=null;
+
+	/**
+	 * @param f :
+	 * @return :
+	 */
+	public static String readStringFromFile(final File f) {
+		Scanner scan = null;
 		String text = null;
 		try {
 			scan = new Scanner(f);

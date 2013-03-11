@@ -28,12 +28,23 @@ import dcll.mdrlv.jsontoxml.JSONSaxAdapter.ParserException;
 import dcll.mdrlv.tools.Tools;
 import dcll.mdrlv.xmltojson.XmlToJsonConverter;
 
+/**
+ * @author :
+ *
+ */
 public class JsonToXmlConverter extends WebStandardConverter {
 
+	/**
+	 *
+	 */
 	public JsonToXmlConverter() {
 		super();
 	}
 
+	/**
+	 * @param json :
+	 * @return :
+	 */
 	public final String convertJsonStringToCompactedXmlString(
 			final String json) {
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -114,7 +125,14 @@ public class JsonToXmlConverter extends WebStandardConverter {
 		return 0;
 	}
 
-	public static void main(final String[] args) 
+	/**
+	 * @param args :
+	 * @throws SAXException :
+	 * @throws IOException :
+	 * @throws URISyntaxException :
+	 * @throws TransformerException :
+	 */
+	public static void main(final String[] args)
 			throws SAXException, IOException,
 			URISyntaxException, TransformerException {
 		JsonToXmlConverter converter = new JsonToXmlConverter();
