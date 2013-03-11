@@ -40,7 +40,7 @@ public class CustomFileFilter extends FileFilter {
         this.description = aDescription.concat("(");
         this.extensions = new String[newExtensions.length];
         for (int i = 0; i < extensions.length; i++) {
-            this.extensions[i] = extensions[i].toLowerCase();
+            this.extensions[i] = newExtensions[i].toLowerCase();
             this.description = this.description.concat(separator)
                                   .concat("*.")
                                   .concat(extensions[i]);
