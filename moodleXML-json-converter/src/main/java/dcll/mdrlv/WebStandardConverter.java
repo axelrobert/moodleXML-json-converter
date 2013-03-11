@@ -67,12 +67,9 @@ public abstract class WebStandardConverter {
      * @param inputFileUri :
      * @param outputFileUri :
      * @return :
-     * @throws IOException :
-     * @throws URISyntaxException :
-     * @throws TransformerException :
+
      */
     public abstract int convert(final String inputFileUri,
-			final String outputFileUri)
-		throws IOException, URISyntaxException, TransformerException;
+			final String outputFileUri);
 
 }
