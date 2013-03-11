@@ -1,46 +1,80 @@
 package dcll.mdrlv.ihm;
 
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.filechooser.FileFilter;
 
-public class SelecteurDeFichier extends JFileChooser{
+/**
+ * @author Emilien DUBOIS, Romain LECHIEN, Francois MANCIET, Axel ROBERT, David
+ *         VILLARD.
+ *
+ *         Permet de selectionner un fichier.
+ */
+public class SelecteurDeFichier extends JFileChooser {
 
+	/**
+	 * chosenFile : le fichier choisi par l'utilisateur.
+	 */
 	private String chosenFile;
+	/**
+	 * parent : la fenetre parent au selecteur de fichier.
+	 */
 	private Gui parent;
-	
-	public SelecteurDeFichier(FileFilter f, Gui p){
+
+	/**
+	 * Constructeur de la classe SelecteurDeFichier.
+	 * @param f
+	 * Filtre permettant la restriction des fichiers choisis sur le
+	 * selecteur de fichiers.
+	 * @param p
+	 * La fenetre à adapter en fonction du choix de dossier.
+	 */
+	public SelecteurDeFichier(final FileFilter f, final Gui p) {
 		//Sélecteur de fichiers
 		super();
 		parent = p;
 		this.setFileFilter(f);
-		this.setAcceptAllFileFilterUsed(false); //Bloque le sélecteur d'extensions 
-		
+		//Bloque le sélecteur d'extensions
+		this.setAcceptAllFileFilterUsed(false);
+
 		this.setVisible(true);
-		
+
 		this.handlerSelecteurDeFichiers();
 	}
-	
+
+	/**
+	 * Méthode permettant la gestion du choix de l'utilisateur dans le
+	 * selecteur.
+	 */
 	private void handlerSelecteurDeFichiers() {
 		//Gestion du choix.
 		int result = this.showOpenDialog(null);
-	       switch(result){
-	        	case JFileChooser.APPROVE_OPTION: 
-		       	 chosenFile= this.getCheminAbsolu();
+	       switch(result) {
+	        	case JFileChooser.APPROVE_OPTION:
+		       	 chosenFile = this.getCheminAbsolu();
 		       	 parent.setPathIN(this.chosenFile);
 		       	 this.setVisible(false);
-		        	
+		        parent.getPathIN().setEditable(false);
+
 	        	case JFileChooser.CANCEL_OPTION:
 	        	chosenFile = "";
+		        parent.getPathIN().setEditable(true);
 		      	this.setVisible(false);
+
+		      	default: break;
 	        }
 	}
 
-	public JFileChooser getFileChooser(){
+	/**
+	 * @return la fenetre en elle meme.
+	 */
+	public final JFileChooser getFileChooser() {
 		return this;
 	}
-	
-	public String getCheminAbsolu(){
+
+	/**
+	 * @return le chemin du fichier choisi.
+	 */
+	public final String getCheminAbsolu() {
 		return this.getSelectedFile().getAbsolutePath();
 	}
 }
