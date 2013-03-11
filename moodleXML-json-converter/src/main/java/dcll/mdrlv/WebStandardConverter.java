@@ -19,7 +19,7 @@ public abstract class WebStandardConverter {
 	public WebStandardConverter(){
 		LOGGER=Logger.getLogger(WebStandardConverter.class);
 	}
-	public FileConformity fileValidation(final File file) throws FileNotFoundException, SAXException {
+	public FileConformity fileValidation(final File file){
 		//On teste si le fichier est bien valide selon son format (XML ou JSON)
 		if(!accordanceWithStandard(file)) {
 			LOGGER.warn("Le fichier n'est pas conforme au format attendu.");
@@ -34,8 +34,7 @@ public abstract class WebStandardConverter {
 		return FileConformity.OK;
 	}
 
-	public abstract boolean accordanceWithMoodleStandard(File file)
-			throws FileNotFoundException, SAXException;
+	public abstract boolean accordanceWithMoodleStandard(File file);
 
 	public abstract boolean accordanceWithStandard(File file);
 
