@@ -27,7 +27,7 @@ import dcll.mdrlv.tools.Tools;
 
 /**
  * @author :
- *
+ * 
  */
 public class JsonToXmlConverter extends WebStandardConverter {
 
@@ -45,18 +45,16 @@ public class JsonToXmlConverter extends WebStandardConverter {
 	}
 
 	/**
-	 * @param json :
+	 * @param json
+	 *            :
 	 * @return :
 	 */
-	public final String convertJsonStringToCompactedXmlString(
-			final String json) {
+	public final String convertJsonStringToCompactedXmlString(final String json) {
 		final ByteArrayOutputStream out = new ByteArrayOutputStream();
 		Transformer transformer = null;
 		boolean ok = true;
 		try {
-			transformer = 
-					TransformerFactory.newInstance().
-					newTransformer();
+			transformer = TransformerFactory.newInstance().newTransformer();
 		} catch (TransformerConfigurationException e1) {
 			// TODO Auto-generated catch block
 			lOGGER.error("Instanciation de la transformation");
@@ -64,8 +62,7 @@ public class JsonToXmlConverter extends WebStandardConverter {
 			// TODO Auto-generated catch block
 			lOGGER.error("TransformerFactoryConfigurations");
 		}
-		final InputSource source = 
-				new InputSource(new StringReader(json));
+		final InputSource source = new InputSource(new StringReader(json));
 		final Result result = new StreamResult(out);
 		final JSONXmlReader reader = new JSONXmlReader("", false);
 		final SAXSource sax = new SAXSource(reader, source);
@@ -93,15 +90,15 @@ public class JsonToXmlConverter extends WebStandardConverter {
 
 	/**
 	 * @return :
-	 * @param file :
+	 * @param file
+	 *            :
 	 */
-	public final boolean accordanceWithMoodleStandard(
-			final File file) {
+	public final boolean accordanceWithMoodleStandard(final File file) {
 		// On pensait, pour tester si le JSON du fichier était conforme
 		// à la norme MOODLE, le traduire en XML puis appeler la méthode
 		// de conformormité du MOODLE XML.
 		// Or force est de constater que le passage
-		//de JSON vers XML supprime
+		// de JSON vers XML supprime
 		// tous les attributs pour les représenter sous forme de balises
 		return true;
 
@@ -111,41 +108,40 @@ public class JsonToXmlConverter extends WebStandardConverter {
 	public final boolean accordanceWithStandard(final File file) {
 		// TODO Auto-generated method stub
 		final String json = Tools.readStringFromFile(file);
-		return (!convertJsonStringToCompactedXmlString(
-				json).contentEquals(error));
+		return (!convertJsonStringToCompactedXmlString(json).contentEquals(
+				error));
 	}
 
 	@Override
 	public final int convert(final String inputFileUri,
 			final String outputFileUri) {
 		// TODO Auto-generated method stub
-		final String text = Tools.readStringFromFile(
-				new File(inputFileUri));
-		final String output = 
-				convertJsonStringToCompactedXmlString(text);
+		final String text = Tools.readStringFromFile(new File(inputFileUri));
+		final String output = convertJsonStringToCompactedXmlString(text);
 		Tools.writeStringIntoFile(output, outputFileUri);
 		final SAXBuilder saxBuilder = new SAXBuilder();
 		Document doc = null;
+
 		try {
-			try {
-				doc = saxBuilder.build(outputFileUri);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				lOGGER.error("IOException");
-			}
-			final XMLOutputter xmlOutputter = new XMLOutputter(
-					Format.getPrettyFormat());
-			final String xmlIndent = xmlOutputter.outputString(doc);
-			Tools.writeStringIntoFile(xmlIndent, outputFileUri);
+			doc = saxBuilder.build(outputFileUri);
 		} catch (JDOMException e) {
 			// TODO Auto-generated catch block
 			lOGGER.error("JDOM Exception");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			lOGGER.error("IO Exception");
 		}
+		final XMLOutputter xmlOutputter = new XMLOutputter(
+				Format.getPrettyFormat());
+		final String xmlIndent = xmlOutputter.outputString(doc);
+		Tools.writeStringIntoFile(xmlIndent, outputFileUri);
+
 		return 0;
 	}
 
 	/**
-	 * @param args :
+	 * @param args
+	 *            :
 	 */
 	public static void main(final String[] args) {
 		JsonToXmlConverter converter = new JsonToXmlConverter();

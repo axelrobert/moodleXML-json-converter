@@ -166,6 +166,8 @@ public class Gui extends javax.swing.JFrame {
 	 *
 	 */
 	private javax.swing.JTextField jTextFieldPathOut;
+	
+	private String delimiteur;
 
 	// End of variables declaration
 
@@ -217,6 +219,14 @@ public class Gui extends javax.swing.JFrame {
 
 		xmlConverter = new XmlToJsonConverter("xmltojsonml.xslt");
 		jsonConverter = new JsonToXmlConverter();
+		jsonConverter = new JsonToXmlConverter();
+		
+		
+		if (Tools.determineOS() == OS.WINDOWS_OS) {
+			delimiteur = "\\";
+		} else {
+			delimiteur = "/";
+		}
 
 		jTextArea1.setEditable(false);
 		jTextArea2.setEditable(false);
@@ -794,19 +804,17 @@ public class Gui extends javax.swing.JFrame {
 				String fichierIN = jTextFieldPathIN.getText();
 
 				try {
-					if (xmlConverter.fileValidation(
+					if (jsonConverter.fileValidation(
 							new File(fichierIN))
 							== FileConformity.OK) {
-						xmlConverter.convert(
+						jsonConverter.convert(
 							fichierIN,
 							fichierOut);
 						LOGGER.info(
 							"Fin de la conversion :"
 							+ " le ficher a bien "
 							+ "été converti");
-						xmlConverter.getXMLFile().
-						delete();
-						etat = Etat.VIEW_XML_JSON;
+						etat = Etat.VIEW_JSON_XML;
 						afficherTextArea(jTextArea2,
 								fichierOut);
 						gestionEtat(etat);
@@ -820,7 +828,7 @@ public class Gui extends javax.swing.JFrame {
 							"Le ficher n'est pas"
 							+ " valide, conversion"
 							+ " annulée.");
-						etat = Etat.INIT_XML_JSON;
+						etat = Etat.INIT_JSON_XML;
 						gestionEtat(etat);
 						jTextFieldPathIN.setText(
 							fichierIN);
@@ -828,7 +836,7 @@ public class Gui extends javax.swing.JFrame {
 
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
-					etat = Etat.INIT_XML_JSON;
+					etat = Etat.INIT_JSON_XML;
 					gestionEtat(etat);
 					jTextFieldPathIN.setText(fichierIN);
 					JOptionPane.showMessageDialog(this,
@@ -878,18 +886,18 @@ public class Gui extends javax.swing.JFrame {
 
 						case WRONG_STANDARD:
 							LOGGER.warn(
-							  "Le ficher n'est "
+							  "Le fichier n'est "
 							  + "pas valide "
-							  + "(Standars XML),"
+							  + "(Standard XML),"
 							  + " conversion "
 							  + "annulée.");
 							JOptionPane
 							.showMessageDialog(
 								this,
-								"Le ficher "
+								"Le fichier "
 								+ "n'est pas "
 								+ "valide "
-								+ "(Standars "
+								+ "(Standard "
 								+ "XML),"
 								+ " conversion "
 								+ "annulée.");
@@ -899,7 +907,7 @@ public class Gui extends javax.swing.JFrame {
 							LOGGER.warn(
 							"Le ficher n'est"
 								+ " pas valide "
-								+ "(Standars "
+								+ "(Standard "
 								+ "MOODLE), "
 								+ "conversion "
 								+ "annulée.");
@@ -909,7 +917,7 @@ public class Gui extends javax.swing.JFrame {
 								"Le ficher "
 								+ "n'est pas "
 								+ "valide "
-								+ "(Standars "
+								+ "(Standard "
 								+ "MOODLE), "
 								+ "conversion "
 								+ "annulée.");
@@ -1061,7 +1069,7 @@ public class Gui extends javax.swing.JFrame {
 		String currentDir = "";
 		currentDir = jTextFieldPathOut.getText();
 		currentDir = currentDir.substring(0,
-				currentDir.lastIndexOf("\\"));
+				currentDir.lastIndexOf(delimiteur));
 		switch (etat) {
 		case INIT_JSON_XML:
 			throw new RuntimeException("Bouton Parcourir : "
@@ -1156,7 +1164,7 @@ public class Gui extends javax.swing.JFrame {
 	public final void setPathOut(final String s) {
 
 		String fichier = jTextFieldPathIN.getText().substring(
-				jTextFieldPathIN.getText().lastIndexOf("\\"),
+				jTextFieldPathIN.getText().lastIndexOf(delimiteur),
 				jTextFieldPathIN.getText().lastIndexOf("."));
 		jTextFieldPathOut.setText(s.concat(fichier));
 	}
@@ -1234,22 +1242,6 @@ public class Gui extends javax.swing.JFrame {
 			break;
 		case INIT_JSON_XML:
 			extend = ".xml";
-			break;
-		default:
-			break;
-		}
-		System.out.println(pathO);
-		System.out.println(path);
-		String delimiteur = "";
-		switch (Tools.determineOS()) {
-		case WINDOWS_OS:
-			delimiteur = "\\";
-			break;
-		case UNIX_OS:
-			delimiteur = "/";
-			break;
-		case MAC_OS:
-			delimiteur = "/";
 			break;
 		default:
 			break;
