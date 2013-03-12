@@ -155,6 +155,14 @@ public class XmlToJsonConverter extends WebStandardConverter {
 	      //On crée une List contenant tous les noeuds "question"
 	      //de l'Element racine
 	      List<Element> list = racine.getChildren("question");
+	      //Si la racine n'est pas de type quiz ou 
+	      // si il n'y a aucune balise de type question
+	      // Alors le fichier en entrée ne peut etre du MOODLE XML.
+	      // Inutile de continuer le test
+	     if (!racine.getName().contentEquals("quiz")
+	    		  || list.size() ==  0){
+	    	  return false;
+	      }
 
 	      //On crée un Iterator sur notre liste
 	      Iterator<Element> i = list.iterator();
