@@ -6,8 +6,8 @@ package dcll.mdrlv.tools;
  */
 public enum OS {
 
-	/**
-	 *  test.
-	 */
-	MAC_OS, WINDOWS_OS, UNIX_OS
+    /**
+     *  test.
+     */
+     MAC_OS, WINDOWS_OS, UNIX_OS
 }

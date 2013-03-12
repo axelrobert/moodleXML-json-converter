@@ -14,34 +14,34 @@ import org.apache.log4j.Logger;
  */
 public final class Tools {
 
-	/**
-	 *
-	 */
-	protected static final Logger LOGGER = Logger.getLogger(Tools.class);
+    /**
+     *
+     **/
+    protected static final Logger LOGGER = Logger.getLogger(Tools.class);
 
-	/**
-	 * Constructeur privé.
-	 */
-	private Tools() {
+    /**
+    * Constructeur privé.
+    **/
+    private Tools() {
 
-	}
+    }
 
-	/**
-	 * @param chaine
-	 *            :
-	 * @param pathname
-	 *            :
-	 */
-	public static void writeStringIntoFile(final String chaine,
-			final String pathname) {
-		// On crée un FileWriter à partir du pathname
-		FileWriter fwriter = null;
-		try {
-			fwriter = new FileWriter(new File(pathname));
-		} catch (IOException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		}
+    /**
+    * @param chaine
+    *            :
+    * @param pathname
+    *            :
+    */
+    public static void writeStringIntoFile(final String chaine,
+        final String pathname) {
+        // On crée un FileWriter à partir du pathname
+        FileWriter fwriter = null;
+        try {
+            fwriter = new FileWriter(new File(pathname));
+            } catch (IOException e2) {
+            // TODO Auto-generated catch block
+            e2.printStackTrace();
+        }
 		// On crée un BufferedWriter output
 		// auquel on donne comme argument
 		// le FileWriter fwriter cree juste au dessus

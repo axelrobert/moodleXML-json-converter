@@ -5,11 +5,16 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 /**
  * @author Francois Manciet
@@ -33,19 +38,11 @@ public class XmlToJsonByDOM {
 	private static Logger lOGGER;
 
 	/**
-	 * @param output : chemin du fichier Json a creer
-	 * @param doc : document en entree, utilise par le parser
-	 * Constructeur
+	 * Constructeur.
 	 */
-	public XmlToJsonByDOM(final String output, final Document doc) {
-		try {
-			this.out = new BufferedWriter(new FileWriter(
-					new File(output)));
-			this.indent = 1;
-			lOGGER = Logger.getLogger(XmlToJsonByDOM.class);
-		} catch (IOException e) {
-			lOGGER.warn("Fichier non trouve!!");
-		}
+	public XmlToJsonByDOM() {
+		this.indent = 1;
+		lOGGER = Logger.getLogger(XmlToJsonByDOM.class);
 	}
 
 	/**
@@ -373,15 +370,30 @@ public class XmlToJsonByDOM {
 	}
 
 	/**
-	 * @param node
+	 * @param input : chemin du fichier en entree
+	 * @param output : chemin du fichier en sortie
 	 * Fonction d'appel pour la conversion XML Json
 	 * Pr� indentation et post indentation avant l'appel
 	 * de printDocument
+	 * @throws IOException :
+	 * @throws ParserConfigurationException :
+	 * @throws SAXException :
 	 */
-	public final void convertXMLtoJSON(final Node node) {
+	public final void convertXMLtoJSON(final String input,
+			final String output)
+			throws IOException,
+				ParserConfigurationException,
+				SAXException {
+		File f = new File(input);
+		this.out = new BufferedWriter((new FileWriter(output)));
+		DocumentBuilderFactory dbf =
+			    DocumentBuilderFactory.newInstance();
+			  DocumentBuilder db =
+			    dbf.newDocumentBuilder();
+	    Document doc = db.parse(f);
 		afficher("{\n");
 		indenter();
-		printDocument(node);
+		printDocument(doc);
 		afficher("}");
 	}
 
@@ -401,4 +413,5 @@ public class XmlToJsonByDOM {
 			choixSymboleFin(node);
 		}
 	  }
+
 }
