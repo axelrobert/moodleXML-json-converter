@@ -1273,8 +1273,9 @@ public class Gui extends javax.swing.JFrame {
 		// contenu dans l'adresse en paramètre
 		fichier = pathO.substring(pathO.lastIndexOf(delimiteur),
 				pathO.lastIndexOf("."));
+		fichier += extend;
 		// On return la concatenation de ces 3 variables
-		return path.concat(fichier + extend);
+		return path.concat(fichier);
 	}
 
 	/**
