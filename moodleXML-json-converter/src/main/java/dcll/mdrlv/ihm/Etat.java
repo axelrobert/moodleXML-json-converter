@@ -17,10 +17,15 @@ public enum Etat {
 	 */
 	INIT_JSON_XML,
 
-	/** OUTPUT_XML_JSON :.
+	/** OUTPUT_XML_JSON (VIA XSLT):.
 	 * Etat de choix du fichier en sortie (XML->JSON)
 	 */
 	OUTPUT_XML_JSON,
+	
+	/** OUTPUT_XML_JSON_VIA_DOM :.
+	 * Etat de choix du fichier en sortie (XML->JSON)
+	 */
+	OUTPUT_XML_JSON_VIA_DOM,
 
 	/** OUTPUT_JSON_XML :.
 	 * Etat de choix du fichier en sortie (JSON->XML)

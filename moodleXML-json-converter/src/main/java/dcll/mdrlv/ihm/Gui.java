@@ -9,13 +9,19 @@ import java.io.IOException;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.log4j.Logger;
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
 
 import dcll.mdrlv.jsontoxml.JsonToXmlConverter;
 import dcll.mdrlv.tools.FileConformity;
 import dcll.mdrlv.tools.OS;
 import dcll.mdrlv.tools.Tools;
+import dcll.mdrlv.xmltojson.XmlToJsonByDOM;
 import dcll.mdrlv.xmltojson.XmlToJsonConverter;
 
 /**
@@ -72,6 +78,12 @@ public class Gui extends javax.swing.JFrame {
 	 * jsonConverter : Convertisseur de fichier json en xml.
 	 */
 	private JsonToXmlConverter jsonConverter;
+	
+	/**
+	 * xmlByDomConverter : Convertisseur de fichier xml et json
+	 * VIA DOM
+	 */
+	private XmlToJsonByDOM xmlByDomConverter;
 
 	/**
 	 * LOOGER : permet d'écrire dans le journal(.log).
@@ -80,6 +92,10 @@ public class Gui extends javax.swing.JFrame {
 
 	// Variables declaration - do not modify
 
+	private javax.swing.ButtonGroup buttonGroupWAY;
+	
+	private javax.swing.JRadioButton jRadioButtonViaDOM;
+	private javax.swing.JRadioButton jRadioButtonViaXSLT;
 	/**
 	 * bouton regroupant les 2 radiobouton
 	 * xml_vers_json / json_vers_xml.
@@ -239,6 +255,7 @@ public class Gui extends javax.swing.JFrame {
 		xmlConverter = new XmlToJsonConverter("xmltojsonml.xslt");
 		jsonConverter = new JsonToXmlConverter();
 		jsonConverter = new JsonToXmlConverter();
+		xmlByDomConverter = new XmlToJsonByDOM();
 
 
 		if (Tools.determineOS() == OS.WINDOWS_OS) {
@@ -441,76 +458,70 @@ public class Gui extends javax.swing.JFrame {
 			}
 		});
 
-		javax.swing.GroupLayout jPanel2Layout =
-				new javax.swing.GroupLayout(jPanel2);
-		jPanel2.setLayout(jPanel2Layout);
-		jPanel2Layout
-				.setHorizontalGroup(jPanel2Layout
-						.createParallelGroup(
-						javax.swing.GroupLayout.
-						Alignment.LEADING)
-						.addGroup(
-								jPanel2Layout
-										.createSequentialGroup()
-										.addContainerGap()
-										.addGroup(
-												jPanel2Layout
-														.createParallelGroup(
-																javax.swing.GroupLayout.Alignment.LEADING)
-														.addGroup(
-																jPanel2Layout
-																		.createParallelGroup(
-																				javax.swing.GroupLayout.Alignment.LEADING)
-																		.addGroup(
-																				jPanel2Layout
-																						.createSequentialGroup()
-																						.addComponent(
-																								jTextFieldPathOut,
-																								javax.swing.GroupLayout.DEFAULT_SIZE,
-																								252,
-																								Short.MAX_VALUE)
-																						.addContainerGap())
-																		.addGroup(
-																				javax.swing.GroupLayout.Alignment.TRAILING,
-																				jPanel2Layout
-																						.createSequentialGroup()
-																						.addComponent(
-																								jButtonParcourirOut)
-																						.addGap(92,
-																								92,
-																								92)))
-														.addGroup(
-																javax.swing.GroupLayout.Alignment.TRAILING,
-																jPanel2Layout
-																		.createSequentialGroup()
-																		.addComponent(
-																				jButtonConvertir)
-																		.addGap(90,
-																				90,
-																				90)))));
-		jPanel2Layout
-				.setVerticalGroup(jPanel2Layout
-						.createParallelGroup(
-								javax.swing.GroupLayout.Alignment.LEADING)
-						.addGroup(
-								javax.swing.GroupLayout.Alignment.TRAILING,
-								jPanel2Layout
-										.createSequentialGroup()
-										.addContainerGap(
-												javax.swing.GroupLayout.DEFAULT_SIZE,
-												Short.MAX_VALUE)
-										.addComponent(jButtonParcourirOut)
-										.addPreferredGap(
-												javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-										.addComponent(
-												jTextFieldPathOut,
-												javax.swing.GroupLayout.PREFERRED_SIZE,
-												javax.swing.GroupLayout.DEFAULT_SIZE,
-												javax.swing.GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(
-												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addComponent(jButtonConvertir)
-										.addGap(5, 5, 5)));
+		buttonGroupWAY = new javax.swing.ButtonGroup();
+
+		jRadioButtonViaXSLT = new javax.swing.JRadioButton();
+		        jRadioButtonViaDOM = new javax.swing.JRadioButton();
+
+				 buttonGroupWAY.add(jRadioButtonViaXSLT);
+		        jRadioButtonViaXSLT.setText("Via XSLT");
+		        jRadioButtonViaXSLT.addActionListener(
+						new java.awt.
+						event.ActionListener() {
+					public void actionPerformed(
+							final java.awt.
+							event.ActionEvent evt) {
+				jRadioButtonViaXSLTActionPerformed(evt);
+					}
+				});
+
+		        buttonGroupWAY.add(jRadioButtonViaDOM);
+		        jRadioButtonViaDOM.setText("Via DOM");
+		        jRadioButtonViaDOM.addActionListener(
+						new java.awt.
+						event.ActionListener() {
+					public void actionPerformed(
+							final java.awt.
+							event.ActionEvent evt) {
+				jRadioButtonViaDOMActionPerformed(evt);
+					}
+				});
+
+		        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+		        jPanel2.setLayout(jPanel2Layout);
+		        jPanel2Layout.setHorizontalGroup(
+		            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+		            .addGroup(jPanel2Layout.createSequentialGroup()
+		                .addContainerGap()
+		                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+		                    .addGroup(jPanel2Layout.createSequentialGroup()
+		                        .addComponent(jTextFieldPathOut, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
+		                        .addContainerGap())
+		                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+		                        .addComponent(jButtonParcourirOut)
+		                        .addGap(92, 92, 92))
+		                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+		                        .addComponent(jRadioButtonViaXSLT)
+		                        .addGap(18, 18, 18)
+		                        .addComponent(jRadioButtonViaDOM)
+		                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+		                        .addComponent(jButtonConvertir)
+		                        .addContainerGap())))
+		        );
+		        jPanel2Layout.setVerticalGroup(
+		            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+		            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+		                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+		                .addComponent(jButtonParcourirOut)
+		                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+		                .addComponent(jTextFieldPathOut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+		                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+		                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+		                    .addComponent(jButtonConvertir)
+		                    .addComponent(jRadioButtonViaXSLT)
+		                    .addComponent(jRadioButtonViaDOM))
+		                .addGap(5, 5, 5))
+		        );
 
 		jButtonReset.setText("Reset");
 		jButtonReset.addActionListener(
@@ -763,6 +774,10 @@ public class Gui extends javax.swing.JFrame {
 			throw new RuntimeException("Bouton Valider : "
 					+ "action interdite car "
 					+ "Etat OUTPUT_XML_JSON");
+		case OUTPUT_XML_JSON_VIA_DOM:
+			throw new RuntimeException("Bouton Valider : "
+					+ "action interdite car "
+					+ "Etat OUTPUT_XML_JSON_VIA_DOM");
 		case VIEW_JSON_XML:
 			throw new RuntimeException("Bouton Valider :"
 					+ " action interdite car "
@@ -879,11 +894,13 @@ public class Gui extends javax.swing.JFrame {
 
 				String fichierOut = jTextFieldPathOut.getText();
 				String fichierIN = jTextFieldPathIN.getText();
-
+				FileConformity result
+				= xmlConverter
+					.fileValidation(
+						new File(
+					     fichierIN));				
 				try {
-					if (xmlConverter.fileValidation(
-							new File(fichierIN))
-							== FileConformity.OK) {
+					if (result == FileConformity.OK) {
 						xmlConverter.convert(
 								fichierIN,
 								fichierOut);
@@ -896,11 +913,7 @@ public class Gui extends javax.swing.JFrame {
 						etat = Etat.VIEW_XML_JSON;
 						gestionEtat(etat);
 					} else {
-						FileConformity result
-						= xmlConverter
-							.fileValidation(
-								new File(
-							     fichierIN));
+
 						switch (result) {
 
 						case WRONG_STANDARD:
@@ -954,6 +967,98 @@ public class Gui extends javax.swing.JFrame {
 				}
 			}
 			break;
+		case OUTPUT_XML_JSON_VIA_DOM: 
+			
+			if (jTextFieldPathOut.getText().equals("")) {
+				JOptionPane
+						.showMessageDialog(this,
+							"Veuillez renseigner"
+						  + " un chemin pour le "
+						  +	"fichier en sortie");
+			} else {
+				String fichierOut = jTextFieldPathOut.getText();
+				String fichierIN = jTextFieldPathIN.getText();
+				FileConformity result
+				= xmlConverter
+					.fileValidation(
+						new File(
+					     fichierIN));
+				try {
+					if (result == FileConformity.OK) {
+						xmlByDomConverter
+						.convertXMLtoJSON(
+								fichierIN,
+								fichierOut);
+						lOGGER.info("Fin de la "
+							+ "conversion,"
+							+ " : le ficher a bien "
+							+ "été converti.");
+						afficherTextArea(jTextArea2,
+								fichierOut);
+						etat = Etat.VIEW_XML_JSON;
+						gestionEtat(etat);
+					} else {
+
+						switch (result) {
+
+						case WRONG_STANDARD:
+							lOGGER.warn(
+							  "Le fichier n'est "
+							  + "pas valide "
+							  + "(Standard XML),"
+							  + " conversion "
+							  + "annulée.");
+							JOptionPane
+							.showMessageDialog(
+								this,
+								"Le fichier "
+								+ "n'est pas "
+								+ "valide "
+								+ "(Standard "
+								+ "XML),"
+								+ " conversion "
+								+ "annulée.");
+							break;
+						case WRONG_MOODLE:
+
+							lOGGER.warn(
+							"Le ficher n'est"
+								+ " pas valide "
+								+ "(Standard "
+								+ "MOODLE), "
+								+ "conversion "
+								+ "annulée.");
+							JOptionPane
+							.showMessageDialog(
+								this,
+								"Le ficher "
+								+ "n'est pas "
+								+ "valide "
+								+ "(Standard "
+								+ "MOODLE), "
+								+ "conversion "
+								+ "annulée.");
+							break;
+						default:
+							break;
+						}
+						etat = Etat.INIT_XML_JSON;
+						gestionEtat(etat);
+						jTextFieldPathIN.
+							setText(fichierIN);
+					}
+				} catch (IOException e) {
+					lOGGER.warn("");
+				} catch (ParserConfigurationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SAXException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			break;
+
 		case VIEW_JSON_XML:
 			throw new RuntimeException("Bouton Convertir :"
 					+ " action interdite "
@@ -989,6 +1094,10 @@ public class Gui extends javax.swing.JFrame {
 			throw new RuntimeException("Bouton Convertir : "
 					+ "action interdite car "
 					+ "Etat OUTPUT_XML_JSON");
+		case OUTPUT_XML_JSON_VIA_DOM:
+			throw new RuntimeException("Bouton Convertir : "
+					+ "action interdite car "
+					+ "Etat OUTPUT_XML_JSON_VIA_DOM");
 		case VIEW_JSON_XML:
 			throw new RuntimeException("Bouton Convertir : "
 					+ "action interdite car"
@@ -1024,6 +1133,10 @@ public class Gui extends javax.swing.JFrame {
 			throw new RuntimeException("Bouton Convertir : "
 					+ "action interdite car "
 					+ "Etat OUTPUT_XML_JSON");
+		case OUTPUT_XML_JSON_VIA_DOM:
+			throw new RuntimeException("Bouton Convertir : "
+					+ "action interdite car "
+					+ "Etat OUTPUT_XML_JSON");
 		case VIEW_JSON_XML:
 			throw new RuntimeException("Bouton Convertir : "
 					+ "action interdite car "
@@ -1037,6 +1150,79 @@ public class Gui extends javax.swing.JFrame {
 		}
 		gestionEtat(etat);
 	}
+
+
+	private void jRadioButtonViaXSLTActionPerformed(
+			final java.awt.event.ActionEvent evt) {
+		switch (etat) {
+		case INIT_JSON_XML:
+			throw new RuntimeException("Bouton ViaXSLT : "
+					+ "action interdite car "
+					+ "Etat INIT_XML_JSON");
+		case INIT_XML_JSON:
+			throw new RuntimeException("Bouton ViaXSLT : "
+					+ "action interdite car "
+					+ "Etat INIT_JSON_XML");
+		case OUTPUT_JSON_XML:
+			throw new RuntimeException("Bouton ViaXSLT : "
+					+ "action interdite car "
+					+ "Etat OUTPUT_JSON_XML");
+		case OUTPUT_XML_JSON_VIA_DOM :
+			etat = Etat.OUTPUT_XML_JSON;
+			break;
+		case OUTPUT_XML_JSON:
+			etat = Etat.OUTPUT_XML_JSON;
+			break;
+		case VIEW_JSON_XML:
+			throw new RuntimeException("Bouton ViaXSLT : "
+					+ "action interdite car"
+					+ "Etat VIEW_JSON_XML");
+		case VIEW_XML_JSON:
+			throw new RuntimeException("Bouton ViaXSLT : "
+					+ "action interdite car "
+					+ "Etat VIEW_XML_JSON");
+		default:
+			break;
+		}
+		gestionEtat(etat);
+	}
+
+
+	private void jRadioButtonViaDOMActionPerformed(
+			final java.awt.event.ActionEvent evt) {
+		switch (etat) {
+		case INIT_JSON_XML:
+			throw new RuntimeException("Bouton ViaDOM : "
+					+ "action interdite car "
+					+ "Etat INIT_XML_JSON");
+		case INIT_XML_JSON:
+			throw new RuntimeException("Bouton ViaDOM : "
+					+ "action interdite car "
+					+ "Etat INIT_JSON_XML");
+		case OUTPUT_JSON_XML:
+			throw new RuntimeException("Bouton ViaDOM : "
+					+ "action interdite car "
+					+ "Etat OUTPUT_JSON_XML");			
+		case OUTPUT_XML_JSON_VIA_DOM :
+			etat = Etat.OUTPUT_XML_JSON_VIA_DOM;
+			break;
+		case OUTPUT_XML_JSON:
+			etat = Etat.OUTPUT_XML_JSON_VIA_DOM;
+			break;			
+		case VIEW_JSON_XML:
+			throw new RuntimeException("Bouton ViaXSLT : "
+					+ "action interdite car"
+					+ "Etat VIEW_JSON_XML");
+		case VIEW_XML_JSON:
+			throw new RuntimeException("Bouton ViaXSLT : "
+					+ "action interdite car "
+					+ "Etat VIEW_XML_JSON");
+		default:
+			break;
+		}
+		gestionEtat(etat);
+	}
+
 
 	/**
 	 * @param evt
@@ -1061,6 +1247,10 @@ public class Gui extends javax.swing.JFrame {
 					+ "action interdite car"
 					+ " Etat OUTPUT_JSON_XML");
 		case OUTPUT_XML_JSON:
+			throw new RuntimeException("Bouton Parcourir : "
+					+ "action interdite car "
+					+ "Etat OUTPUT_XML_JSON");
+		case OUTPUT_XML_JSON_VIA_DOM:
 			throw new RuntimeException("Bouton Parcourir : "
 					+ "action interdite car "
 					+ "Etat OUTPUT_XML_JSON");
@@ -1111,6 +1301,12 @@ public class Gui extends javax.swing.JFrame {
 			jTextFieldPathIN.setEditable(false);
 			break;
 
+		case OUTPUT_XML_JSON_VIA_DOM:
+			selctD = new SelecteurDeDossier(this, currentDir);
+			selctD.setSize(300, 300);
+			selctD.setVisible(true);
+			jTextFieldPathIN.setEditable(false);
+			break;
 		case VIEW_JSON_XML:
 			throw new RuntimeException("Bouton Parcourir : "
 					+ "action interdite car "
@@ -1157,6 +1353,7 @@ public class Gui extends javax.swing.JFrame {
 			case INIT_XML_JSON:
 			case OUTPUT_JSON_XML:
 			case OUTPUT_XML_JSON:
+			case OUTPUT_XML_JSON_VIA_DOM:	
 			case VIEW_JSON_XML:
 			case VIEW_XML_JSON:
 				etat = Etat.INIT_XML_JSON;
@@ -1248,14 +1445,14 @@ public class Gui extends javax.swing.JFrame {
 	}
 
 	/**
-	 * @param pathO
-	 *            :
-	 * @return :
+	 * A partir du nom du fichier en entrée, retourne une adresse par défaut
+	 * @param pathO : adresse du fichier en entrée
+	 * @return : L'adresse par défaut du fichier en sortie
 	 */
 	public final String getEmplacementFile(final String pathO) {
 		String extend = "";
 		String fichier = "";
-		String path = new File(pathO).getAbsolutePath();
+		String path = new File("").getAbsolutePath();
 		switch (etat) {
 		case INIT_XML_JSON:
 			extend = ".json";
@@ -1307,6 +1504,10 @@ public class Gui extends javax.swing.JFrame {
 			jRadioButtonXMLtoJSON.setEnabled(true);
 			jRadioButtonJSONtoXML.setSelected(true);
 			jRadioButtonXMLtoJSON.setSelected(false);
+			jRadioButtonViaDOM.setEnabled(false);
+			jRadioButtonViaXSLT.setEnabled(false);
+			jRadioButtonViaDOM.setSelected(false);
+			jRadioButtonViaXSLT.setSelected(true);			
 
 			jLabelFichierIN.setText("Fichier JSON");
 			jLabelFichierOut.setText("Fichier XML");
@@ -1334,6 +1535,10 @@ public class Gui extends javax.swing.JFrame {
 			jRadioButtonXMLtoJSON.setEnabled(true);
 			jRadioButtonJSONtoXML.setSelected(false);
 			jRadioButtonXMLtoJSON.setSelected(true);
+			jRadioButtonViaDOM.setEnabled(false);
+			jRadioButtonViaXSLT.setEnabled(false);
+			jRadioButtonViaDOM.setSelected(false);
+			jRadioButtonViaXSLT.setSelected(true);
 
 			jLabelFichierIN.setText("Fichier XML");
 			jLabelFichierOut.setText("Fichier JSON");
@@ -1354,6 +1559,10 @@ public class Gui extends javax.swing.JFrame {
 
 			jRadioButtonJSONtoXML.setEnabled(false);
 			jRadioButtonXMLtoJSON.setEnabled(false);
+			jRadioButtonViaDOM.setEnabled(false);
+			jRadioButtonViaXSLT.setEnabled(false);
+			jRadioButtonViaDOM.setSelected(false);
+			jRadioButtonViaXSLT.setSelected(true);
 
 			break;
 		case OUTPUT_XML_JSON:
@@ -1371,6 +1580,30 @@ public class Gui extends javax.swing.JFrame {
 
 			jRadioButtonJSONtoXML.setEnabled(false);
 			jRadioButtonXMLtoJSON.setEnabled(false);
+			jRadioButtonViaDOM.setEnabled(true);
+			jRadioButtonViaXSLT.setEnabled(true);
+			jRadioButtonViaDOM.setSelected(false);
+			jRadioButtonViaXSLT.setSelected(true);
+			break;
+		case OUTPUT_XML_JSON_VIA_DOM:
+			jButtonParcourirIN.setEnabled(false);
+			jButtonValider.setEnabled(false);
+			jTextFieldPathIN.setEnabled(false);
+			jTextFieldPathIN.setEditable(false);
+
+			jButtonParcourirOut.setEnabled(true);
+			jTextFieldPathOut.setEnabled(true);
+			jTextFieldPathOut.setEditable(true);
+			jButtonConvertir.setEnabled(true);
+			jButtonReset.setEnabled(true);
+			jButtonFermer.setEnabled(true);
+
+			jRadioButtonJSONtoXML.setEnabled(false);
+			jRadioButtonXMLtoJSON.setEnabled(false);
+			jRadioButtonViaDOM.setEnabled(true);
+			jRadioButtonViaXSLT.setEnabled(true);
+			jRadioButtonViaDOM.setSelected(true);
+			jRadioButtonViaXSLT.setSelected(false);
 			break;
 		case VIEW_JSON_XML:
 			jButtonParcourirIN.setEnabled(false);
@@ -1387,6 +1620,8 @@ public class Gui extends javax.swing.JFrame {
 
 			jRadioButtonJSONtoXML.setEnabled(false);
 			jRadioButtonXMLtoJSON.setEnabled(false);
+			jRadioButtonViaDOM.setEnabled(false);
+			jRadioButtonViaXSLT.setEnabled(false);
 			break;
 		case VIEW_XML_JSON:
 			jButtonParcourirIN.setEnabled(false);
@@ -1403,6 +1638,8 @@ public class Gui extends javax.swing.JFrame {
 
 			jRadioButtonJSONtoXML.setEnabled(false);
 			jRadioButtonXMLtoJSON.setEnabled(false);
+			jRadioButtonViaDOM.setEnabled(false);
+			jRadioButtonViaXSLT.setEnabled(false);
 			break;
 
 		default:
