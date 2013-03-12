@@ -30,143 +30,162 @@ import dcll.mdrlv.xmltojson.XmlToJsonConverter;
 public class Gui extends javax.swing.JFrame {
 
 	/**
-	 *
+	 * etat: Etat de le fenêtre
 	 */
 	private Etat etat;
 
 	/**
-	 *
+	 * xmlFilter : filtre pour les fichiers en entrée
+	 * utilisé dans le SélecteurDeFichier dans l'état INIT_XML_JSON
 	 */
 	private CustomFileFilter xmlFilter;
 
 	/**
-	 *
+	 * jsonFilter : filtre pour les fichiers en entrée
+	 * utilisé dans le SélecteurDeFichier dans l'état INIT_JSON_XML
 	 */
 	private CustomFileFilter jsonFilter;
 
 	/**
-	 *
+	 * selct : SelecteurDeFichier utilisé par le bouton ParcourirIN
+	 * dans les Etats INIT
 	 */
 	private SelecteurDeFichier selct;
 
 	/**
-	 *
+	 * selctD : SelecteurDeDossier utilisé par le bouton ParcourirOut
+	 * Dans les Etats Out
 	 */
 	private SelecteurDeDossier selctD;
 
 	/**
-	 *
+	 * sync : Object permettant de synchroniser les scrollbar
+	 * des 2 textArea
 	 */
 	private Synchronizer sync;
 
 	/**
-	 *
+	 * xmlConverter : Convertisseur de fichier xml et json
 	 */
 	private XmlToJsonConverter xmlConverter;
+	
+	
+	/**
+	 * jsonConverter : Convertisseur de fichier json en xml
+	 */
 	private JsonToXmlConverter jsonConverter;
 
 	/**
-	 *
+	 * LOOGER : permet d'écrire dans le journal(.log)
 	 */
 	private static Logger LOGGER = Logger.getLogger(Gui.class);
 
 	// Variables declaration - do not modify
 
 	/**
-	 *
+	 * bouton regroupant les 2 radiobouton 
+	 * xml_vers_json / json_vers_xml
 	 */
 	private javax.swing.ButtonGroup buttonGroupSensConverter;
 
 	/**
-	 *
+	 * bouton lançant la convertion du fichier en entré
 	 */
 	private javax.swing.JButton jButtonConvertir;
 
 	/**
-	 *
+	 * bouton permettant de quitter l'application
 	 */
 	private javax.swing.JButton jButtonFermer;
 
 	/**
-	 *
+	 * bouton permettant de chercher un fichier à convertir
 	 */
 	private javax.swing.JButton jButtonParcourirIN;
 
 	/**
-	 *
+	 * bouton permettant de chercher un dossier 
+	 * où envoyer le fichier une fois converti
 	 */
 	private javax.swing.JButton jButtonParcourirOut;
 
 	/**
-	 *
+	 * bouton permettant de nettoyer la fenêtre 
+	 * pour pouvoir effectuer une nouvelle convertion
 	 */
 	private javax.swing.JButton jButtonReset;
 
 	/**
-	 *
+	 * bouton permettant de valider la sélection du fichier en entré
 	 */
 	private javax.swing.JButton jButtonValider;
 
 	/**
-	 *
+	 * Label affichant le type de fichier en entrée
 	 */
 	private javax.swing.JLabel jLabelFichierIN;
 
 	/**
-	 *
+	 * Label affichant le type de fichier en sortie
 	 */
 	private javax.swing.JLabel jLabelFichierOut;
 
 	/**
-	 *
+	 * Panel comptenant les boutons : ParcourirIN, Valider
+	 * et le TextField pathIN
 	 */
 	private javax.swing.JPanel jPanel1;
 
 	/**
-	 *
+	 * Panel comptenant les boutons : ParcourirOut, Convertir
+	 * et le TextField pathOut
 	 */
 	private javax.swing.JPanel jPanel2;
 
 	/**
-	 *
+	 * Radiobouton définissant le sens de conversion JSON -> XML
 	 */
 	private javax.swing.JRadioButton jRadioButtonJSONtoXML;
 
 	/**
-	 *
+	 * RadioBouton définissant le sens de la conversion XML -> JSON
 	 */
 	private javax.swing.JRadioButton jRadioButtonXMLtoJSON;
 
 	/**
-	 *
+	 * ScrollPane comprenant le TextArea1
 	 */
 	private javax.swing.JScrollPane jScrollPane1;
 
 	/**
-	 *
+	 * ScrollPane Comprenant le TextArea2
 	 */
 	private javax.swing.JScrollPane jScrollPane2;
 
 	/**
-	 *
+	 * TextArea permettant d'afficher le fichier en entrée
 	 */
 	private javax.swing.JTextArea jTextArea1;
 
 	/**
-	 *
+	 * TextArea permettant d'afficher le fichier en sortie
 	 */
 	private javax.swing.JTextArea jTextArea2;
 
 	/**
-	 *
+	 * TextField permettant d'afficher l'adresse absolue du fichier en entrée
 	 */
 	private javax.swing.JTextField jTextFieldPathIN;
 
 	/**
-	 *
+	 * TextField permettant d'afficher l'dresse absolue du fichier en sortie
 	 */
 	private javax.swing.JTextField jTextFieldPathOut;
 	
+	/**
+	 * String permettant d'enregistrer les délimiteur de chaque OS
+	 * pour les adresse de fichier/dossier
+	 */
 	private String delimiteur;
 
 	// End of variables declaration
