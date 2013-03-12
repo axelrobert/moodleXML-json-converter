@@ -5,24 +5,30 @@ import java.io.File;
 import javax.swing.filechooser.FileFilter;
 
 /**
- * @author :
+ * @author :Emilien DUBOIS, Romain LECHIEN, Francois MANCIET, Axel ROBERT, David
+ *         VILLARD.
+ *         
+ *         Permet de créer des filtres pour 
+ *         les selecteurs de Fichiers
+ *         et les selecteurs de dossiers.
  *
  */
 public class CustomFileFilter extends FileFilter {
 
     /**
-     *
+     *	description : donne un nom au filtre
      */
     private String description;
 
     /**
-     *
+     * extensions : définis les type de fichiers sélectionnables
      */
     private final String[] extensions;
 
     /**
-     * @param aDescription :
-     * @param extension :
+     * Constructeur
+     * @param aDescription : une description
+     * @param extension : une liste d'extensions
      */
     public CustomFileFilter(final String aDescription, final String extension) {
         this(aDescription, new String[]{extension});
@@ -72,7 +78,7 @@ public class CustomFileFilter extends FileFilter {
     }
 
     /**
-     * @return :
+     * @return : la liste des extensions autorisées
      */
     public final String[] getExtensions() {
         return extensions;

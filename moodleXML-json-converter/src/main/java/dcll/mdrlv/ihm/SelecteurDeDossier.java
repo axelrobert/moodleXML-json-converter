@@ -25,8 +25,8 @@ public class SelecteurDeDossier extends JFileChooser {
 	/**
 	 * Constructeur de la classe SelecteurDeDossier.
 	 *
-	 * @param p :
-	 * @param url :
+	 * @param p : une fenetre Gui parent
+	 * @param url : le chemin d'un dossier
 	 * La fenetre à adapter en fonction du choix de dossier.
 	 */
 	public SelecteurDeDossier(final Gui p, final String url) {
