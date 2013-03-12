@@ -395,6 +395,7 @@ public class XmlToJsonByDOM {
 		indenter();
 		printDocument(doc);
 		afficher("}");
+		this.indent = 1;
 	}
 
 	/**
