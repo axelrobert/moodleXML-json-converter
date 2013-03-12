@@ -395,6 +395,8 @@ public class XmlToJsonByDOM {
 		indenter();
 		printDocument(doc);
 		afficher("}");
+		this.out.flush();
+		this.out.close();
 		this.indent = 1;
 	}
 
@@ -408,6 +410,7 @@ public class XmlToJsonByDOM {
 			afficherNoeud(node);
 			choixSymboleDebut(node);
 			afficherAttributs(node);
+			afficherValeur(node);
 		}
 		traiterFils(node);
 		if (!node.getNodeName().contains("#")) {
