@@ -6,20 +6,25 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
-import dcll.mdrlv.tools.OS;
-
 import org.apache.log4j.Logger;
 
 /**
  * @author :
  *
  */
-public class Tools {
+public final class Tools {
 
 	/**
 	 *
 	 */
 	protected static final Logger LOGGER = Logger.getLogger(Tools.class);
+
+	/**
+	 * Constructeur privé.
+	 */
+	private Tools() {
+
+	}
 
 	/**
 	 * @param chaine

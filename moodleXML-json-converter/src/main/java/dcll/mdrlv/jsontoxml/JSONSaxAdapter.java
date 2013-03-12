@@ -36,9 +36,9 @@ import org.xml.sax.helpers.AttributesImpl;
 
 /**
  * Converts JSON to SAX events. It can be used either directly
- *	ContentHandler ch = ...;
- *	JsonSaxAdapter adapter = new JsonSaxAdapter(
- *			JsonSaxAdapterTest.JSON, ch);
+ * ContentHandler ch = ...;
+ * JsonSaxAdapter adapter = new JsonSaxAdapter(
+ *		JsonSaxAdapterTest.JSON, ch);
  *	adapter.parse();
  *  or using {@link JsonXmlReader}
  *	Transformer transformer = TransformerFactory.
@@ -174,7 +174,7 @@ public class JSONSaxAdapter {
     		JsonParseException,
     		Exception {
         int elementsWritten = 0;
-        while (jsonParser.nextToken() !=null
+        while (jsonParser.nextToken() != null
         		&& jsonParser.getCurrentToken() != END_OBJECT) {
             if (FIELD_NAME.equals(jsonParser.getCurrentToken())) {
                 String elementName = jsonParser.getCurrentName();

@@ -4,12 +4,12 @@ package dcll.mdrlv.ihm;
  * @author :
  *
  */
-public class Test {
+public final class Test {
 
-	/**
-	 * Constructeur
-	 */
-	public Test() {
+    /**
+     * Constructeur privé.
+     */
+	private Test() {
 
 	}
 
@@ -18,7 +18,6 @@ public class Test {
 	 */
 	public static void main(final String[] args) {
 		// TODO Auto-generated method stub
-	Gui g = new Gui();
 
 	java.awt.EventQueue.invokeLater(new Runnable() {
         public void run() {

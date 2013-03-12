@@ -10,10 +10,10 @@ import dcll.mdrlv.tools.FileConformity;
  */
 public abstract class WebStandardConverter {
 
-	/**
+    /**
 	 *
 	 */
-	protected static Logger lOGGER;
+	private static Logger lOGGER;
 
 	/**
 	 * @param log :

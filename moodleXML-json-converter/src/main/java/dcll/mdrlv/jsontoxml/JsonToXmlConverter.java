@@ -14,6 +14,7 @@ import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.sax.SAXSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.apache.log4j.Logger;
 import org.jdom2.Document;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
@@ -27,7 +28,7 @@ import dcll.mdrlv.tools.Tools;
 
 /**
  * @author :
- * 
+ *
  */
 public class JsonToXmlConverter extends WebStandardConverter {
 
@@ -49,12 +50,16 @@ public class JsonToXmlConverter extends WebStandardConverter {
 	 *            :
 	 * @return :
 	 */
-	public final String convertJsonStringToCompactedXmlString(final String json) {
+	public final String convertJsonStringToCompactedXmlString(
+			final String json) {
 		final ByteArrayOutputStream out = new ByteArrayOutputStream();
 		Transformer transformer = null;
 		boolean ok = true;
+		Logger lOGGER = super.getlOGGER();
 		try {
-			transformer = TransformerFactory.newInstance().newTransformer();
+			transformer =
+					TransformerFactory.newInstance().
+					newTransformer();
 		} catch (TransformerConfigurationException e1) {
 			// TODO Auto-generated catch block
 			lOGGER.error("Instanciation de la transformation");
@@ -62,7 +67,8 @@ public class JsonToXmlConverter extends WebStandardConverter {
 			// TODO Auto-generated catch block
 			lOGGER.error("TransformerFactoryConfigurations");
 		}
-		final InputSource source = new InputSource(new StringReader(json));
+		final InputSource source =
+				new InputSource(new StringReader(json));
 		final Result result = new StreamResult(out);
 		final JSONXmlReader reader = new JSONXmlReader("", false);
 		final SAXSource sax = new SAXSource(reader, source);
@@ -108,17 +114,22 @@ public class JsonToXmlConverter extends WebStandardConverter {
 	public final boolean accordanceWithStandard(final File file) {
 		// TODO Auto-generated method stub
 		final String json = Tools.readStringFromFile(file);
-		return (!convertJsonStringToCompactedXmlString(json).contentEquals(
-				error));
+		return (!convertJsonStringToCompactedXmlString(json).
+				contentEquals(error));
 	}
 
 	@Override
 	public final int convert(final String inputFileUri,
 			final String outputFileUri) {
 		// TODO Auto-generated method stub
-		final String text = Tools.readStringFromFile(new File(inputFileUri));
-		final String output = convertJsonStringToCompactedXmlString(text);
+		final String text =
+				Tools.readStringFromFile(
+						new File(inputFileUri));
+		final String output =
+				convertJsonStringToCompactedXmlString(text);
 		Tools.writeStringIntoFile(output, outputFileUri);
+		Logger lOGGER = super.getlOGGER();
+
 		final SAXBuilder saxBuilder = new SAXBuilder();
 		Document doc = null;
 
@@ -147,6 +158,8 @@ public class JsonToXmlConverter extends WebStandardConverter {
 		JsonToXmlConverter converter = new JsonToXmlConverter();
 		String testPath = "ressources/exemple.json";
 		File testFile = new File(testPath);
+		Logger lOGGER = converter.getlOGGER();
+
 		boolean validate = converter.accordanceWithStandard(testFile);
 		lOGGER.info(testPath + " is a " + validate + " json file.");
 		validate = converter.accordanceWithMoodleStandard(testFile);

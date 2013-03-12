@@ -5,14 +5,14 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-
 /**
- * @author Fran�ois Manciet
+ * @author Francois Manciet
  *
  */
 public class XmlToJsonByDOM {
@@ -28,6 +28,11 @@ public class XmlToJsonByDOM {
 	private BufferedWriter out;
 
 	/**
+	 * lOGGER : logger de la classe.
+	 */
+	private static Logger lOGGER;
+
+	/**
 	 * @param output : chemin du fichier Json a creer
 	 * @param doc : document en entree, utilise par le parser
 	 * Constructeur
@@ -37,9 +42,24 @@ public class XmlToJsonByDOM {
 			this.out = new BufferedWriter(new FileWriter(
 					new File(output)));
 			this.indent = 1;
+			lOGGER = Logger.getLogger(XmlToJsonByDOM.class);
 		} catch (IOException e) {
-			System.out.println("Fichier non trouv�!!");
+			lOGGER.warn("Fichier non trouve!!");
 		}
+	}
+
+	/**
+	 * @param log :
+	 */
+	public final void setlOGGER(final Logger log) {
+		lOGGER = log;
+	}
+
+	/**
+	 * @return :
+	 */
+	public final Logger getlOGGER() {
+		return lOGGER;
 	}
 
 	/**

@@ -7,7 +7,7 @@ package dcll.mdrlv.ihm;
  */
 
 public enum Etat {
-	/**Liste des différents états de l'application.
+	/** Liste des différents états de l'application.
 	 * INIT_XML_JSON :
  	 * Etat initial d'une conversion XML to JSON
 	 */

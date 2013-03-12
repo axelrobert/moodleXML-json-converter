@@ -34,8 +34,8 @@ import org.xml.sax.XMLReader;
 /**
  * Helper class that can be used for JSON -> XML transformation.
  * <pre>
- * Transformer transformer = 
- * 		TransformerFactory.newInstance()
+ * Transformer transformer =
+ * 	TransformerFactory.newInstance()
  *		.newTransformer();
  *	InputSource source = new InputSource(...);
  *	Result result = ...;
@@ -43,12 +43,9 @@ import org.xml.sax.XMLReader;
  *		namespace),source), result);
  * </pre>
  */
+
 /**
- * @author Pierre
- *
- */
-/**
- * @author Pierre
+ * @author :
  *
  */
 public class JSONXmlReader implements XMLReader {

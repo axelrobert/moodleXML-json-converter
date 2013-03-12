@@ -1,7 +1,6 @@
 package dcll.mdrlv.ihm;
 
 import java.io.File;
-import java.net.MalformedURLException;
 
 import javax.swing.JFileChooser;
 

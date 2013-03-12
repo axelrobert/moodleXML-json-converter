@@ -18,6 +18,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
+import org.apache.log4j.Logger;
 import org.jdom2.Attribute;
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -90,6 +91,7 @@ public class XmlToJsonConverter extends WebStandardConverter {
 			final File xsdFile) {
 		//Création d'un schéma XML (XSD) factory
 		XMLReaderJDOMFactory schemafac = null;
+		Logger lOGGER = super.getlOGGER();
 		try {
 			schemafac = new XMLReaderXSDFactory(xsdFile);
 		} catch (JDOMException e) {
@@ -135,6 +137,7 @@ public class XmlToJsonConverter extends WebStandardConverter {
 	public final boolean accordanceWithMoodleXML(final File file) {
 		 //On crée une instance de SAXBuilder
 	      SAXBuilder sxb = new SAXBuilder();
+	      Logger lOGGER = super.getlOGGER();
 
 	      try {
 	         //On crée un nouveau document JDOM
@@ -239,9 +242,10 @@ public class XmlToJsonConverter extends WebStandardConverter {
 	 * @param file :
 	 * @return :
 	 */
-	public static final org.w3c.dom.Document accordanceWithXML(
+	public final org.w3c.dom.Document accordanceWithXML(
 			final File file) {
 		org.w3c.dom.Document outputDoc = null;
+		Logger lOGGER = super.getlOGGER();
 		//On crée une nouvelle instance d'un Document factory
 		final DocumentBuilderFactory dbfact =
 				DocumentBuilderFactory.newInstance();
@@ -290,6 +294,8 @@ public class XmlToJsonConverter extends WebStandardConverter {
 		//On crée une nouvelle instance de Transformer factory
 		TransformerFactory transfact =
 				TransformerFactory.newInstance();
+		Logger lOGGER = super.getlOGGER();
+
 		//A partir de cette factory on créer une nouvelle instance
 		//de la classe Transformer avec en paramètre le XSLT
 		Transformer transformer = null;
@@ -375,6 +381,7 @@ public class XmlToJsonConverter extends WebStandardConverter {
 			TransformerException, SAXException {
 		XmlToJsonConverter converter =
 				new XmlToJsonConverter("xmltojsonml.xslt");
+		Logger lOGGER = converter.getlOGGER();
 		if (converter.fileValidation(new File(
 				"ressources/exemple-moodle.xml"))
 				== FileConformity.OK) {
