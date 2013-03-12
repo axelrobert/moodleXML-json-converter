@@ -74,7 +74,7 @@ public class CustomFileFilter extends FileFilter {
     /**
      * @return :
      */
-    public final String[] getExtensions(){
+    public final String[] getExtensions() {
         return extensions;
     }
 

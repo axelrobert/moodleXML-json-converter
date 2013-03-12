@@ -6,12 +6,13 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+import dcll.mdrlv.tools.OS;
 
 import org.apache.log4j.Logger;
 
 /**
  * @author :
- * 
+ *
  */
 public class Tools {
 
@@ -84,33 +85,54 @@ public class Tools {
 		return text;
 	}
 
+	/**
+	 * @return :
+	 */
 	public static OS determineOS() {
-		String os_name = System.getProperty("os.name").toLowerCase();
+		String osName =
+				System.getProperty("os.name").toLowerCase();
 		OS osOfUser = null;
-		if (isWindows(os_name)) {
+		if (isWindows(osName)) {
 			osOfUser = OS.WINDOWS_OS;
-		} else if (isMac(os_name)) {
+		} else if (isMac(osName)) {
 			osOfUser = OS.MAC_OS;
-		} else if (isUnix(os_name) || isSolaris(os_name)) {
+		} else if (isUnix(osName) || isSolaris(osName)) {
 			osOfUser = OS.UNIX_OS;
 		}
 		return osOfUser;
 	}
 
-	public static boolean isWindows(String os) {
+	/**
+	 * @param os :
+	 * @return :
+	 */
+	public static boolean isWindows(final String os) {
 		return (os.indexOf("win") >= 0);
 	}
 
-	public static boolean isMac(String os) {
+	/**
+	 * @param os :
+	 * @return :
+	 */
+	public static boolean isMac(final String os) {
 		return (os.indexOf("mac") >= 0);
 	}
 
-	public static boolean isUnix(String os) {
-		return (os.indexOf("nix") >= 0 || os.indexOf("nux") >= 0 || os
-				.indexOf("aix") > 0);
+	/**
+	 * @param os :
+	 * @return :
+	 */
+	public static boolean isUnix(final String os) {
+		return (os.indexOf("nix") >= 0
+				|| os.indexOf("nux") >= 0
+				|| os.indexOf("aix") > 0);
 	}
 
-	public static boolean isSolaris(String os) {
+	/**
+	 * @param os :
+	 * @return :
+	 */
+	public static boolean isSolaris(final String os) {
 		return (os.indexOf("sunos") >= 0);
 	}
 

@@ -1,13 +1,7 @@
 package dcll.mdrlv;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
-
-import javax.xml.transform.TransformerException;
-
 import org.apache.log4j.Logger;
-
 import dcll.mdrlv.tools.FileConformity;
 
 /**
@@ -20,6 +14,20 @@ public abstract class WebStandardConverter {
 	 *
 	 */
 	protected static Logger lOGGER;
+
+	/**
+	 * @param log :
+	 */
+	public final void setlOGGER(final Logger log) {
+		lOGGER = log;
+	}
+
+	/**
+	 * @return :
+	 */
+	public final Logger getlOGGER() {
+		return lOGGER;
+	}
 
 	/**
 	 *

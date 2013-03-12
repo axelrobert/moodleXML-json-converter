@@ -36,8 +36,6 @@ import org.xml.sax.helpers.AttributesImpl;
 
 /**
  * Converts JSON to SAX events. It can be used either directly
- *  <pre>
- *  <code>
  *	ContentHandler ch = ...;
  *	JsonSaxAdapter adapter = new JsonSaxAdapter(
  *			JsonSaxAdapterTest.JSON, ch);
@@ -338,6 +336,9 @@ public class JSONSaxAdapter {
     private class DocumentLocator implements Locator {
 
 
+    	/**
+    	 * @return :
+    	 */
         public String getPublicId() {
             Object sourceRef = jsonParser.getCurrentLocation().getSourceRef();
             if (sourceRef != null) {
@@ -348,18 +349,24 @@ public class JSONSaxAdapter {
         }
 
 
-        /* (non-Javadoc)
-         * @see org.xml.sax.Locator#getSystemId() :
+        /**
+         * @return :
          */
         public String getSystemId() {
             return getPublicId();
         }
 
+        /**
+         * @return :
+         */
         public int getLineNumber() {
             return jsonParser.getCurrentLocation() != null
             		? jsonParser.getCurrentLocation().getLineNr() : -1;
         }
 
+        /**
+         * @return :
+         */
         public int getColumnNumber() {
             return jsonParser.getCurrentLocation() != null
             		? jsonParser.getCurrentLocation().getColumnNr() : -1;

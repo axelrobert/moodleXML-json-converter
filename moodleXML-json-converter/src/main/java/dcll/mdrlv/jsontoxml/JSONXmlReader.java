@@ -1,3 +1,5 @@
+package dcll.mdrlv.jsontoxml;
+
 /*
  * Copyright 2011 the original author or authors.
  *
@@ -13,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dcll.mdrlv.jsontoxml;
+
 
 import java.io.IOException;
 
@@ -32,13 +34,22 @@ import org.xml.sax.XMLReader;
 /**
  * Helper class that can be used for JSON -> XML transformation.
  * <pre>
- *	Transformer transformer = TransformerFactory.newInstance()
+ * Transformer transformer = 
+ * 		TransformerFactory.newInstance()
  *		.newTransformer();
  *	InputSource source = new InputSource(...);
  *	Result result = ...;
  *	transformer.transform(new SAXSource(new JsonXmlReader(
  *		namespace),source), result);
  * </pre>
+ */
+/**
+ * @author Pierre
+ *
+ */
+/**
+ * @author Pierre
+ *
  */
 public class JSONXmlReader implements XMLReader {
 

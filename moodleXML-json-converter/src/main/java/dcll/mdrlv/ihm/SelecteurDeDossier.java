@@ -25,7 +25,8 @@ public class SelecteurDeDossier extends JFileChooser {
 	/**
 	 * Constructeur de la classe SelecteurDeDossier.
 	 *
-	 * @param p
+	 * @param p :
+	 * @param url :
 	 * La fenetre à adapter en fonction du choix de dossier.
 	 */
 	public SelecteurDeDossier(final Gui p, final String url) {
@@ -37,7 +38,6 @@ public class SelecteurDeDossier extends JFileChooser {
 		this.setAcceptAllFileFilterUsed(false);
 		this.setVisible(true);
 		this.setCurrentDirectory(new File(url));
-		
 		this.handlerSelecteurDeFichiers();
 	}
 
