@@ -10,13 +10,13 @@ import java.util.Scanner;
 import org.apache.log4j.Logger;
 
 /**
- * @author :
+ * @author : Axel Robert
  *
  */
 public final class Tools {
 
     /**
-     *
+     * Un logger.
      **/
     private static final Logger LOGGER = Logger.getLogger(Tools.class);
 
@@ -28,10 +28,10 @@ public final class Tools {
     }
 
     /**
-    * @param chaine
-    *            :
-    * @param pathname
-    *            :
+    * @param chaine : chaîne à écrire dans le ficher
+    *
+    * @param pathname : path du fichier
+    *
     */
     public static void writeStringIntoFile(final String chaine,
         final String pathname) {
@@ -73,8 +73,8 @@ public final class Tools {
 	}
 
 	/**
-	 * @param file :
-	 * @return :
+	 * @param file : fichier à lire
+	 * @return : le contenu du fichier sous forme de chaîne
 	 */
 	public static String readStringFromFile(final File file) {
 		Scanner scan = null;
@@ -91,7 +91,7 @@ public final class Tools {
 	}
 
 	/**
-	 * @return :
+	 * @return : un enum correspondant à l'OS
 	 */
 	public static OS determineOS() {
 		final String osName =
@@ -108,24 +108,24 @@ public final class Tools {
 	}
 
 	/**
-	 * @param oSystem :
-	 * @return :
+	 * @param oSystem : chaîne contenant le nom de l'OS
+	 * @return : boolean, true si c'est Windows, false sinon
 	 */
 	public static boolean isWindows(final String oSystem) {
 		return (oSystem.indexOf("win") >= 0);
 	}
 
 	/**
-	 * @param oSystem :
-	 * @return :
+	 * @param oSystem : chaîne contenant le nom de l'OS
+	 * @return : boolean, true si c'est Mac, false sinon
 	 */
 	public static boolean isMac(final String oSystem) {
 		return (oSystem.indexOf("mac") >= 0);
 	}
 
 	/**
-	 * @param oSystem :
-	 * @return :
+	 * @param oSystem : chaîne contenant le nom de l'OS
+	 * @return : boolean, true si c'est Unix, false sinon
 	 */
 	public static boolean isUnix(final String oSystem) {
 		return (oSystem.indexOf("nix") >= 0
@@ -134,8 +134,8 @@ public final class Tools {
 	}
 
 	/**
-	 * @param oSystem :
-	 * @return :
+	 * @param oSystem : chaîne contenant le nom de l'OS
+	 * @return : boolean, true si c'est Solaris, false sinon
 	 */
 	public static boolean isSolaris(final String oSystem) {
 		return (oSystem.indexOf("sunos") >= 0);

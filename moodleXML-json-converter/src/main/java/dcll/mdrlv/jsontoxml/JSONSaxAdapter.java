@@ -82,7 +82,7 @@ public class JSONSaxAdapter {
 
 
     /**
-     * @param json :
+     * @param json : un string json
      * @param aContentHandler :
      */
     public JSONSaxAdapter(final String json,
@@ -92,7 +92,7 @@ public class JSONSaxAdapter {
 
 
     /**
-     * @param aJsonParser :
+     * @param aJsonParser : le paser json
      * @param aContentHandler :
      */
     public JSONSaxAdapter(final JsonParser aJsonParser,
@@ -101,7 +101,7 @@ public class JSONSaxAdapter {
     }
 
     /**
-     * @param aJsonParser :
+     * @param aJsonParser : le parser json
      * @param aContentHandler :
      * @param aNamespaceUri :
      */
@@ -112,7 +112,7 @@ public class JSONSaxAdapter {
     }
 
     /**
-     * @param aJsonParser :
+     * @param aJsonParser : le parser json
      * @param aContentHandler :
      * @param aNamespaceUri :
      * @param aAddTypeAttributes :
@@ -130,7 +130,7 @@ public class JSONSaxAdapter {
 
 
     /**
-     * @param json :
+     * @param json : un string json
      * @return :
      */
     private static JsonParser parseJson(final String json) {

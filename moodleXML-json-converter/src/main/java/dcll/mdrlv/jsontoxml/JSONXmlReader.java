@@ -45,7 +45,7 @@ import org.xml.sax.XMLReader;
  */
 
 /**
- * @author :
+ *
  *
  */
 public class JSONXmlReader implements XMLReader {

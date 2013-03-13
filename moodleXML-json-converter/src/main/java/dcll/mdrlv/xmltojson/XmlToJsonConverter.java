@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.Iterator;
 import java.util.List;
 
@@ -38,11 +37,10 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
 import dcll.mdrlv.WebStandardConverter;
-import dcll.mdrlv.tools.FileConformity;
 import dcll.mdrlv.tools.Tools;
 
 /**
- * @author :
+ * @author : Axel Robert, David Villard
  *
  */
 public class XmlToJsonConverter extends WebStandardConverter {
@@ -70,7 +68,7 @@ public class XmlToJsonConverter extends WebStandardConverter {
 	/**
 	 * Logger lOGGER.
 	 */
-	private Logger lOGGER;
+	private final Logger lOGGER;
 	/**
 	 * @param chaine : le nom du fichier XSLT
 	 */
@@ -309,6 +307,7 @@ public class XmlToJsonConverter extends WebStandardConverter {
 	}
 
 
+	@Override
 	public final boolean accordanceWithStandard(final File file) {
 			//Appel à la méthode accordanceWithXML pour
 			//vérifier que le fichier est bien au format XML
@@ -355,6 +354,7 @@ public class XmlToJsonConverter extends WebStandardConverter {
 		return retour;
 	}
 
+	@Override
 	public final int convert(final String inputFileUri,
 			final String outputFileUri) {
 
@@ -400,7 +400,7 @@ public class XmlToJsonConverter extends WebStandardConverter {
 
 
 	/**
-	 * @return :
+	 * @return : le fichier temporaire question.xml
 	 */
 	public final File getXMLFile() {
 		return this.xmlFile;

@@ -1,7 +1,7 @@
 package dcll.mdrlv.tools;
 
 /**
- * @author :
+ * @author : Axel Robert
  *
  */
 public enum OS {

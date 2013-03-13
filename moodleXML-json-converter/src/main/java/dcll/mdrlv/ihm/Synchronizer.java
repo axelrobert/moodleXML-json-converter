@@ -22,8 +22,8 @@ class Synchronizer implements AdjustmentListener {
     private final JScrollBar vertical1, horizon1, vertical2, horizon2;
 
     /**
-     * @param sp1 :
-     * @param sp2 :
+     * @param sp1 : JScrollPane
+     * @param sp2 : JScrollPane
      * Constructeur : Synchronise* les deux scollPane sp1 et sp2
      */
     public Synchronizer(final JScrollPane sp1, final JScrollPane sp2) {
@@ -34,7 +34,7 @@ class Synchronizer implements AdjustmentListener {
     }
 
     /**
-     * @param pEvent :
+     * @param pEvent : AdjustmentEvent
      */
     public void adjustmentValueChanged(final AdjustmentEvent pEvent) {
         final JScrollBar scrollBar = (JScrollBar) pEvent.getSource();

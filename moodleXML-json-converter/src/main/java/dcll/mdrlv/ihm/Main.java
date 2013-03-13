@@ -6,15 +6,15 @@ import javax.swing.UnsupportedLookAndFeelException;
 import org.apache.log4j.Logger;
 
 /**
- * @author :
+ * @author : Emilien Dubois, Romain Lechien
  */
-public final class Test {
+public final class Main {
 
 	/**
 	 * Constructeur public.
 	 */
-	public Test() {
-		final Logger logger = Logger.getLogger(Test.class);
+	public Main() {
+		final Logger logger = Logger.getLogger(Main.class);
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -43,6 +43,6 @@ public final class Test {
 	 */
 	public static void main(final String[] args) {
 		// TODO Auto-generated method stub
-		new Test();
+		new Main();
 	}
 }

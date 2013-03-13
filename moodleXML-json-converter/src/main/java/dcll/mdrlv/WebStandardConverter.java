@@ -13,7 +13,7 @@ import dcll.mdrlv.tools.FileConformity;
 public abstract class WebStandardConverter {
 
     /**
-	 *
+	 * Un logger.
 	 */
 	private static Logger lOGGER;
 
@@ -76,7 +76,7 @@ public abstract class WebStandardConverter {
     /**
      * @param inputFileUri : URL du fichier en entrée
      * @param outputFileUri : URL du fichier en sortie
-     * @return :
+     * @return : integer
 
      */
     public abstract int convert(final String inputFileUri,
