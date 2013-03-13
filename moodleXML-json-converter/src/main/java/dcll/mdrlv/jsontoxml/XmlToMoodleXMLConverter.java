@@ -321,7 +321,7 @@ public class XmlToMoodleXMLConverter {
 						this.buff = new BufferedWriter(
 								new FileWriter(
 										new File(output)));
-					    afficher("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+					    afficher("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
 						printDocument(doc);
 						this.buff.flush();
 						this.buff.close();
