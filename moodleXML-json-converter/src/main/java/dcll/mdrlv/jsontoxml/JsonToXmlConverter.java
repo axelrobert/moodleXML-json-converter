@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.List;
 
 import javax.xml.transform.Result;
 import javax.xml.transform.Transformer;
@@ -16,6 +17,7 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.apache.log4j.Logger;
 import org.jdom2.Document;
+import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
@@ -31,18 +33,28 @@ import dcll.mdrlv.tools.Tools;
  *
  */
 public class JsonToXmlConverter extends WebStandardConverter {
-
 	/**
 	 * String error.
 	 */
 	private final String error;
 
 	/**
+	 * String tempPath.
+	 */
+	private final String tempPath;
+	/**
+	 * Logger lOGGER.
+	 */
+	private final Logger lOGGER;
+	/**
 	 * Constructeur.
 	 */
+
 	public JsonToXmlConverter() {
 		super();
 		error = "error";
+		tempPath = "ressources/temp.xml";
+		lOGGER = super.getlOGGER();
 	}
 
 	/**
@@ -55,7 +67,6 @@ public class JsonToXmlConverter extends WebStandardConverter {
 		final ByteArrayOutputStream out = new ByteArrayOutputStream();
 		Transformer transformer = null;
 		boolean ok = true;
-		Logger lOGGER = super.getlOGGER();
 		try {
 			transformer =
 					TransformerFactory.newInstance().
@@ -92,15 +103,44 @@ public class JsonToXmlConverter extends WebStandardConverter {
 
 
 	@Override
-	public final boolean accordanceWithMoodleStandard(final File file) {
-		// On pensait, pour tester si le JSON du fichier était conforme
-		// à la norme MOODLE, le traduire en XML puis appeler la méthode
-		// de conformormité du MOODLE XML.
-		// Or force est de constater que le passage
-		// de JSON vers XML supprime
-		// tous les attributs pour les représenter sous forme de balises
-		return true;
-
+	public final boolean accordanceWithMoodleStandard(final
+			File file) {
+		boolean success = true;
+		final String compactedXML =
+				convertJsonStringToCompactedXmlString(
+						Tools.readStringFromFile(file));
+		Tools.writeStringIntoFile(compactedXML, tempPath);
+		final File temp = new File(tempPath);
+		//On crée une instance de SAXBuilder
+	      final SAXBuilder sxb = new SAXBuilder();
+	      Document document = null;
+	      try {
+	         //On crée un nouveau document JDOM
+	    	  //avec en argument le fichier XML
+	         //Le parsing est terminé ;)
+	    	 document = sxb.build(temp);
+	      } catch (Exception e) {
+	    	  lOGGER.error("Erreur lors de la creation du JDOM");
+	    	  success = false;
+	      }
+	      if (success) {
+		      //On initialise un nouvel élément racine
+		      //avec l'élément racine du document.
+		      Element racine = document.getRootElement();
+		      //On crée une List contenant tous les noeuds "question"
+		      //de l'Element racine
+		      List<Element> list = racine.getChildren("question");
+		      //Si la racine n'est pas de type quiz ou
+		      // si il n'y a aucune balise de type question
+		      // Alors le fichier en entrée ne peut etre du MOODLE XML.
+		      // Inutile de continuer le test
+		     if (!racine.getName().contentEquals("quiz")
+		    		  || list.size() ==  0) {
+		    	success = false;
+		      }
+		  }
+	    temp.delete();
+		return success;
 	}
 
 	@Override
@@ -113,50 +153,35 @@ public class JsonToXmlConverter extends WebStandardConverter {
 	@Override
 	public final int convert(final String inputFileUri,
 			final String outputFileUri) {
+		boolean success = false;
 		final String text =
 				Tools.readStringFromFile(
 						new File(inputFileUri));
 		final String output =
 				convertJsonStringToCompactedXmlString(text);
-		Tools.writeStringIntoFile(output, outputFileUri);
-		Logger lOGGER = super.getlOGGER();
+		Tools.writeStringIntoFile(output, tempPath);
 
 		final SAXBuilder saxBuilder = new SAXBuilder();
 		Document doc = null;
-
+		final File temp = new File(tempPath);
 		try {
-			doc = saxBuilder.build(outputFileUri);
+			doc = saxBuilder.build(temp);
+			success = true;
 		} catch (JDOMException e) {
 			lOGGER.error("JDOM Exception");
-			return -1;
 		} catch (IOException e) {
 			lOGGER.error("IO Exception");
-			return -1;
 		}
-		final XMLOutputter xmlOutputter = new XMLOutputter(
-				Format.getPrettyFormat());
-		final String xmlIndent = xmlOutputter.outputString(doc);
-		Tools.writeStringIntoFile(xmlIndent, outputFileUri);
-
+		temp.delete();
+		if (success) {
+			final XMLOutputter xmlOutputter = new XMLOutputter(
+					Format.getPrettyFormat());
+			final String xmlIndent = xmlOutputter.outputString(doc);
+			Tools.writeStringIntoFile(xmlIndent, tempPath);
+			new XmlToMoodleXMLConverter().convertXMLtoMoodleXML(
+					tempPath, outputFileUri);
+		}
 		return 0;
 	}
 
-	/**
-	 * @param args
-	 *            :
-	 */
-	public static void main(final String[] args) {
-		JsonToXmlConverter converter = new JsonToXmlConverter();
-		String testPath = "ressources/examples/rightmoodlejson.json";
-		File testFile = new File(testPath);
-		Logger lOGGER = converter.getlOGGER();
-
-		boolean validate = converter.accordanceWithStandard(testFile);
-		lOGGER.info(testPath + " is a " + validate + " json file.");
-		validate = converter.accordanceWithMoodleStandard(testFile);
-		lOGGER.info(testPath + " is a " + validate + " moodle file.");
-		if (validate) {
-			converter.convert(testPath, "results/output.xml");
-		}
-	}
 }
