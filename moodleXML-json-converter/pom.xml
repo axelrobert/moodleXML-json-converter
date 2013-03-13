@@ -67,5 +67,19 @@
 		    <version>20130213</version>
 		</dependency>
 	</dependencies>
-
+    
+    <reporting>
+	<plugins>
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-checkstyle-plugin</artifactId>
+			<version>2.10</version>
+			<configuration>
+				<configLocation>checkstyle.xml</configLocation>
+				<suppressionsLocation>checkstyle-suppressions.xml</suppressionsLocation>
+				<suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
+			</configuration>
+		</plugin>
+	</plugins>
+    </reporting>
 </project>
