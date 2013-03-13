@@ -1396,7 +1396,7 @@ public class Gui extends javax.swing.JFrame {
 	 * Methode permettant de changer le zone 
 	 * de texte d'entrée pour afficher le chemin
 	 * @param s
-	 * Le chemin absolu du fichier choisi
+	 * Le chemin absolu du fichier choisi en sortie
 	 */
 	public final void setPathOut(final String s) {
 
@@ -1404,6 +1404,20 @@ public class Gui extends javax.swing.JFrame {
 				jTextFieldPathIN.getText().
 					lastIndexOf(delimiteur),
 				jTextFieldPathIN.getText().lastIndexOf("."));
+		String extend ="";
+		switch (etat) {
+		case OUTPUT_XML_JSON:
+		case OUTPUT_XML_JSON_VIA_DOM:
+			extend = ".json";
+			break;
+		case OUTPUT_JSON_XML:
+			extend = ".xml";
+			break;
+		default:
+			break;
+		}
+		
+		fichier += extend;
 		jTextFieldPathOut.setText(s.concat(fichier));
 	}
 
