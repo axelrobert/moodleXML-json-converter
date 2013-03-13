@@ -29,15 +29,14 @@ import dcll.mdrlv.jsontoxml.JSONSaxAdapter.ParserException;
 import dcll.mdrlv.tools.Tools;
 
 /**
- * @author :
+ * @author : Robert Axel, Villard David
  *
  */
 public class JsonToXmlConverter extends WebStandardConverter {
-	/**
+	/**.
 	 * String error.
 	 */
 	private final String error;
-
 	/**
 	 * String tempPath.
 	 */
@@ -45,9 +44,9 @@ public class JsonToXmlConverter extends WebStandardConverter {
 	/**
 	 * Logger lOGGER.
 	 */
-	private final Logger lOGGER;
+	private  Logger lOGGER;
 	/**
-	 * Constructeur.
+	 * @Constructeur.
 	 */
 
 	public JsonToXmlConverter() {
@@ -58,6 +57,19 @@ public class JsonToXmlConverter extends WebStandardConverter {
 	}
 
 	/**
+	 * @return : chaine erreur
+	 */
+	public final String getError() {
+		return error;
+	}
+	/**.
+	 * @return : adresse du fichier temporaire
+	 * utilisée pour les transformations
+	 */
+	public final String getTempPath() {
+		return tempPath;
+	}
+	/**
 	 * @param json : un string contenant du JSON
 	 *
 	 * @return : XML String, null sinon
@@ -66,7 +78,7 @@ public class JsonToXmlConverter extends WebStandardConverter {
 			final String json) {
 		final ByteArrayOutputStream out = new ByteArrayOutputStream();
 		Transformer transformer = null;
-		boolean ok = true;
+		boolean successExecution = true;
 		try {
 			transformer =
 					TransformerFactory.newInstance().
@@ -86,14 +98,14 @@ public class JsonToXmlConverter extends WebStandardConverter {
 			try {
 				transformer.transform(sax, result);
 			} catch (TransformerException e) {
-				ok = false;
+				successExecution = false;
 				lOGGER.error("TransformerException");
 			}
 		} catch (ParserException e) {
-			ok = false;
+			successExecution = false;
 			lOGGER.error("ParserException");
 		}
-		if (ok) {
+		if (successExecution) {
 			output = new String(out.toByteArray());
 		} else {
 			output = error;
@@ -105,7 +117,7 @@ public class JsonToXmlConverter extends WebStandardConverter {
 	@Override
 	public final boolean accordanceWithMoodleStandard(final
 			File file) {
-		boolean success = true;
+		boolean successExecution = true;
 		final String compactedXML =
 				convertJsonStringToCompactedXmlString(
 						Tools.readStringFromFile(file));
@@ -121,26 +133,26 @@ public class JsonToXmlConverter extends WebStandardConverter {
 	    	 document = sxb.build(temp);
 	      } catch (Exception e) {
 	    	  lOGGER.error("Erreur lors de la creation du JDOM");
-	    	  success = false;
+	    	  successExecution = false;
 	      }
-	      if (success) {
+	      if (successExecution) {
 		      //On initialise un nouvel élément racine
 		      //avec l'élément racine du document.
-		      Element racine = document.getRootElement();
+		      final Element racine = document.getRootElement();
 		      //On crée une List contenant tous les noeuds "question"
 		      //de l'Element racine
-		      List<Element> list = racine.getChildren("question");
+		      final List<Element> list = racine.getChildren("question");
 		      //Si la racine n'est pas de type quiz ou
 		      // si il n'y a aucune balise de type question
 		      // Alors le fichier en entrée ne peut etre du MOODLE XML.
 		      // Inutile de continuer le test
 		     if (!racine.getName().contentEquals("quiz")
-		    		  || list.size() ==  0) {
-		    	success = false;
+		    		  || list.isEmpty()) {
+		    	successExecution = false;
 		      }
 		  }
 	    temp.delete();
-		return success;
+		return successExecution;
 	}
 
 	@Override
@@ -153,7 +165,7 @@ public class JsonToXmlConverter extends WebStandardConverter {
 	@Override
 	public final int convert(final String inputFileUri,
 			final String outputFileUri) {
-		boolean success = false;
+		boolean successExecution = false;
 		final String text =
 				Tools.readStringFromFile(
 						new File(inputFileUri));
@@ -162,21 +174,22 @@ public class JsonToXmlConverter extends WebStandardConverter {
 		Tools.writeStringIntoFile(output, tempPath);
 
 		final SAXBuilder saxBuilder = new SAXBuilder();
-		Document doc = null;
+		Document document = null;
 		final File temp = new File(tempPath);
 		try {
-			doc = saxBuilder.build(temp);
-			success = true;
+			document = saxBuilder.build(temp);
+			successExecution = true;
 		} catch (JDOMException e) {
 			lOGGER.error("JDOM Exception");
 		} catch (IOException e) {
 			lOGGER.error("IO Exception");
 		}
 		temp.delete();
-		if (success) {
+		if (successExecution) {
 			final XMLOutputter xmlOutputter = new XMLOutputter(
 					Format.getPrettyFormat());
-			final String xmlIndent = xmlOutputter.outputString(doc);
+			final String xmlIndent = xmlOutputter.
+					outputString(document);
 			Tools.writeStringIntoFile(xmlIndent, tempPath);
 			new XmlToMoodleXMLConverter().convertXMLtoMoodleXML(
 					tempPath, outputFileUri);
