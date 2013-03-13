@@ -126,7 +126,7 @@ public class XmlToJsonConverter extends WebStandardConverter {
 		//Selon le type on fait appel au XSD adéquat et
 		//on fait appel à la méthode isValidateXSD pour
 		//vérifier si la question est valide ou pas
-		String uriFile = "ressources/xmlSchemas" + type + ".xsd";
+		String uriFile = "ressources/xmlSchemas/" + type + ".xsd";
 		final  File xsdFile = new File(uriFile);
 		return (isValidateXSD(xmlFile, xsdFile));
 	}
