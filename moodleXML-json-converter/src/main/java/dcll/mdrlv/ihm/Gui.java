@@ -700,8 +700,9 @@ public class Gui extends javax.swing.JFrame {
 	} // </editor-fold>
 
 	/**
+	 * Gestionnaire d'evenements sur le bouton Valider
 	 * @param evt
-	 *            :
+	 * L'ActionEvent contenant les informations sur l'evenement.
 	 */
 	private void jButtonValiderActionPerformed(
 			final java.awt.event.ActionEvent evt) {
@@ -809,8 +810,9 @@ public class Gui extends javax.swing.JFrame {
 	}
 
 	/**
+	 * Gestionnaire d'evenements sur le bouton Convertir
 	 * @param evt
-	 *            :
+	 * ActionEvent contenant les informations sur l'evenement
 	 */
 	private void jButtonConvertirActionPerformed(
 			final java.awt.event.ActionEvent evt) {
@@ -1071,8 +1073,9 @@ public class Gui extends javax.swing.JFrame {
 	}
 
 	/**
+	 * Gestionnaire d'evenements sur le bouton Radio XML to JSON
 	 * @param evt
-	 *            :
+	 * L'ActionEvent contenant les informations sur l'evenement.
 	 */
 	private void jRadioButtonXMLtoJSONActionPerformed(
 			final java.awt.event.ActionEvent evt) {
@@ -1110,8 +1113,9 @@ public class Gui extends javax.swing.JFrame {
 	}
 
 	/**
+	 * Gestionnaire d'evenements sur le bouton radio JSON to XML
 	 * @param evt
-	 *            :
+	 * L'ActionEvent contenant les informations sur l'evenement.
 	 */
 	private void jRadioButtonJSONtoXMLActionPerformed(
 			final java.awt.event.ActionEvent evt) {
@@ -1148,7 +1152,12 @@ public class Gui extends javax.swing.JFrame {
 		gestionEtat(etat);
 	}
 
-
+	/**
+	 * Gestionnaire d'evenements sur le bouton radio
+	 * de transformation de xml vers JSON par XSLT
+	 * @param evt
+	 * L'ActionEvent contenant les informations sur l'evenement.
+	 */
 	private void jRadioButtonViaXSLTActionPerformed(
 			final java.awt.event.ActionEvent evt) {
 		switch (etat) {
@@ -1184,7 +1193,12 @@ public class Gui extends javax.swing.JFrame {
 		gestionEtat(etat);
 	}
 
-
+	/**
+	 * Gestionnaire d'evenements sur le bouton radio
+	 * de transformation de xml vers JSON par DOM
+	 * @param evt
+	 * L'ActionEvent contenant les informations sur l'evenement.
+	 */
 	private void jRadioButtonViaDOMActionPerformed(
 			final java.awt.event.ActionEvent evt) {
 		switch (etat) {
@@ -1222,8 +1236,9 @@ public class Gui extends javax.swing.JFrame {
 
 
 	/**
+	 * Gestionnaire d'evenements sur le bouton Parcourir de l'entree
 	 * @param evt
-	 *            :
+	 * L'ActionEvent contenant les informations sur l'evenement.
 	 */
 	private void jButtonParcourirINActionPerformed(
 			final java.awt.event.ActionEvent evt) {
@@ -1265,9 +1280,11 @@ public class Gui extends javax.swing.JFrame {
 
 	}
 
+
 	/**
+	 * Gestionnaire d'evenements sur le bouton Parcourir de la sortie
 	 * @param evt
-	 *            :
+	 * L'ActionEvent contenant les informations sur l'evenement.
 	 */
 	private void jButtonParcourirOutActionPerformed(
 			final java.awt.event.ActionEvent evt) {
@@ -1319,8 +1336,9 @@ public class Gui extends javax.swing.JFrame {
 	}
 
 	/**
+	 * Gestionnaire d'evenements sur le bouton Fermer
 	 * @param evt
-	 *            :
+	 * L'ActionEvent contenant les informations sur l'evenement.
 	 */
 	private void jButtonFermerActionPerformed(
 			final java.awt.event.ActionEvent evt) {
@@ -1333,9 +1351,11 @@ public class Gui extends javax.swing.JFrame {
 		}
 	}
 
+
 	/**
+	 * Gestionnaire d'evenements sur le bouton Reset
 	 * @param evt
-	 *            :
+	 * L'ActionEvent contenant les informations sur l'evenement.
 	 */
 	private void jButtonResetActionPerformed(
 			final java.awt.event.ActionEvent evt) {
@@ -1363,16 +1383,20 @@ public class Gui extends javax.swing.JFrame {
 	}
 
 	/**
+	 * Methode permettant de changer le zone
+	 * de texte de sortie pour afficher le chemin
 	 * @param s
-	 *            :
+	 * Le chemin absolu du fichier choisi
 	 */
 	public final void setPathIN(final String s) {
 		jTextFieldPathIN.setText(s);
 	}
 
 	/**
+	 * Methode permettant de changer le zone 
+	 * de texte d'entrée pour afficher le chemin
 	 * @param s
-	 *            :
+	 * Le chemin absolu du fichier choisi
 	 */
 	public final void setPathOut(final String s) {
 
@@ -1383,29 +1407,33 @@ public class Gui extends javax.swing.JFrame {
 		jTextFieldPathOut.setText(s.concat(fichier));
 	}
 
+
 	/**
-	 * @return :
+	 * @return la zone de texte correspondant 
+	 * au chemin du fichier en entrée
 	 */
 	public final JTextField getPathIN() {
 		return jTextFieldPathIN;
 	}
 
 	/**
-	 * @param s
-	 *            :
-	 * @return :
+	 * @return la zone  de texte correspondant
+	 * au chemin du fichier en sortie
 	 */
-	public final JTextField getPathOut(final String s) {
+	public final JTextField getPathOut() {
 		return jTextFieldPathOut;
 	}
 
 	/**
+	 * Methode permettant d'afficher le contenu d'un
+	 * fichier dans le zone de texte correspondante
 	 * @param txt
-	 *            :
+	 * la zone de texte à modifier
 	 * @param file
-	 *            :
+	 * le fichier à lire et à afficher 
+	 * dans la zone de texte
 	 * @throws FileNotFoundException
-	 *             :
+	 * Exception correspondant à un fichier introuvable
 	 */
 	public final void afficherTextArea(
 			final JTextArea txt,
@@ -1473,8 +1501,10 @@ public class Gui extends javax.swing.JFrame {
 	}
 
 	/**
+	 * Methode permettant la mise à jour des éléments
+	 * graphiques de l'application
 	 * @param e
-	 *            :
+	 * L'état en cours.
 	 */
 	public final void gestionEtat(final Etat e) {
 
