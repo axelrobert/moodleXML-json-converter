@@ -48,22 +48,22 @@ import dcll.mdrlv.tools.Tools;
 public class XmlToJsonConverter extends WebStandardConverter {
 
 	/**
-	 * Feuille de style XSLT
+	 * Feuille de style XSLT.
 	 */
 	private final String xsltStylesheet;
 
 	/**
-	 * Document
+	 * Document.
 	 */
 	private Document document;
 
     /**
-     * Racine JDOM Tree
+     * Racine JDOM Tree.
      */
     private Element racine;
 
     /**
-     * Fichier XML temporaire
+     * Fichier XML temporaire.
      */
     private File xmlFile;
 

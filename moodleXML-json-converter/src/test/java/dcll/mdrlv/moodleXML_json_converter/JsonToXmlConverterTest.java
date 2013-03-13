@@ -14,7 +14,7 @@ import org.junit.Test;
 import dcll.mdrlv.jsontoxml.JsonToXmlConverter;
 import dcll.mdrlv.tools.Tools;
 
-public class JsonToXmlTest {
+public class JsonToXmlConverterTest {
 
     private static JsonToXmlConverter jtxc;
     private static File file;

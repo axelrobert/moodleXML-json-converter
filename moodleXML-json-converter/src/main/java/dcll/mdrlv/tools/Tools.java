@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+
 import org.apache.log4j.Logger;
 
 /**
@@ -42,7 +43,7 @@ public final class Tools {
             // TODO Auto-generated catch block
             e2.printStackTrace();
         }
-		// On crée un BufferedWriter output
+        // On crée un BufferedWriter output
 		// auquel on donne comme argument
 		// le FileWriter fwriter cree juste au dessus
 		final BufferedWriter output = new BufferedWriter(fwriter);
