@@ -1491,7 +1491,7 @@ public class Gui extends javax.swing.JFrame {
 	public final String getEmplacementFile(final String pathO) {
 		String extend = "";
 		String fichier = "";
-		String path = new File("").getAbsolutePath();
+		String path = new File(pathO).getAbsolutePath();
 		switch (etat) {
 		case INIT_XML_JSON:
 			extend = ".json";

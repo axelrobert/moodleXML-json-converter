@@ -147,7 +147,7 @@ public class JsonToXmlConverter extends WebStandardConverter {
 	 */
 	public static void main(final String[] args) {
 		JsonToXmlConverter converter = new JsonToXmlConverter();
-		String testPath = "ressources/exemple.json";
+		String testPath = "ressources/examples/rightmoodlejson.json";
 		File testFile = new File(testPath);
 		Logger lOGGER = converter.getlOGGER();
 

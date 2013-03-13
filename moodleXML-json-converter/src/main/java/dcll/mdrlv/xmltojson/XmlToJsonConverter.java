@@ -72,7 +72,7 @@ public class XmlToJsonConverter extends WebStandardConverter {
 	 */
 	public XmlToJsonConverter(final String chaine) {
 		super();
-		xsltStylesheet = "ressources/" + chaine;
+		xsltStylesheet = "ressources/xslTransformers/" + chaine;
 		}
 
 	@Override
@@ -126,7 +126,7 @@ public class XmlToJsonConverter extends WebStandardConverter {
 		//Selon le type on fait appel au XSD adéquat et
 		//on fait appel à la méthode isValidateXSD pour
 		//vérifier si la question est valide ou pas
-		String uriFile = "ressources/" + type + ".xsd";
+		String uriFile = "ressources/xmlSchemas" + type + ".xsd";
 		final  File xsdFile = new File(uriFile);
 		return (isValidateXSD(xmlFile, xsdFile));
 	}
@@ -192,7 +192,7 @@ public class XmlToJsonConverter extends WebStandardConverter {
 	        					"par question.");
 
 	        			//Afin d'éviter une java null exception
-	        			xmlFile = new File("question.xml");
+	        			xmlFile = new File("ressources/question.xml");
 
 	        			return false;
 	        		}
@@ -228,7 +228,7 @@ public class XmlToJsonConverter extends WebStandardConverter {
 	         try {
 	        	//Création du fichier XML qui contiendra
 	        	//l'arborescence de la question courante
-	        	xmlFile = new File("question.xml");
+	        	xmlFile = new File("ressources/question.xml");
 	        	//On écrit le contenu du Document dans le fichier XML
 				sortie.output(xmlDoc,
 						new FileOutputStream(xmlFile));
@@ -401,11 +401,11 @@ public class XmlToJsonConverter extends WebStandardConverter {
 				new XmlToJsonConverter("xmltojsonml.xslt");
 		Logger lOGGER = converter.getlOGGER();
 		if (converter.fileValidation(new File(
-				"ressources/exemple-moodle.xml"))
+				"ressources/examples/rightmoodlexml.xml"))
 				== FileConformity.OK) {
 			converter.convert(
-					"ressources/exemple-moodle.xml",
-					"exemple-moodle.json");
+					"ressources/examples/rightmoodlexml.xml",
+					"results/rightmoodlejson.json");
 			lOGGER.info(
 					"Fin de la conversion : "
 					+ "le ficher a bien été converti.");
