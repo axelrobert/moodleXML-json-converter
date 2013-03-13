@@ -68,11 +68,16 @@ public class XmlToJsonConverter extends WebStandardConverter {
     private File xmlFile;
 
 	/**
+	 * Logger lOGGER.
+	 */
+	private Logger lOGGER;
+	/**
 	 * @param chaine : le nom du fichier XSLT
 	 */
 	public XmlToJsonConverter(final String chaine) {
 		super();
 		xsltStylesheet = "ressources/xslTransformers/" + chaine;
+		lOGGER = super.getlOGGER();
 		}
 
 	@Override
@@ -91,7 +96,6 @@ public class XmlToJsonConverter extends WebStandardConverter {
 			final File xsdFile) {
 		//Création d'un schéma XML (XSD) factory
 		XMLReaderJDOMFactory schemafac = null;
-		Logger lOGGER = super.getlOGGER();
 		try {
 			schemafac = new XMLReaderXSDFactory(xsdFile);
 		} catch (JDOMException e) {
@@ -137,9 +141,8 @@ public class XmlToJsonConverter extends WebStandardConverter {
 	 */
 	public final boolean accordanceWithMoodleXML(final File file) {
 		 //On crée une instance de SAXBuilder
-	      SAXBuilder sxb = new SAXBuilder();
-	      Logger lOGGER = super.getlOGGER();
-	    
+	      final SAXBuilder sxb = new SAXBuilder();
+	      boolean executionSuccess = true;
 	      try {
 	         //On crée un nouveau document JDOM
 	    	  //avec en argument le fichier XML
@@ -147,7 +150,7 @@ public class XmlToJsonConverter extends WebStandardConverter {
 	    	 document = sxb.build(file);
 	      } catch (Exception e) {
 	    	  lOGGER.error("Erreur lors de la creation du JDOM");
-	    	  return false;
+	    	  executionSuccess = false;
 	      }
 
 	      //On initialise un nouvel élément racine
@@ -161,8 +164,8 @@ public class XmlToJsonConverter extends WebStandardConverter {
 	      // Alors le fichier en entrée ne peut etre du MOODLE XML.
 	      // Inutile de continuer le test
 	     if (!racine.getName().contentEquals("quiz")
-	    		  || list.size() ==  0) {
-	    	  return false;
+	    		  || list.isEmpty()) {
+	    	  executionSuccess = false;
 	      }
 	      Element root;
 	      Document xmlDoc;
@@ -171,12 +174,11 @@ public class XmlToJsonConverter extends WebStandardConverter {
 	     //On utilise ici un affichage classique avec getPrettyFormat()
 	      XMLOutputter sortie = new XMLOutputter(
 	        		 Format.getPrettyFormat());
-	
 	     	//On crée un Iterator sur notre liste
-	      Iterator<Element> i = list.iterator();
-	      while (i.hasNext()) {
+	      Iterator<Element> iterator = list.iterator();
+	      while (iterator.hasNext() && executionSuccess) {
 	         //On recrée l'Element courant à chaque tour de boucle
-	         Element courant = i.next();
+	         Element courant = iterator.next();
 
 	         //Test pour savoir si l'élément shuffleanswers existe 2 fois
 	         XPathExpression<Object> xpath =
@@ -199,60 +201,75 @@ public class XmlToJsonConverter extends WebStandardConverter {
 	        					"par question.");
 
 	        			//Afin d'éviter une java null exception
-	        			xmlFile = new File("ressources/question.xml");
-
-	        			return false;
+	        			xmlFile = new File("ressources/"
+	        			+ "question.xml");
+	        			executionSuccess = false;
 	        		}
-
-	         /* Ici, pour chaque question on crée un
-	          * nouveau fichier XML contenant
-	          * l'aborescence de la question
-	          * entouré de la balise <quiz> afin de pouvoir
-	          * tester chaque type de question avec son XSD adéquat.
-	          */
-
-	         //On crée donc un nouvel Element racine quiz
-	         root = new Element("quiz");
-	         //On crée un nouveau Document à partir de la nouvelle racine
-	         xmlDoc = new Document(root);
-	         //On crée un nouvel Element question et on l'ajoute
-	         //en tant qu'Element de racine
-	         question = new Element(courant.getName());
-	         root.addContent(question);
-	         //On crée un nouvel Attribut type et on l'ajoute à question
-	         //grâce à la méthode setAttribute
-	         if (courant.getAttributes().size() == 0) {
-	        	 return false;
+	         if (executionSuccess) {
+		         /* Ici, pour chaque question on crée un
+		          * nouveau fichier XML contenant
+		          * l'aborescence de la question
+		          * entouré de la balise <quiz> afin de pouvoir
+		          * tester chaque type de question avec son XSD adéquat.
+		          */
+		         //On crée donc un nouvel Element racine quiz
+		         root = new Element("quiz");
+		         //On crée un nouveau Document à partir
+		         //de la nouvelle racine
+		         xmlDoc = new Document(root);
+		         //On crée un nouvel Element question et on l'ajoute
+		         //en tant qu'Element de racine
+		         question = new Element(courant.getName());
+		         root.addContent(question);
+		         //On crée un nouvel Attribut type
+		         //et on l'ajoute à question
+		         //grâce à la méthode setAttribute
+		         if (courant.getAttributes().size() == 0) {
+		        	 executionSuccess = false;
+		         }
+		         if (executionSuccess) {
+			         typeAtt = new Attribute("type",
+			        		 courant.getAttributeValue(
+			        				 "type"));
+			         question.setAttribute(typeAtt);
+			         //On clone le contenu du noeud courant
+			         //pour récupérer l'arborescence
+			         //de l'Element question et on l'ajoute en
+			         //tant qu'Element
+			         //du nouveau noeud question
+			         question.addContent(courant.cloneContent());
+			         try {
+			        	//Création du fichier XML qui contiendra
+			        	//l'arborescence de la question courante
+			        	xmlFile = new File("ressources/"
+			        			 + "question.xml");
+			        	//On écrit le contenu du Document
+			        	//dans le fichier XML
+						sortie.output(xmlDoc,
+							new FileOutputStream(
+								xmlFile));
+					 } catch (IOException e) {
+						 executionSuccess = false;
+						 lOGGER.error("Erreur d'"
+						 		+ "affichage du"
+						 		+ " document");
+					 }
+			         if (!(executionSuccess
+			        		 && validateAccordingToType(
+		        			 courant))) {
+			        	 //On fait appel à la méthode
+			        	 //validateAccordingToType
+			        	 //pour vérifier que le XML
+			        	 //contenant l'arborescence
+			        	 //de la question courante
+			        	 //est conforme à son XSD
+			        	 //selon le type de la question
+			        		 executionSuccess = false;
+			         }
+		         }
 	         }
-	         typeAtt = new Attribute("type",
-	        		 courant.getAttributeValue("type"));
-	         question.setAttribute(typeAtt);
-	         //On clone le contenu du noeud courant
-	         //pour récupérer l'arborescence
-	         //de l'Element question et on l'ajoute en tant qu'Element
-	         //du nouveau noeud question
-	         question.addContent(courant.cloneContent());
-	        
-	         try {
-	        	//Création du fichier XML qui contiendra
-	        	//l'arborescence de la question courante
-	        	xmlFile = new File("ressources/question.xml");
-	        	//On écrit le contenu du Document dans le fichier XML
-				sortie.output(xmlDoc,
-						new FileOutputStream(xmlFile));
-			 } catch (IOException e) {
-				 lOGGER.error("Erreur d'affichage du document");
-			 }
-	         //On fait appel à la méthode validateAccordingToType
-	         //pour vérifier que le XML contenant l'arborescence
-	         //de la question courante est conforme à son XSD
-	         //selon le type de la question
-	         if (!validateAccordingToType(courant)) {
-	        	 return false;
-	         }
-
 	      }
-	      return true;
+	      return executionSuccess;
 	}
 
 	/**
@@ -263,7 +280,6 @@ public class XmlToJsonConverter extends WebStandardConverter {
 	public final org.w3c.dom.Document accordanceWithXML(
 			final File file) {
 		org.w3c.dom.Document outputDoc = null;
-		Logger lOGGER = super.getlOGGER();
 		//On crée une nouvelle instance d'un Document factory
 		final DocumentBuilderFactory dbfact =
 				DocumentBuilderFactory.newInstance();
@@ -293,7 +309,6 @@ public class XmlToJsonConverter extends WebStandardConverter {
 	}
 
 
-	@Override
 	public final boolean accordanceWithStandard(final File file) {
 			//Appel à la méthode accordanceWithXML pour
 			//vérifier que le fichier est bien au format XML
@@ -315,7 +330,6 @@ public class XmlToJsonConverter extends WebStandardConverter {
 		//On crée une nouvelle instance de Transformer factory
 		TransformerFactory transfact =
 				TransformerFactory.newInstance();
-		Logger lOGGER = super.getlOGGER();
 
 		//A partir de cette factory on créer une nouvelle instance
 		//de la classe Transformer avec en paramètre le XSLT
@@ -341,7 +355,6 @@ public class XmlToJsonConverter extends WebStandardConverter {
 		return retour;
 	}
 
-	@Override
 	public final int convert(final String inputFileUri,
 			final String outputFileUri) {
 
@@ -354,7 +367,6 @@ public class XmlToJsonConverter extends WebStandardConverter {
 		//On créer un FileWriter du fichier résultat
 		//pour permettre l'écriture de flux de caractères
 		FileWriter outputFile = null;
-		Logger lOGGER = super.getlOGGER();
 		try {
 			outputFile = new FileWriter(
 					new File(outputFileUri));
@@ -394,33 +406,4 @@ public class XmlToJsonConverter extends WebStandardConverter {
 		return this.xmlFile;
 	}
 
-
-	/**
-	 * @param arg :
-	 * @throws IOException :
-	 * @throws URISyntaxException :
-	 * @throws TransformerException :
-	 * @throws SAXException :
-	 */
-	public static void main(final String[] arg)
-			throws IOException, URISyntaxException,
-			TransformerException, SAXException {
-		XmlToJsonConverter converter =
-				new XmlToJsonConverter("xmltojsonml.xslt");
-		Logger lOGGER = converter.getlOGGER();
-		if (converter.fileValidation(new File(
-				"ressources/examples/rightmoodlexml.xml"))
-				== FileConformity.OK) {
-			converter.convert(
-					"ressources/examples/rightmoodlexml.xml",
-					"results/rightmoodlejson.json");
-			lOGGER.info(
-					"Fin de la conversion : "
-					+ "le ficher a bien été converti.");
-		} else {
-			lOGGER.warn("Le ficher n'est pas valide, "
-					+ "conversion annulée.");
-		}
-		converter.getXMLFile().delete();
-	}
 }
