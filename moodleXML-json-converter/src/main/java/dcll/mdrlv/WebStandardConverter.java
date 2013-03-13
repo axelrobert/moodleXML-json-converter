@@ -32,7 +32,7 @@ public abstract class WebStandardConverter {
 	}
 
 	/**
-	 * Constructeur : initialisation du logger
+	 * Constructeur : initialisation du logger.
 	 */
 	public WebStandardConverter() {
 		lOGGER = Logger.getLogger(WebStandardConverter.class);

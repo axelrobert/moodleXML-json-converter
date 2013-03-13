@@ -33,12 +33,12 @@ import dcll.mdrlv.tools.Tools;
 public class JsonToXmlConverter extends WebStandardConverter {
 
 	/**
-	 * String error
+	 * String error.
 	 */
 	private final String error;
 
 	/**
-	 * Constructeur
+	 * Constructeur.
 	 */
 	public JsonToXmlConverter() {
 		super();
