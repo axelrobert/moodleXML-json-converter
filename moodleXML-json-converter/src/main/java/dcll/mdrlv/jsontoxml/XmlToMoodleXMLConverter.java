@@ -16,7 +16,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 /**
- * @author Fran�ois MANCIET
+ * @author Francois MANCIET
  *
  */
 public class XmlToMoodleXMLConverter {
@@ -305,27 +305,49 @@ public class XmlToMoodleXMLConverter {
 	/**
 	 * @param input : chemin du fichier a traiter
 	 * @param output : chemin du fichier de sortie
-	 * @throws IOException : Erreur de lecture
-	 * @throws ParserConfigurationException : erreur de parser
-	 * @throws SAXException :erreur de parser
 	 */
 	public final void convertXMLtoMoodleXML(final String input,
-			final String output)
-			throws IOException,
-				ParserConfigurationException,
-				SAXException {
-		File f = new File(input);
-		DocumentBuilderFactory dbf =
-			    DocumentBuilderFactory.newInstance();
-			  DocumentBuilder db =
-			    dbf.newDocumentBuilder();
-	    Document doc = db.parse(f);
-	    this.buff = new BufferedWriter(new FileWriter(new File(output)));
-	    afficher("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-		printDocument(doc);
-		this.buff.flush();
-		this.buff.close();
-		this.indent = 0;
+			final String output) {
+			try {
+				File f = new File(input);
+				DocumentBuilderFactory dbf =
+					    DocumentBuilderFactory.newInstance();
+					  DocumentBuilder db;
+				db = dbf.newDocumentBuilder();
+				Document doc;
+				try {
+					doc = db.parse(f);
+				    try {
+						this.buff = new BufferedWriter(
+								new FileWriter(
+										new File(output)));
+					    afficher("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+						printDocument(doc);
+						this.buff.flush();
+						this.buff.close();
+						this.indent = 0;
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						lOGGER.warn("Erreur fichier entree"
+						+ " XML-MoodleXML");
+					}
+				} catch (SAXException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					lOGGER.warn("Erreur parsage"
+					+ "XML-MoodleXML");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					lOGGER.warn("Erreur lecture fichier");
+				}
+
+			} catch (ParserConfigurationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				lOGGER.warn("Erreur parser XML-MoodleXML");
+			}
 	}
 
 }
