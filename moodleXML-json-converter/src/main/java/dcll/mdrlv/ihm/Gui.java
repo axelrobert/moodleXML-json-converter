@@ -835,11 +835,13 @@ public class Gui extends javax.swing.JFrame {
 
 				String fichierOut = jTextFieldPathOut.getText();
 				String fichierIN = jTextFieldPathIN.getText();
-
+				FileConformity result
+				= jsonConverter
+					.fileValidation(
+						new File(
+								fichierIN));
 				try {
-					if (jsonConverter.fileValidation(
-							new File(fichierIN))
-							== FileConformity.OK) {
+					if (result == FileConformity.OK) {
 						jsonConverter.convert(
 							fichierIN,
 							fichierOut);
@@ -852,21 +854,54 @@ public class Gui extends javax.swing.JFrame {
 								fichierOut);
 						gestionEtat(etat);
 					} else {
+						switch (result) {
+
+					case WRONG_STANDARD:
 						lOGGER.warn(
-							"Le ficher n'est pas"
-							+ " valide, conversion"
-							+ " annulée.");
-						JOptionPane.showMessageDialog(
+						  "Le fichier n'est "
+						  + "pas valide "
+						  + "(Standard JSON),"
+						  + " conversion "
+						  + "annulée.");
+						JOptionPane
+						.showMessageDialog(
 							this,
-							"Le ficher n'est pas"
-							+ " valide, conversion"
-							+ " annulée.");
+							"Le fichier "
+							+ "n'est pas "
+							+ "valide "
+							+ "(Standard "
+							+ "JSON),"
+							+ " conversion "
+							+ "annulée.");
+						break;
+					case WRONG_MOODLE:
+
+						lOGGER.warn(
+						"Le ficher n'est"
+							+ " pas valide "
+							+ "(Standard "
+							+ "MOODLE), "
+							+ "conversion "
+							+ "annulée.");
+						JOptionPane
+						.showMessageDialog(
+							this,
+							"Le ficher "
+							+ "n'est pas "
+							+ "valide "
+							+ "(Standard "
+							+ "MOODLE), "
+							+ "conversion "
+							+ "annulée.");
+						break;
+					default:
+						break;
+					}
 						etat = Etat.INIT_JSON_XML;
 						gestionEtat(etat);
 						jTextFieldPathIN.setText(
 							fichierIN);
 					}
-
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					etat = Etat.INIT_JSON_XML;
@@ -963,6 +998,17 @@ public class Gui extends javax.swing.JFrame {
 					}
 				} catch (IOException e) {
 					lOGGER.warn("");
+					// TODO Auto-generated catch block
+					etat = Etat.INIT_XML_JSON;
+					gestionEtat(etat);
+					jTextFieldPathIN.setText(fichierIN);
+					JOptionPane.showMessageDialog(this,
+							"Problème de création "
+							+ "du fichier,"
+							+ " impossible "
+							+ "d'afficher");
+					e.printStackTrace();
+
 				}
 			}
 			break;
