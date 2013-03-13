@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pmd version="4.2.5" timestamp="2013-03-13T21:02:11.976">
+<file name="src/main/java/dcll/mdrlv/ihm/CustomFileFilter.java">
+<violation beginline="20" endline="20" begincolumn="0" endcolumn="0" rule="BeanMembersShouldSerialize" ruleset="JavaBean Rules" package="dcll.mdrlv.ihm" class="CustomFileFilter" externalInfoUrl="http://pmd.sourceforge.net/rules/javabeans.html#BeanMembersShouldSerialize" priority="3">
+Found non-transient, non-static member. Please mark as transient or provide accessors.
+</violation>
+<violation beginline="25" endline="25" begincolumn="0" endcolumn="0" rule="BeanMembersShouldSerialize" ruleset="JavaBean Rules" package="dcll.mdrlv.ihm" class="CustomFileFilter" externalInfoUrl="http://pmd.sourceforge.net/rules/javabeans.html#BeanMembersShouldSerialize" priority="3">
+Found non-transient, non-static member. Please mark as transient or provide accessors.
+</violation>
+<violation beginline="42" endline="55" begincolumn="0" endcolumn="0" rule="CallSuperInConstructor" ruleset="Controversial Rules" package="dcll.mdrlv.ihm" class="CustomFileFilter" externalInfoUrl="http://pmd.sourceforge.net/rules/controversial.html#CallSuperInConstructor" priority="3">
+It is a good practice to call super() in a constructor
+</violation>
+<violation beginline="59" endline="61" begincolumn="0" endcolumn="0" rule="DataflowAnomalyAnalysis" ruleset="Controversial Rules" package="dcll.mdrlv.ihm" class="CustomFileFilter" externalInfoUrl="http://pmd.sourceforge.net/rules/controversial.html#DataflowAnomalyAnalysis" priority="5">
+Found 'DD'-anomaly for variable 'retour' (lines '59'-'61').
+</violation>
+<violation beginline="59" endline="67" begincolumn="0" endcolumn="0" rule="DataflowAnomalyAnalysis" ruleset="Controversial Rules" package="dcll.mdrlv.ihm" class="CustomFileFilter" externalInfoUrl="http://pmd.sourceforge.net/rules/controversial.html#DataflowAnomalyAnalysis" priority="5">
+Found 'DD'-anomaly for variable 'retour' (lines '59'-'67').
+</violation>
+<violation beginline="63" endline="72" begincolumn="0" endcolumn="0" rule="DataflowAnomalyAnalysis" ruleset="Controversial Rules" package="dcll.mdrlv.ihm" class="CustomFileFilter" externalInfoUrl="http://pmd.sourceforge.net/rules/controversial.html#DataflowAnomalyAnalysis" priority="5">
+Found 'DU'-anomaly for variable 'path' (lines '63'-'72').
+</violation>
+<violation beginline="67" endline="67" begincolumn="0" endcolumn="0" rule="DataflowAnomalyAnalysis" ruleset="Controversial Rules" package="dcll.mdrlv.ihm" class="CustomFileFilter" externalInfoUrl="http://pmd.sourceforge.net/rules/controversial.html#DataflowAnomalyAnalysis" priority="5">
+Found 'DD'-anomaly for variable 'retour' (lines '67'-'67').
+</violation>
+<violation beginline="83" endline="83" begincolumn="0" endcolumn="0" rule="MethodReturnsInternalArray" ruleset="Security Code Guidelines" package="dcll.mdrlv.ihm" class="CustomFileFilter" externalInfoUrl="http://pmd.sourceforge.net/rules/sunsecure.html#MethodReturnsInternalArray" priority="3">
+Returning 'extensions' may expose an internal array.
+</violation>
+</file>
+<file name="src/main/java/dcll/mdrlv/ihm/SelecteurDeDossier.java">
+<violation beginline="18" endline="18" begincolumn="0" endcolumn="0" rule="BeanMembersShouldSerialize" ruleset="JavaBean Rules" package="dcll.mdrlv.ihm" class="SelecteurDeDossier" externalInfoUrl="http://pmd.sourceforge.net/rules/javabeans.html#BeanMembersShouldSerialize" priority="3">
+Found non-transient, non-static member. Please mark as transient or provide accessors.
+</violation>
+<violation beginline="18" endline="18" begincolumn="0" endcolumn="0" rule="SingularField" ruleset="Design Rules" package="dcll.mdrlv.ihm" class="SelecteurDeDossier" externalInfoUrl="http://pmd.sourceforge.net/rules/design.html#SingularField" priority="3">
+Perhaps 'chosenFolder' could be replaced by a local variable.
+</violation>
+<violation beginline="22" endline="22" begincolumn="0" endcolumn="0" rule="BeanMembersShouldSerialize" ruleset="JavaBean Rules" package="dcll.mdrlv.ihm" class="SelecteurDeDossier" externalInfoUrl="http://pmd.sourceforge.net/rules/javabeans.html#BeanMembersShouldSerialize" priority="3">
+Found non-transient, non-static member. Please mark as transient or provide accessors.
+</violation>
+<violation beginline="22" endline="22" begincolumn="0" endcolumn="0" rule="ImmutableField" ruleset="Design Rules" package="dcll.mdrlv.ihm" class="SelecteurDeDossier" externalInfoUrl="http://pmd.sourceforge.net/rules/design.html#ImmutableField" priority="3">
+Private field 'parent' could be made final; it is only initialized in the declaration or constructor.
+</violation>
+</file>
+<file name="src/main/java/dcll/mdrlv/ihm/SelecteurDeFichier.java">
+<violation beginline="17" endline="17" begincolumn="0" endcolumn="0" rule="BeanMembersShouldSerialize" ruleset="JavaBean Rules" package="dcll.mdrlv.ihm" class="SelecteurDeFichier" externalInfoUrl="http://pmd.sourceforge.net/rules/javabeans.html#BeanMembersShouldSerialize" priority="3">
+Found non-transient, non-static member. Please mark as transient or provide accessors.
+</violation>
+<violation beginline="17" endline="17" begincolumn="0" endcolumn="0" rule="SingularField" ruleset="Design Rules" package="dcll.mdrlv.ihm" class="SelecteurDeFichier" externalInfoUrl="http://pmd.sourceforge.net/rules/design.html#SingularField" priority="3">
+Perhaps 'chosenFile' could be replaced by a local variable.
+</violation>
+<violation beginline="21" endline="21" begincolumn="0" endcolumn="0" rule="BeanMembersShouldSerialize" ruleset="JavaBean Rules" package="dcll.mdrlv.ihm" class="SelecteurDeFichier" externalInfoUrl="http://pmd.sourceforge.net/rules/javabeans.html#BeanMembersShouldSerialize" priority="3">
+Found non-transient, non-static member. Please mark as transient or provide accessors.
+</violation>
+<violation beginline="21" endline="21" begincolumn="0" endcolumn="0" rule="ImmutableField" ruleset="Design Rules" package="dcll.mdrlv.ihm" class="SelecteurDeFichier" externalInfoUrl="http://pmd.sourceforge.net/rules/design.html#ImmutableField" priority="3">
+Private field 'parent' could be made final; it is only initialized in the declaration or constructor.
+</violation>
+</file>
+<file name="src/main/java/dcll/mdrlv/ihm/Synchronizer.java">
+<violation beginline="22" endline="22" begincolumn="0" endcolumn="0" rule="BeanMembersShouldSerialize" ruleset="JavaBean Rules" package="dcll.mdrlv.ihm" class="Synchronizer" externalInfoUrl="http://pmd.sourceforge.net/rules/javabeans.html#BeanMembersShouldSerialize" priority="3">
+Found non-transient, non-static member. Please mark as transient or provide accessors.
+</violation>
+<violation beginline="22" endline="22" begincolumn="0" endcolumn="0" rule="BeanMembersShouldSerialize" ruleset="JavaBean Rules" package="dcll.mdrlv.ihm" class="Synchronizer" externalInfoUrl="http://pmd.sourceforge.net/rules/javabeans.html#BeanMembersShouldSerialize" priority="3">
+Found non-transient, non-static member. Please mark as transient or provide accessors.
+</violation>
+<violation beginline="22" endline="22" begincolumn="0" endcolumn="0" rule="BeanMembersShouldSerialize" ruleset="JavaBean Rules" package="dcll.mdrlv.ihm" class="Synchronizer" externalInfoUrl="http://pmd.sourceforge.net/rules/javabeans.html#BeanMembersShouldSerialize" priority="3">
+Found non-transient, non-static member. Please mark as transient or provide accessors.
+</violation>
+<violation beginline="22" endline="22" begincolumn="0" endcolumn="0" rule="BeanMembersShouldSerialize" ruleset="JavaBean Rules" package="dcll.mdrlv.ihm" class="Synchronizer" externalInfoUrl="http://pmd.sourceforge.net/rules/javabeans.html#BeanMembersShouldSerialize" priority="3">
+Found non-transient, non-static member. Please mark as transient or provide accessors.
+</violation>
+<violation beginline="42" endline="45" begincolumn="0" endcolumn="0" rule="DataflowAnomalyAnalysis" ruleset="Controversial Rules" package="dcll.mdrlv.ihm" class="Synchronizer" externalInfoUrl="http://pmd.sourceforge.net/rules/controversial.html#DataflowAnomalyAnalysis" priority="5">
+Found 'DD'-anomaly for variable 'target' (lines '42'-'45').
+</violation>
+<violation beginline="42" endline="48" begincolumn="0" endcolumn="0" rule="DataflowAnomalyAnalysis" ruleset="Controversial Rules" package="dcll.mdrlv.ihm" class="Synchronizer" externalInfoUrl="http://pmd.sourceforge.net/rules/controversial.html#DataflowAnomalyAnalysis" priority="5">
+Found 'DD'-anomaly for variable 'target' (lines '42'-'48').
+</violation>
+<violation beginline="42" endline="51" begincolumn="0" endcolumn="0" rule="DataflowAnomalyAnalysis" ruleset="Controversial Rules" package="dcll.mdrlv.ihm" class="Synchronizer" externalInfoUrl="http://pmd.sourceforge.net/rules/controversial.html#DataflowAnomalyAnalysis" priority="5">
+Found 'DD'-anomaly for variable 'target' (lines '42'-'51').
+</violation>
+<violation beginline="42" endline="54" begincolumn="0" endcolumn="0" rule="DataflowAnomalyAnalysis" ruleset="Controversial Rules" package="dcll.mdrlv.ihm" class="Synchronizer" externalInfoUrl="http://pmd.sourceforge.net/rules/controversial.html#DataflowAnomalyAnalysis" priority="5">
+Found 'DD'-anomaly for variable 'target' (lines '42'-'54').
+</violation>
+<violation beginline="44" endline="44" begincolumn="0" endcolumn="0" rule="CompareObjectsWithEquals" ruleset="Design Rules" package="dcll.mdrlv.ihm" class="Synchronizer" externalInfoUrl="http://pmd.sourceforge.net/rules/design.html#CompareObjectsWithEquals" priority="3">
+Use equals() to compare object references.
+</violation>
+<violation beginline="45" endline="48" begincolumn="0" endcolumn="0" rule="DataflowAnomalyAnalysis" ruleset="Controversial Rules" package="dcll.mdrlv.ihm" class="Synchronizer" externalInfoUrl="http://pmd.sourceforge.net/rules/controversial.html#DataflowAnomalyAnalysis" priority="5">
+Found 'DD'-anomaly for variable 'target' (lines '45'-'48').
+</violation>
+<violation beginline="45" endline="51" begincolumn="0" endcolumn="0" rule="DataflowAnomalyAnalysis" ruleset="Controversial Rules" package="dcll.mdrlv.ihm" class="Synchronizer" externalInfoUrl="http://pmd.sourceforge.net/rules/controversial.html#DataflowAnomalyAnalysis" priority="5">
+Found 'DD'-anomaly for variable 'target' (lines '45'-'51').
+</violation>
+<violation beginline="45" endline="54" begincolumn="0" endcolumn="0" rule="DataflowAnomalyAnalysis" ruleset="Controversial Rules" package="dcll.mdrlv.ihm" class="Synchronizer" externalInfoUrl="http://pmd.sourceforge.net/rules/controversial.html#DataflowAnomalyAnalysis" priority="5">
+Found 'DD'-anomaly for variable 'target' (lines '45'-'54').
+</violation>
+<violation beginline="47" endline="47" begincolumn="0" endcolumn="0" rule="CompareObjectsWithEquals" ruleset="Design Rules" package="dcll.mdrlv.ihm" class="Synchronizer" externalInfoUrl="http://pmd.sourceforge.net/rules/design.html#CompareObjectsWithEquals" priority="3">
+Use equals() to compare object references.
+</violation>
+<violation beginline="48" endline="51" begincolumn="0" endcolumn="0" rule="DataflowAnomalyAnalysis" ruleset="Controversial Rules" package="dcll.mdrlv.ihm" class="Synchronizer" externalInfoUrl="http://pmd.sourceforge.net/rules/controversial.html#DataflowAnomalyAnalysis" priority="5">
+Found 'DD'-anomaly for variable 'target' (lines '48'-'51').
+</violation>
+<violation beginline="48" endline="54" begincolumn="0" endcolumn="0" rule="DataflowAnomalyAnalysis" ruleset="Controversial Rules" package="dcll.mdrlv.ihm" class="Synchronizer" externalInfoUrl="http://pmd.sourceforge.net/rules/controversial.html#DataflowAnomalyAnalysis" priority="5">
+Found 'DD'-anomaly for variable 'target' (lines '48'-'54').
+</violation>
+<violation beginline="50" endline="50" begincolumn="0" endcolumn="0" rule="CompareObjectsWithEquals" ruleset="Design Rules" package="dcll.mdrlv.ihm" class="Synchronizer" externalInfoUrl="http://pmd.sourceforge.net/rules/design.html#CompareObjectsWithEquals" priority="3">
+Use equals() to compare object references.
+</violation>
+<violation beginline="51" endline="54" begincolumn="0" endcolumn="0" rule="DataflowAnomalyAnalysis" ruleset="Controversial Rules" package="dcll.mdrlv.ihm" class="Synchronizer" externalInfoUrl="http://pmd.sourceforge.net/rules/controversial.html#DataflowAnomalyAnalysis" priority="5">
+Found 'DD'-anomaly for variable 'target' (lines '51'-'54').
+</violation>
+<violation beginline="53" endline="53" begincolumn="0" endcolumn="0" rule="CompareObjectsWithEquals" ruleset="Design Rules" package="dcll.mdrlv.ihm" class="Synchronizer" externalInfoUrl="http://pmd.sourceforge.net/rules/design.html#CompareObjectsWithEquals" priority="3">
+Use equals() to compare object references.
+</violation>
+</file>
+</pmd>

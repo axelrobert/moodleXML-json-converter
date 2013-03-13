@@ -56,19 +56,19 @@ public class CustomFileFilter extends FileFilter {
 
     @Override
     public final boolean accept(final File file) {
-
+    	boolean retour = false; 
         if (file.isDirectory()) {
-            return true;
+            retour = true;
         } else {
-            String path = file.getAbsolutePath().toLowerCase();
+            final String path = file.getAbsolutePath().toLowerCase();
             for (int i = 0; i < extensions.length; i++) {
-                String extension = '.' + extensions[i];
+                final String extension = '.' + extensions[i];
                 if (path.endsWith(extension)) {
-                    return true;
+                	retour = true;
                 }
             }
         }
-        return false;
+        return retour;
     }
 
     @Override

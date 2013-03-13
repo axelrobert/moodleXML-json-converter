@@ -24,14 +24,14 @@ public class SelecteurDeDossier extends JFileChooser {
 	/**
 	 * Constructeur de la classe SelecteurDeDossier.
 	 *
-	 * @param p : une fenetre Gui parent
+	 * @param pParent : une fenetre Gui parent
 	 * @param url : le chemin d'un dossier
 	 * La fenetre à adapter en fonction du choix de dossier.
 	 */
-	public SelecteurDeDossier(final Gui p, final String url) {
+	public SelecteurDeDossier(final Gui pParent, final String url) {
 		// Sélecteur de fichiers
 		super();
-		parent = p;
+		parent = pParent;
 		this.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		// Bloque le sélecteur d'extensions
 		this.setAcceptAllFileFilterUsed(false);
@@ -46,7 +46,7 @@ public class SelecteurDeDossier extends JFileChooser {
 	 */
 	private void handlerSelecteurDeFichiers() {
 		// Gestion du choix.
-		int result = this.showOpenDialog(null);
+		final int result = this.showOpenDialog(null);
 		switch (result) {
 		case JFileChooser.APPROVE_OPTION:
 

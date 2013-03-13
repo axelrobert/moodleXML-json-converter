@@ -1,0 +1,35 @@
+
+src/main/java/dcll/mdrlv/ihm/CustomFileFilter.java:20	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/main/java/dcll/mdrlv/ihm/CustomFileFilter.java:25	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/main/java/dcll/mdrlv/ihm/CustomFileFilter.java:42	It is a good practice to call super() in a constructor
+src/main/java/dcll/mdrlv/ihm/CustomFileFilter.java:59	Found 'DD'-anomaly for variable 'retour' (lines '59'-'61').
+src/main/java/dcll/mdrlv/ihm/CustomFileFilter.java:59	Found 'DD'-anomaly for variable 'retour' (lines '59'-'67').
+src/main/java/dcll/mdrlv/ihm/CustomFileFilter.java:63	Found 'DU'-anomaly for variable 'path' (lines '63'-'72').
+src/main/java/dcll/mdrlv/ihm/CustomFileFilter.java:67	Found 'DD'-anomaly for variable 'retour' (lines '67'-'67').
+src/main/java/dcll/mdrlv/ihm/CustomFileFilter.java:83	Returning 'extensions' may expose an internal array.
+src/main/java/dcll/mdrlv/ihm/SelecteurDeDossier.java:18	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/main/java/dcll/mdrlv/ihm/SelecteurDeDossier.java:18	Perhaps 'chosenFolder' could be replaced by a local variable.
+src/main/java/dcll/mdrlv/ihm/SelecteurDeDossier.java:22	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/main/java/dcll/mdrlv/ihm/SelecteurDeDossier.java:22	Private field 'parent' could be made final; it is only initialized in the declaration or constructor.
+src/main/java/dcll/mdrlv/ihm/SelecteurDeFichier.java:17	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/main/java/dcll/mdrlv/ihm/SelecteurDeFichier.java:17	Perhaps 'chosenFile' could be replaced by a local variable.
+src/main/java/dcll/mdrlv/ihm/SelecteurDeFichier.java:21	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/main/java/dcll/mdrlv/ihm/SelecteurDeFichier.java:21	Private field 'parent' could be made final; it is only initialized in the declaration or constructor.
+src/main/java/dcll/mdrlv/ihm/Synchronizer.java:22	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/main/java/dcll/mdrlv/ihm/Synchronizer.java:22	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/main/java/dcll/mdrlv/ihm/Synchronizer.java:22	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/main/java/dcll/mdrlv/ihm/Synchronizer.java:22	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/main/java/dcll/mdrlv/ihm/Synchronizer.java:42	Found 'DD'-anomaly for variable 'target' (lines '42'-'45').
+src/main/java/dcll/mdrlv/ihm/Synchronizer.java:42	Found 'DD'-anomaly for variable 'target' (lines '42'-'48').
+src/main/java/dcll/mdrlv/ihm/Synchronizer.java:42	Found 'DD'-anomaly for variable 'target' (lines '42'-'51').
+src/main/java/dcll/mdrlv/ihm/Synchronizer.java:42	Found 'DD'-anomaly for variable 'target' (lines '42'-'54').
+src/main/java/dcll/mdrlv/ihm/Synchronizer.java:44	Use equals() to compare object references.
+src/main/java/dcll/mdrlv/ihm/Synchronizer.java:45	Found 'DD'-anomaly for variable 'target' (lines '45'-'48').
+src/main/java/dcll/mdrlv/ihm/Synchronizer.java:45	Found 'DD'-anomaly for variable 'target' (lines '45'-'51').
+src/main/java/dcll/mdrlv/ihm/Synchronizer.java:45	Found 'DD'-anomaly for variable 'target' (lines '45'-'54').
+src/main/java/dcll/mdrlv/ihm/Synchronizer.java:47	Use equals() to compare object references.
+src/main/java/dcll/mdrlv/ihm/Synchronizer.java:48	Found 'DD'-anomaly for variable 'target' (lines '48'-'51').
+src/main/java/dcll/mdrlv/ihm/Synchronizer.java:48	Found 'DD'-anomaly for variable 'target' (lines '48'-'54').
+src/main/java/dcll/mdrlv/ihm/Synchronizer.java:50	Use equals() to compare object references.
+src/main/java/dcll/mdrlv/ihm/Synchronizer.java:51	Found 'DD'-anomaly for variable 'target' (lines '51'-'54').
+src/main/java/dcll/mdrlv/ihm/Synchronizer.java:53	Use equals() to compare object references.

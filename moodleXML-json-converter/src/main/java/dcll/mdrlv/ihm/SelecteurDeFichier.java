@@ -22,17 +22,17 @@ public class SelecteurDeFichier extends JFileChooser {
 
 	/**
 	 * Constructeur de la classe SelecteurDeFichier.
-	 * @param f
+	 * @param pFile
 	 * Filtre permettant la restriction des fichiers choisis sur le
 	 * selecteur de fichiers.
-	 * @param p
+	 * @param pParent
 	 * La fenetre à adapter en fonction du choix de dossier.
 	 */
-	public SelecteurDeFichier(final FileFilter f, final Gui p) {
+	public SelecteurDeFichier(final FileFilter pFile, final Gui pParent) {
 		//Sélecteur de fichiers
 		super();
-		parent = p;
-		this.setFileFilter(f);
+		parent = pParent;
+		this.setFileFilter(pFile);
 		//Bloque le sélecteur d'extensions
 		this.setAcceptAllFileFilterUsed(false);
 
@@ -47,7 +47,7 @@ public class SelecteurDeFichier extends JFileChooser {
 	 */
 	private void handlerSelecteurDeFichiers() {
 		//Gestion du choix.
-		int result = this.showOpenDialog(null);
+		final int result = this.showOpenDialog(null);
 	       switch(result) {
 	        	case JFileChooser.APPROVE_OPTION:
 		       	 chosenFile = this.getCheminAbsolu();

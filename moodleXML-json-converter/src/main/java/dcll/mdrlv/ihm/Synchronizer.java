@@ -14,12 +14,12 @@ import javax.swing.JScrollPane;
 class Synchronizer implements AdjustmentListener {
 
     /**
-     * v1 : ScrollBarre verticale du ScrollPane1.
-     * h1 : ScrollBarre horizontale du ScrollPane1
-     * v2 : ScrollBarre verticale du ScrollPane2
-     * h2 : ScrollBarre horizontale du ScrollPane2
+     * vertical1 : ScrollBarre verticale du ScrollPane1.
+     * horizon1 : ScrollBarre horizontale du ScrollPane1
+     * vertical2 : ScrollBarre verticale du ScrollPane2
+     * horizon2 : ScrollBarre horizontale du ScrollPane2
      */
-    private final JScrollBar v1, h1, v2, h2;
+    private final JScrollBar vertical1, horizon1, vertical2, horizon2;
 
     /**
      * @param sp1 :
@@ -27,31 +27,31 @@ class Synchronizer implements AdjustmentListener {
      * Constructeur : Synchronise* les deux scollPane sp1 et sp2
      */
     public Synchronizer(final JScrollPane sp1, final JScrollPane sp2) {
-        v1 = sp1.getVerticalScrollBar();
-        h1 = sp1.getHorizontalScrollBar();
-        v2 = sp2.getVerticalScrollBar();
-        h2 = sp2.getHorizontalScrollBar();
+        vertical1 = sp1.getVerticalScrollBar();
+        horizon1 = sp1.getHorizontalScrollBar();
+        vertical2 = sp2.getVerticalScrollBar();
+        horizon2 = sp2.getHorizontalScrollBar();
     }
 
     /**
-     * @param e :
+     * @param pEvent :
      */
-    public void adjustmentValueChanged(final AdjustmentEvent e) {
-        JScrollBar scrollBar = (JScrollBar) e.getSource();
-        int value = scrollBar.getValue();
+    public void adjustmentValueChanged(final AdjustmentEvent pEvent) {
+        final JScrollBar scrollBar = (JScrollBar) pEvent.getSource();
+        final int value = scrollBar.getValue();
         JScrollBar target = null;
 
-        if (scrollBar == v1) {
-            target = v2;
+        if (scrollBar == vertical1) {
+            target = vertical2;
         }
-        if (scrollBar == h1) {
-            target = h2;
+        if (scrollBar == horizon1) {
+            target = horizon2;
         }
-        if (scrollBar == v2) {
-            target = v1;
+        if (scrollBar == vertical2) {
+            target = vertical1;
         }
-        if (scrollBar == h2) {
-            target = h1;
+        if (scrollBar == horizon2) {
+            target = horizon1;
         }
         target.setValue(value);
     }
