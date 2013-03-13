@@ -61,11 +61,6 @@
 		    <artifactId>xercesImpl</artifactId>
 		    <version>2.11.0</version>
 		</dependency>
-		<dependency>
-		    <groupId>org.codeartisans</groupId>
-		    <artifactId>org.json</artifactId>
-		    <version>20130213</version>
-		</dependency>
 	</dependencies>
     
     <reporting>
