@@ -18,7 +18,7 @@ public final class Tools {
     /**
      *
      **/
-    protected static final Logger LOGGER = Logger.getLogger(Tools.class);
+    private static final Logger LOGGER = Logger.getLogger(Tools.class);
 
     /**
     * Constructeur privé.
@@ -41,7 +41,7 @@ public final class Tools {
             fwriter = new FileWriter(new File(pathname));
             } catch (IOException e2) {
             // TODO Auto-generated catch block
-            e2.printStackTrace();
+            LOGGER.error("Erreur d'ouverture");
         }
         // On crée un BufferedWriter output
 		// auquel on donne comme argument
@@ -68,25 +68,24 @@ public final class Tools {
 			output.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("Erreur de fermeture");
 		}
 	}
 
 	/**
-	 * @param f
-	 *            :
+	 * @param file :
 	 * @return :
 	 */
-	public static String readStringFromFile(final File f) {
+	public static String readStringFromFile(final File file) {
 		Scanner scan = null;
 		String text = null;
 		try {
-			scan = new Scanner(f);
+			scan = new Scanner(file);
 			text = scan.useDelimiter("\\A").next();
 			scan.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("Fichier non trouve");
 		}
 		return text;
 	}
@@ -95,7 +94,7 @@ public final class Tools {
 	 * @return :
 	 */
 	public static OS determineOS() {
-		String osName =
+		final String osName =
 				System.getProperty("os.name").toLowerCase();
 		OS osOfUser = null;
 		if (isWindows(osName)) {
@@ -109,37 +108,37 @@ public final class Tools {
 	}
 
 	/**
-	 * @param os :
+	 * @param oSystem :
 	 * @return :
 	 */
-	public static boolean isWindows(final String os) {
-		return (os.indexOf("win") >= 0);
+	public static boolean isWindows(final String oSystem) {
+		return (oSystem.indexOf("win") >= 0);
 	}
 
 	/**
-	 * @param os :
+	 * @param oSystem :
 	 * @return :
 	 */
-	public static boolean isMac(final String os) {
-		return (os.indexOf("mac") >= 0);
+	public static boolean isMac(final String oSystem) {
+		return (oSystem.indexOf("mac") >= 0);
 	}
 
 	/**
-	 * @param os :
+	 * @param oSystem :
 	 * @return :
 	 */
-	public static boolean isUnix(final String os) {
-		return (os.indexOf("nix") >= 0
-				|| os.indexOf("nux") >= 0
-				|| os.indexOf("aix") > 0);
+	public static boolean isUnix(final String oSystem) {
+		return (oSystem.indexOf("nix") >= 0
+				|| oSystem.indexOf("nux") >= 0
+				|| oSystem.indexOf("aix") > 0);
 	}
 
 	/**
-	 * @param os :
+	 * @param oSystem :
 	 * @return :
 	 */
-	public static boolean isSolaris(final String os) {
-		return (os.indexOf("sunos") >= 0);
+	public static boolean isSolaris(final String oSystem) {
+		return (oSystem.indexOf("sunos") >= 0);
 	}
 
 }
