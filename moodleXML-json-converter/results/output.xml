@@ -1,24 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<glossary>
-  <title>example glossary</title>
-  <GlossDiv>
-    <title>S</title>
-    <GlossList>
-      <GlossEntry>
-        <ID>SGML</ID>
-        <SortAs>SGML</SortAs>
-        <GlossTerm>Standard Generalized Markup Language</GlossTerm>
-        <Acronym>SGML</Acronym>
-        <Abbrev>ISO 8879:1986</Abbrev>
-        <GlossDef>
-          <para>A meta-markup language, used to create markup languages such as DocBook.</para>
-          <GlossSeeAlso>
-            <GlossSeeAlso>GML</GlossSeeAlso>
-            <GlossSeeAlso>XML</GlossSeeAlso>
-          </GlossSeeAlso>
-        </GlossDef>
-        <GlossSee>markup</GlossSee>
-      </GlossEntry>
-    </GlossList>
-  </GlossDiv>
-</glossary>
+<quiz>
+  <question>
+    <question>
+      <type>multichoice</type>
+      <name>
+        <text>Demo multichoice question</text>
+      </name>
+      <questiontext>
+        <format>html</format>
+        <text>What is the best answer?</text>
+      </questiontext>
+      <shuffleanswers>1</shuffleanswers>
+      <single>true</single>
+      <answernumbering>123</answernumbering>
+      <answer>
+        <answer>
+          <fraction>100</fraction>
+          <text>The correct answer</text>
+          <feedback>
+            <text>Correct!</text>
+          </feedback>
+        </answer>
+        <answer>
+          <fraction>0</fraction>
+          <text>A distractor</text>
+          <feedback>
+            <text>Ooops!</text>
+          </feedback>
+        </answer>
+        <answer>
+          <fraction>-25</fraction>
+          <text>Another distractor</text>
+          <feedback>
+            <text>Ooops!</text>
+          </feedback>
+        </answer>
+      </answer>
+    </question>
+    <question>
+      <type>truefalse</type>
+      <name>
+        <text>Demo truefalse question</text>
+      </name>
+      <questiontext>
+        <format>html</format>
+        <text>What is the best answer?</text>
+      </questiontext>
+      <answer>
+        <answer>
+          <fraction>100</fraction>
+          <text>true</text>
+          <feedback>
+            <text>Correct!</text>
+          </feedback>
+        </answer>
+        <answer>
+          <fraction>0</fraction>
+          <text>false</text>
+          <feedback>
+            <text>Ooops!</text>
+          </feedback>
+        </answer>
+      </answer>
+    </question>
+  </question>
+</quiz>

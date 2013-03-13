@@ -321,7 +321,7 @@ public class XmlToMoodleXMLConverter {
 						this.buff = new BufferedWriter(
 								new FileWriter(
 										new File(output)));
-					    afficher("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+					    afficher("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
 						printDocument(doc);
 						this.buff.flush();
 						this.buff.close();
@@ -349,5 +349,9 @@ public class XmlToMoodleXMLConverter {
 				lOGGER.warn("Erreur parser XML-MoodleXML");
 			}
 	}
+
+	 public static void main(String []args){
+		 new XmlToMoodleXMLConverter().convertXMLtoMoodleXML("results/output.xml", "results/output2.xml");
+		 }
 
 }

@@ -117,9 +117,9 @@ public class XmlToJsonByDOM {
 	public final boolean contientChiffreLettre(final String str) {
 		if (str != null) {
 			for (int i = 0; i < str.length(); i++) {
-				Character c = str.charAt(i);
-				if (Character.isDigit(c)
-					|| Character.isAlphabetic(c)) {
+				final Character caract = str.charAt(i);
+				if (Character.isDigit(caract)
+					|| Character.isAlphabetic(caract)) {
 					return true;
 				}
 			}
@@ -174,7 +174,7 @@ public class XmlToJsonByDOM {
 		final Node suivant = node.getNextSibling();
 		Node frereSuivant = null;
 		Node frerePrecedent = null;
-		String nodeName = node.getNodeName();
+		final String nodeName = node.getNodeName();
 		if (precedent != null) {
 			frerePrecedent = precedent.getPreviousSibling();
 		}
@@ -201,8 +201,8 @@ public class XmlToJsonByDOM {
 				indenter();
 			} else {
 				// le noeud n'a pas d'attributs
-				NamedNodeMap map = node.getAttributes();
-				int childNumber =
+				final NamedNodeMap map = node.getAttributes();
+				final int childNumber =
 						node.getChildNodes().
 						getLength();
 				if (map.getLength() == 0) {
@@ -229,9 +229,9 @@ public class XmlToJsonByDOM {
 	 * Affiche les attributs contenus dans node, si il y en a
 	 */
 	public final void afficherAttributs(final Node node) {
-		NamedNodeMap map = node.getAttributes();
+		final NamedNodeMap map = node.getAttributes();
 		for (int i = map.getLength() - 1; i >= 0; i--) {
-			Node item = map.item(i);
+			final Node item = map.item(i);
 			afficher("\"-" + item.getNodeName() + "\": \""
 			+ item.getNodeValue() + "\"");
 
@@ -260,11 +260,11 @@ public class XmlToJsonByDOM {
 	 */
 	public final void afficherValeur(final Node node) {
 		if (node.hasChildNodes()) {
-			Node fils = node.getFirstChild();
+			final Node fils = node.getFirstChild();
 			if (fils.getNodeType() == Node.TEXT_NODE) {
 				if (contientChiffreLettre(
 						fils.getNodeValue())) {
-					NamedNodeMap map = node.getAttributes();
+					final NamedNodeMap map = node.getAttributes();
 					if (map.getLength() != 0) {
 						afficher("\"#text\": "
 						+ "\"" + fils.getNodeValue()
@@ -283,7 +283,7 @@ public class XmlToJsonByDOM {
 	 * Traite tous les fils de node
 	 */
 	public final void traiterFils(final Node node) {
-		NodeList nodes = node.getChildNodes();
+		final NodeList nodes = node.getChildNodes();
 		for (int i = 0; i < nodes.getLength(); i++) {
 			printDocument(nodes.item(i));
 		}
@@ -295,8 +295,8 @@ public class XmlToJsonByDOM {
 	 * en fonction du node en entr�e
 	 */
 	public final void choixSymboleFin(final Node node) {
-		Node precedent = node.getPreviousSibling();
-		Node suivant = node.getNextSibling();
+		final Node precedent = node.getPreviousSibling();
+		final Node suivant = node.getNextSibling();
 		Node frereSuivant = null;
 		Node frerePrecedent = null;
 		String nodeName = node.getNodeName();
@@ -384,13 +384,13 @@ public class XmlToJsonByDOM {
 			throws IOException,
 				ParserConfigurationException,
 				SAXException {
-		File f = new File(input);
-		this.out = new BufferedWriter((new FileWriter(output)));
+		File file = new File(input);
+		this.out = new BufferedWriter(new FileWriter(output));
 		DocumentBuilderFactory dbf =
 			    DocumentBuilderFactory.newInstance();
-			  DocumentBuilder db =
+			  DocumentBuilder docbuilder =
 			    dbf.newDocumentBuilder();
-	    Document doc = db.parse(f);
+	    Document doc = docbuilder.parse(file);
 		afficher("{\n");
 		indenter();
 		printDocument(doc);
