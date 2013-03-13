@@ -23,7 +23,7 @@ public class JsonToXmlConverterTest {
     @BeforeClass
     public static void initialisation() {
         jtxc = new JsonToXmlConverter();
-        file = new File("ressources/exemple.json");
+        file = new File("ressources/examples/rightmoodlejson.json");
         text = Tools.readStringFromFile(file);
     }
 
@@ -41,7 +41,7 @@ public class JsonToXmlConverterTest {
     @Test
 	public final void testConvert() {
 		int ret = jtxc.convert(
-				"ressources/exemple.json",
+				"ressources/examples/rightmoodlejson.json",
 				"exemple-moodle-test-result.xml");
 		assertEquals(ret, 0);
 	}

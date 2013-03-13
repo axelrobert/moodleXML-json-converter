@@ -30,9 +30,9 @@ public class XmlToJsonConverterTest {
 
 	@BeforeClass
     public static void initialisation() {
-		 file = new File("ressources/exemple-moodle.xml");
+		 file = new File("ressources/examples/rightmoodlexml.xml");
 		 result = new File("exemple-moodle-test-result.json");
-		 stylesheet = new File("ressources/xmltojsonml.xslt");
+		 stylesheet = new File("ressources/xslTransformers/xmltojsonml.xslt");
 		 xtjc = new XmlToJsonConverter("xmltojsonml.xslt");
 		 inputFile = new StreamSource(file);
 		 xslt = new StreamSource(stylesheet);
@@ -80,7 +80,7 @@ public class XmlToJsonConverterTest {
 	@Test
 	public final void testConvert() {
 		int ret = xtjc.convert(
-				"ressources/exemple-moodle.xml",
+				"ressources/examples/rightmoodlexml.xml",
 				"exemple-moodle-test-result.json");
 		assertEquals(ret, 0);
 	}
