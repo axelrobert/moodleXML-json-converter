@@ -1,18 +1,298 @@
 
-src/main/java/dcll_project/mdrlv/WebStandardConverter.java:11	Avoid unused imports such as 'org.apache.log4j.BasicConfigurator'
-src/main/java/dcll_project/mdrlv/WebStandardConverter.java:11	Avoid unused imports such as 'org.apache.log4j.BasicConfigurator'
-src/main/java/dcll_project/mdrlv/WebStandardConverter.java:16	Abstract classes should be named AbstractXXX
-src/main/java/dcll_project/mdrlv/WebStandardConverter.java:24	A method should have only one exit point, and that should be the last statement in the method
-src/main/java/dcll_project/mdrlv/WebStandardConverter.java:27	A method should have only one exit point, and that should be the last statement in the method
-src/main/java/dcll_project/mdrlv/jsontoxml/JsonToXmlConverter.java:14	Avoid variables with short names like f
-src/main/java/dcll_project/mdrlv/jsontoxml/JsonToXmlConverter.java:20	Avoid variables with short names like f
-src/main/java/dcll_project/mdrlv/tools/Tools.java:10	All methods are static.  Consider using Singleton instead.  Alternatively, you could add a private constructor or make the class abstract to silence this warning.
-src/main/java/dcll_project/mdrlv/xmltojson/XmlToJsonConverter.java:37	Found non-transient, non-static member. Please mark as transient or provide accessors.
-src/main/java/dcll_project/mdrlv/xmltojson/XmlToJsonConverter.java:76	A method should have only one exit point, and that should be the last statement in the method
-src/main/java/dcll_project/mdrlv/xmltojson/XmlToJsonConverter.java:88	Found 'DD'-anomaly for variable 'outputDoc' (lines '88'-'100').
-src/main/java/dcll_project/mdrlv/xmltojson/XmlToJsonConverter.java:91	Found 'DD'-anomaly for variable 'docBuilder' (lines '91'-'93').
-src/main/java/dcll_project/mdrlv/xmltojson/XmlToJsonConverter.java:127	Local variable 'xslTransformer' could be declared final
-src/main/java/dcll_project/mdrlv/xmltojson/XmlToJsonConverter.java:129	Local variable 'outputFile' could be declared final
-src/main/java/dcll_project/mdrlv/xmltojson/XmlToJsonConverter.java:131	Local variable 'out' could be declared final
-src/main/java/dcll_project/mdrlv/xmltojson/XmlToJsonConverter.java:133	Local variable 'scan' could be declared final
-src/main/java/dcll_project/mdrlv/xmltojson/XmlToJsonConverter.java:134	Local variable 'text' could be declared final
+src/main/java/dcll/mdrlv/WebStandardConverter.java:13	Abstract classes should be named AbstractXXX
+src/main/java/dcll/mdrlv/WebStandardConverter.java:18	Possible unsafe assignment to a non-final static field in a constructor.
+src/main/java/dcll/mdrlv/WebStandardConverter.java:18	The Logger variable declaration does not contain the static and final modifiers
+src/main/java/dcll/mdrlv/WebStandardConverter.java:48	Avoid if (x != y) ..; else ..;
+src/main/java/dcll/mdrlv/WebStandardConverter.java:51	A method should have only one exit point, and that should be the last statement in the method
+src/main/java/dcll/mdrlv/WebStandardConverter.java:58	A method should have only one exit point, and that should be the last statement in the method
+src/main/java/dcll/mdrlv/ihm/CustomFileFilter.java:20	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/main/java/dcll/mdrlv/ihm/CustomFileFilter.java:25	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/main/java/dcll/mdrlv/ihm/CustomFileFilter.java:42	It is a good practice to call super() in a constructor
+src/main/java/dcll/mdrlv/ihm/CustomFileFilter.java:61	A method should have only one exit point, and that should be the last statement in the method
+src/main/java/dcll/mdrlv/ihm/CustomFileFilter.java:63	Found 'DU'-anomaly for variable 'path' (lines '63'-'72').
+src/main/java/dcll/mdrlv/ihm/CustomFileFilter.java:63	Local variable 'path' could be declared final
+src/main/java/dcll/mdrlv/ihm/CustomFileFilter.java:65	Local variable 'extension' could be declared final
+src/main/java/dcll/mdrlv/ihm/CustomFileFilter.java:67	A method should have only one exit point, and that should be the last statement in the method
+src/main/java/dcll/mdrlv/ihm/CustomFileFilter.java:83	Returning 'extensions' may expose an internal array.
+src/main/java/dcll/mdrlv/ihm/Gui.java:32	Avoid really long classes.
+src/main/java/dcll/mdrlv/ihm/Gui.java:32	This class has too many methods, consider refactoring it.
+src/main/java/dcll/mdrlv/ihm/Gui.java:32	Too many fields
+src/main/java/dcll/mdrlv/ihm/Gui.java:37	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/main/java/dcll/mdrlv/ihm/Gui.java:43	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/main/java/dcll/mdrlv/ihm/Gui.java:49	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/main/java/dcll/mdrlv/ihm/Gui.java:55	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/main/java/dcll/mdrlv/ihm/Gui.java:55	Perhaps 'selct' could be replaced by a local variable.
+src/main/java/dcll/mdrlv/ihm/Gui.java:61	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/main/java/dcll/mdrlv/ihm/Gui.java:61	Perhaps 'selctD' could be replaced by a local variable.
+src/main/java/dcll/mdrlv/ihm/Gui.java:67	Perhaps 'sync' could be replaced by a local variable.
+src/main/java/dcll/mdrlv/ihm/Gui.java:88	The Logger variable declaration does not contain the static and final modifiers
+src/main/java/dcll/mdrlv/ihm/Gui.java:92	Perhaps 'buttonGroupWAY' could be replaced by a local variable.
+src/main/java/dcll/mdrlv/ihm/Gui.java:94	Avoid excessively long variable names like jRadioButtonViaDOM
+src/main/java/dcll/mdrlv/ihm/Gui.java:95	Avoid excessively long variable names like jRadioButtonViaXSLT
+src/main/java/dcll/mdrlv/ihm/Gui.java:100	Avoid excessively long variable names like buttonGroupSensConverter
+src/main/java/dcll/mdrlv/ihm/Gui.java:100	Perhaps 'buttonGroupSensConverter' could be replaced by a local variable.
+src/main/java/dcll/mdrlv/ihm/Gui.java:115	Avoid excessively long variable names like jButtonParcourirIN
+src/main/java/dcll/mdrlv/ihm/Gui.java:121	Avoid excessively long variable names like jButtonParcourirOut
+src/main/java/dcll/mdrlv/ihm/Gui.java:207	It is a good practice to call super() in a constructor
+src/main/java/dcll/mdrlv/ihm/Gui.java:230	Avoid really long methods.
+src/main/java/dcll/mdrlv/ihm/Gui.java:346	Local variable 'jPanel1Layout' could be declared final
+src/main/java/dcll/mdrlv/ihm/Gui.java:487	Local variable 'jPanel2Layout' could be declared final
+src/main/java/dcll/mdrlv/ihm/Gui.java:553	Local variable 'layout' could be declared final
+src/main/java/dcll/mdrlv/ihm/Gui.java:707	Avoid unused method parameters such as 'evt'.
+src/main/java/dcll/mdrlv/ihm/Gui.java:726	The String literal "Le fichier " appears 5 times in this file; the first occurrence is on line 726
+src/main/java/dcll/mdrlv/ihm/Gui.java:730	Avoid printStackTrace(); use a logger call instead.
+src/main/java/dcll/mdrlv/ihm/Gui.java:742	The String literal "Veuillez renseigner" appears 4 times in this file; the first occurrence is on line 742
+src/main/java/dcll/mdrlv/ihm/Gui.java:743	The String literal " un chemin pour le " appears 4 times in this file; the first occurrence is on line 743
+src/main/java/dcll/mdrlv/ihm/Gui.java:757	Avoid printStackTrace(); use a logger call instead.
+src/main/java/dcll/mdrlv/ihm/Gui.java:768	Avoid throwing raw exception types.
+src/main/java/dcll/mdrlv/ihm/Gui.java:769	The String literal "action interdite car" appears 5 times in this file; the first occurrence is on line 769
+src/main/java/dcll/mdrlv/ihm/Gui.java:772	Avoid throwing raw exception types.
+src/main/java/dcll/mdrlv/ihm/Gui.java:773	The String literal "action interdite car " appears 28 times in this file; the first occurrence is on line 773
+src/main/java/dcll/mdrlv/ihm/Gui.java:776	Avoid throwing raw exception types.
+src/main/java/dcll/mdrlv/ihm/Gui.java:780	Avoid throwing raw exception types.
+src/main/java/dcll/mdrlv/ihm/Gui.java:784	Avoid throwing raw exception types.
+src/main/java/dcll/mdrlv/ihm/Gui.java:798	Avoid unused method parameters such as 'evt'.
+src/main/java/dcll/mdrlv/ihm/Gui.java:807	Avoid unused method parameters such as 'evt'.
+src/main/java/dcll/mdrlv/ihm/Gui.java:817	Avoid really long methods.
+src/main/java/dcll/mdrlv/ihm/Gui.java:817	Avoid unused method parameters such as 'evt'.
+src/main/java/dcll/mdrlv/ihm/Gui.java:817	The method jButtonConvertirActionPerformed() has an NCSS line count of 118
+src/main/java/dcll/mdrlv/ihm/Gui.java:819	A high ratio of statements to labels in a switch statement.  Consider refactoring.
+src/main/java/dcll/mdrlv/ihm/Gui.java:836	Found 'DU'-anomaly for variable 'fichierOut' (lines '836'-'1 119').
+src/main/java/dcll/mdrlv/ihm/Gui.java:836	Local variable 'fichierOut' could be declared final
+src/main/java/dcll/mdrlv/ihm/Gui.java:837	Local variable 'fichierIN' could be declared final
+src/main/java/dcll/mdrlv/ihm/Gui.java:915	Avoid printStackTrace(); use a logger call instead.
+src/main/java/dcll/mdrlv/ihm/Gui.java:1010	Avoid printStackTrace(); use a logger call instead.
+src/main/java/dcll/mdrlv/ihm/Gui.java:1024	Found 'DU'-anomaly for variable 'fichierOut' (lines '1 024'-'1 119').
+src/main/java/dcll/mdrlv/ihm/Gui.java:1099	Avoid printStackTrace(); use a logger call instead.
+src/main/java/dcll/mdrlv/ihm/Gui.java:1126	Avoid unused method parameters such as 'evt'.
+src/main/java/dcll/mdrlv/ihm/Gui.java:1338	Found 'DD'-anomaly for variable 'currentDir' (lines '1 338'-'1 339').
+src/main/java/dcll/mdrlv/ihm/Gui.java:1339	Found 'DD'-anomaly for variable 'currentDir' (lines '1 339'-'1 340').
+src/main/java/dcll/mdrlv/ihm/Gui.java:1396	System.exit() should not be used in J2EE/JEE apps
+src/main/java/dcll/mdrlv/ihm/Gui.java:1437	Avoid variables with short names like s
+src/main/java/dcll/mdrlv/ihm/Gui.java:1447	Avoid variables with short names like s
+src/main/java/dcll/mdrlv/ihm/Gui.java:1453	Found 'DD'-anomaly for variable 'extend' (lines '1 453'-'1 457').
+src/main/java/dcll/mdrlv/ihm/Gui.java:1453	Found 'DD'-anomaly for variable 'extend' (lines '1 453'-'1 460').
+src/main/java/dcll/mdrlv/ihm/Gui.java:1466	Prefer StringBuffer over += for concatenating strings
+src/main/java/dcll/mdrlv/ihm/Gui.java:1503	Found 'DD'-anomaly for variable 'flux' (lines '1 503'-'1 508').
+src/main/java/dcll/mdrlv/ihm/Gui.java:1504	Found 'DD'-anomaly for variable 'input' (lines '1 504'-'1 510').
+src/main/java/dcll/mdrlv/ihm/Gui.java:1512	Avoid assignments in operands
+src/main/java/dcll/mdrlv/ihm/Gui.java:1512	Found 'DU'-anomaly for variable 'str' (lines '1 512'-'1 530').
+src/main/java/dcll/mdrlv/ihm/Gui.java:1516	System.out.print is used
+src/main/java/dcll/mdrlv/ihm/Gui.java:1522	System.out.print is used
+src/main/java/dcll/mdrlv/ihm/Gui.java:1538	Found 'DD'-anomaly for variable 'extend' (lines '1 538'-'1 543').
+src/main/java/dcll/mdrlv/ihm/Gui.java:1538	Found 'DD'-anomaly for variable 'extend' (lines '1 538'-'1 546').
+src/main/java/dcll/mdrlv/ihm/Gui.java:1539	Found 'DD'-anomaly for variable 'fichier' (lines '1 539'-'1 556').
+src/main/java/dcll/mdrlv/ihm/Gui.java:1540	Found 'DD'-anomaly for variable 'path' (lines '1 540'-'1 553').
+src/main/java/dcll/mdrlv/ihm/Gui.java:1557	String.indexOf(char) is faster than String.indexOf(String).
+src/main/java/dcll/mdrlv/ihm/Gui.java:1558	Prefer StringBuffer over += for concatenating strings
+src/main/java/dcll/mdrlv/ihm/Gui.java:1569	Avoid really long methods.
+src/main/java/dcll/mdrlv/ihm/Gui.java:1569	Avoid variables with short names like e
+src/main/java/dcll/mdrlv/ihm/Gui.java:1569	The method gestionEtat() has an NCSS line count of 142
+src/main/java/dcll/mdrlv/ihm/Gui.java:1571	A high ratio of statements to labels in a switch statement.  Consider refactoring.
+src/main/java/dcll/mdrlv/ihm/SelecteurDeDossier.java:18	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/main/java/dcll/mdrlv/ihm/SelecteurDeDossier.java:18	Perhaps 'chosenFolder' could be replaced by a local variable.
+src/main/java/dcll/mdrlv/ihm/SelecteurDeDossier.java:22	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/main/java/dcll/mdrlv/ihm/SelecteurDeDossier.java:22	Private field 'parent' could be made final; it is only initialized in the declaration or constructor.
+src/main/java/dcll/mdrlv/ihm/SelecteurDeDossier.java:31	Avoid variables with short names like p
+src/main/java/dcll/mdrlv/ihm/SelecteurDeDossier.java:49	Local variable 'result' could be declared final
+src/main/java/dcll/mdrlv/ihm/SelecteurDeFichier.java:17	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/main/java/dcll/mdrlv/ihm/SelecteurDeFichier.java:17	Perhaps 'chosenFile' could be replaced by a local variable.
+src/main/java/dcll/mdrlv/ihm/SelecteurDeFichier.java:21	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/main/java/dcll/mdrlv/ihm/SelecteurDeFichier.java:21	Private field 'parent' could be made final; it is only initialized in the declaration or constructor.
+src/main/java/dcll/mdrlv/ihm/SelecteurDeFichier.java:31	Avoid variables with short names like f
+src/main/java/dcll/mdrlv/ihm/SelecteurDeFichier.java:31	Avoid variables with short names like p
+src/main/java/dcll/mdrlv/ihm/SelecteurDeFichier.java:50	Local variable 'result' could be declared final
+src/main/java/dcll/mdrlv/ihm/Synchronizer.java:22	Avoid variables with short names like h1
+src/main/java/dcll/mdrlv/ihm/Synchronizer.java:22	Avoid variables with short names like h2
+src/main/java/dcll/mdrlv/ihm/Synchronizer.java:22	Avoid variables with short names like v1
+src/main/java/dcll/mdrlv/ihm/Synchronizer.java:22	Avoid variables with short names like v2
+src/main/java/dcll/mdrlv/ihm/Synchronizer.java:22	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/main/java/dcll/mdrlv/ihm/Synchronizer.java:22	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/main/java/dcll/mdrlv/ihm/Synchronizer.java:22	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/main/java/dcll/mdrlv/ihm/Synchronizer.java:22	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/main/java/dcll/mdrlv/ihm/Synchronizer.java:39	Avoid variables with short names like e
+src/main/java/dcll/mdrlv/ihm/Synchronizer.java:40	Local variable 'scrollBar' could be declared final
+src/main/java/dcll/mdrlv/ihm/Synchronizer.java:41	Local variable 'value' could be declared final
+src/main/java/dcll/mdrlv/ihm/Synchronizer.java:42	Found 'DD'-anomaly for variable 'target' (lines '42'-'45').
+src/main/java/dcll/mdrlv/ihm/Synchronizer.java:42	Found 'DD'-anomaly for variable 'target' (lines '42'-'48').
+src/main/java/dcll/mdrlv/ihm/Synchronizer.java:42	Found 'DD'-anomaly for variable 'target' (lines '42'-'51').
+src/main/java/dcll/mdrlv/ihm/Synchronizer.java:42	Found 'DD'-anomaly for variable 'target' (lines '42'-'54').
+src/main/java/dcll/mdrlv/ihm/Synchronizer.java:44	Use equals() to compare object references.
+src/main/java/dcll/mdrlv/ihm/Synchronizer.java:45	Found 'DD'-anomaly for variable 'target' (lines '45'-'48').
+src/main/java/dcll/mdrlv/ihm/Synchronizer.java:45	Found 'DD'-anomaly for variable 'target' (lines '45'-'51').
+src/main/java/dcll/mdrlv/ihm/Synchronizer.java:45	Found 'DD'-anomaly for variable 'target' (lines '45'-'54').
+src/main/java/dcll/mdrlv/ihm/Synchronizer.java:47	Use equals() to compare object references.
+src/main/java/dcll/mdrlv/ihm/Synchronizer.java:48	Found 'DD'-anomaly for variable 'target' (lines '48'-'51').
+src/main/java/dcll/mdrlv/ihm/Synchronizer.java:48	Found 'DD'-anomaly for variable 'target' (lines '48'-'54').
+src/main/java/dcll/mdrlv/ihm/Synchronizer.java:50	Use equals() to compare object references.
+src/main/java/dcll/mdrlv/ihm/Synchronizer.java:51	Found 'DD'-anomaly for variable 'target' (lines '51'-'54').
+src/main/java/dcll/mdrlv/ihm/Synchronizer.java:53	Use equals() to compare object references.
+src/main/java/dcll/mdrlv/ihm/Test.java:11	All methods are static.  Consider using Singleton instead.  Alternatively, you could add a private constructor or make the class abstract to silence this warning.
+src/main/java/dcll/mdrlv/ihm/Test.java:18	To be compliant to J2EE, a webapp should not use any thread.
+src/main/java/dcll/mdrlv/ihm/Test.java:23	Do not add empty strings
+src/main/java/dcll/mdrlv/jsontoxml/JSONSaxAdapter.java:16	Too many static imports may lead to messy code
+src/main/java/dcll/mdrlv/jsontoxml/JSONSaxAdapter.java:61	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/main/java/dcll/mdrlv/jsontoxml/JSONSaxAdapter.java:66	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/main/java/dcll/mdrlv/jsontoxml/JSONSaxAdapter.java:71	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/main/java/dcll/mdrlv/jsontoxml/JSONSaxAdapter.java:76	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/main/java/dcll/mdrlv/jsontoxml/JSONSaxAdapter.java:123	Avoid excessively long variable names like aAddTypeAttributes
+src/main/java/dcll/mdrlv/jsontoxml/JSONSaxAdapter.java:152	Local variable 'elementsWritten' could be declared final
+src/main/java/dcll/mdrlv/jsontoxml/JSONSaxAdapter.java:175	A method/constructor shouldn't explicitly throw java.lang.Exception
+src/main/java/dcll/mdrlv/jsontoxml/JSONSaxAdapter.java:175	A method/constructor shouldn't explicitly throw java.lang.Exception
+src/main/java/dcll/mdrlv/jsontoxml/JSONSaxAdapter.java:176	Found 'DD'-anomaly for variable 'elementsWritten' (lines '176'-'184').
+src/main/java/dcll/mdrlv/jsontoxml/JSONSaxAdapter.java:176	Found 'DU'-anomaly for variable 'elementsWritten' (lines '176'-'194').
+src/main/java/dcll/mdrlv/jsontoxml/JSONSaxAdapter.java:180	Local variable 'elementName' could be declared final
+src/main/java/dcll/mdrlv/jsontoxml/JSONSaxAdapter.java:184	Found 'DD'-anomaly for variable 'elementsWritten' (lines '184'-'184').
+src/main/java/dcll/mdrlv/jsontoxml/JSONSaxAdapter.java:184	Found 'DU'-anomaly for variable 'elementsWritten' (lines '184'-'194').
+src/main/java/dcll/mdrlv/jsontoxml/JSONSaxAdapter.java:200	A method/constructor shouldn't explicitly throw java.lang.Exception
+src/main/java/dcll/mdrlv/jsontoxml/JSONSaxAdapter.java:200	A method/constructor shouldn't explicitly throw java.lang.Exception
+src/main/java/dcll/mdrlv/jsontoxml/JSONSaxAdapter.java:202	Local variable 'currentToken' could be declared final
+src/main/java/dcll/mdrlv/jsontoxml/JSONSaxAdapter.java:221	A method/constructor shouldn't explicitly throw java.lang.Exception
+src/main/java/dcll/mdrlv/jsontoxml/JSONSaxAdapter.java:234	Local variable 'text' could be declared final
+src/main/java/dcll/mdrlv/jsontoxml/JSONSaxAdapter.java:256	Local variable 'currentTokenType' could be declared final
+src/main/java/dcll/mdrlv/jsontoxml/JSONSaxAdapter.java:257	Avoid if (x != y) ..; else ..;
+src/main/java/dcll/mdrlv/jsontoxml/JSONSaxAdapter.java:263	A method should have only one exit point, and that should be the last statement in the method
+src/main/java/dcll/mdrlv/jsontoxml/JSONSaxAdapter.java:265	A method should have only one exit point, and that should be the last statement in the method
+src/main/java/dcll/mdrlv/jsontoxml/JSONSaxAdapter.java:278	A method should have only one exit point, and that should be the last statement in the method
+src/main/java/dcll/mdrlv/jsontoxml/JSONSaxAdapter.java:279	A method should have only one exit point, and that should be the last statement in the method
+src/main/java/dcll/mdrlv/jsontoxml/JSONSaxAdapter.java:280	A method should have only one exit point, and that should be the last statement in the method
+src/main/java/dcll/mdrlv/jsontoxml/JSONSaxAdapter.java:344	Avoid if (x != y) ..; else ..;
+src/main/java/dcll/mdrlv/jsontoxml/JSONSaxAdapter.java:363	Avoid if (x != y) ..; else ..;
+src/main/java/dcll/mdrlv/jsontoxml/JSONSaxAdapter.java:371	Avoid if (x != y) ..; else ..;
+src/main/java/dcll/mdrlv/jsontoxml/JSONXmlReader.java:61	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/main/java/dcll/mdrlv/jsontoxml/JSONXmlReader.java:66	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/main/java/dcll/mdrlv/jsontoxml/JSONXmlReader.java:88	Avoid excessively long variable names like aAddTypeAttributes
+src/main/java/dcll/mdrlv/jsontoxml/JSONXmlReader.java:113	Document empty method
+src/main/java/dcll/mdrlv/jsontoxml/JSONXmlReader.java:203	Local variable 'jsonParser' could be declared final
+src/main/java/dcll/mdrlv/jsontoxml/JsonToXmlConverter.java:39	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/main/java/dcll/mdrlv/jsontoxml/JsonToXmlConverter.java:44	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/main/java/dcll/mdrlv/jsontoxml/JsonToXmlConverter.java:48	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/main/java/dcll/mdrlv/jsontoxml/JsonToXmlConverter.java:48	The Logger variable declaration does not contain the static and final modifiers
+src/main/java/dcll/mdrlv/jsontoxml/JsonToXmlConverter.java:68	Found 'DD'-anomaly for variable 'transformer' (lines '68'-'71').
+src/main/java/dcll/mdrlv/jsontoxml/JsonToXmlConverter.java:69	Avoid variables with short names like ok
+src/main/java/dcll/mdrlv/jsontoxml/JsonToXmlConverter.java:69	Found 'DD'-anomaly for variable 'ok' (lines '69'-'89').
+src/main/java/dcll/mdrlv/jsontoxml/JsonToXmlConverter.java:84	Found 'DD'-anomaly for variable 'output' (lines '84'-'97').
+src/main/java/dcll/mdrlv/jsontoxml/JsonToXmlConverter.java:84	Found 'DD'-anomaly for variable 'output' (lines '84'-'99').
+src/main/java/dcll/mdrlv/jsontoxml/JsonToXmlConverter.java:89	Found 'DD'-anomaly for variable 'ok' (lines '89'-'93').
+src/main/java/dcll/mdrlv/jsontoxml/JsonToXmlConverter.java:108	Found 'DD'-anomaly for variable 'success' (lines '108'-'124').
+src/main/java/dcll/mdrlv/jsontoxml/JsonToXmlConverter.java:116	Found 'DD'-anomaly for variable 'document' (lines '116'-'121').
+src/main/java/dcll/mdrlv/jsontoxml/JsonToXmlConverter.java:121	Found 'DU'-anomaly for variable 'document' (lines '121'-'144').
+src/main/java/dcll/mdrlv/jsontoxml/JsonToXmlConverter.java:129	Local variable 'racine' could be declared final
+src/main/java/dcll/mdrlv/jsontoxml/JsonToXmlConverter.java:132	Local variable 'list' could be declared final
+src/main/java/dcll/mdrlv/jsontoxml/JsonToXmlConverter.java:138	Substitute calls to size() == 0 (or size() != 0) with calls to isEmpty()
+src/main/java/dcll/mdrlv/jsontoxml/JsonToXmlConverter.java:156	Found 'DD'-anomaly for variable 'success' (lines '156'-'169').
+src/main/java/dcll/mdrlv/jsontoxml/JsonToXmlConverter.java:165	Found 'DD'-anomaly for variable 'doc' (lines '165'-'168').
+src/main/java/dcll/mdrlv/jsontoxml/JsonToXmlConverter.java:168	Found 'DU'-anomaly for variable 'doc' (lines '168'-'185').
+src/main/java/dcll/mdrlv/jsontoxml/XmlToMoodleXMLConverter.java:39	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/main/java/dcll/mdrlv/jsontoxml/XmlToMoodleXMLConverter.java:39	The Logger variable declaration does not contain the static and final modifiers
+src/main/java/dcll/mdrlv/jsontoxml/XmlToMoodleXMLConverter.java:100	Avoid printStackTrace(); use a logger call instead.
+src/main/java/dcll/mdrlv/jsontoxml/XmlToMoodleXMLConverter.java:124	Avoid variables with short names like c
+src/main/java/dcll/mdrlv/jsontoxml/XmlToMoodleXMLConverter.java:124	Local variable 'c' could be declared final
+src/main/java/dcll/mdrlv/jsontoxml/XmlToMoodleXMLConverter.java:127	A method should have only one exit point, and that should be the last statement in the method
+src/main/java/dcll/mdrlv/jsontoxml/XmlToMoodleXMLConverter.java:153	Local variable 'name' could be declared final
+src/main/java/dcll/mdrlv/jsontoxml/XmlToMoodleXMLConverter.java:154	Position literals first in String comparisons
+src/main/java/dcll/mdrlv/jsontoxml/XmlToMoodleXMLConverter.java:155	Position literals first in String comparisons
+src/main/java/dcll/mdrlv/jsontoxml/XmlToMoodleXMLConverter.java:156	Position literals first in String comparisons
+src/main/java/dcll/mdrlv/jsontoxml/XmlToMoodleXMLConverter.java:159	Position literals first in String comparisons
+src/main/java/dcll/mdrlv/jsontoxml/XmlToMoodleXMLConverter.java:159	The String literal "question" appears 6 times in this file; the first occurrence is on line 159
+src/main/java/dcll/mdrlv/jsontoxml/XmlToMoodleXMLConverter.java:160	Position literals first in String comparisons
+src/main/java/dcll/mdrlv/jsontoxml/XmlToMoodleXMLConverter.java:160	The String literal "answer" appears 6 times in this file; the first occurrence is on line 160
+src/main/java/dcll/mdrlv/jsontoxml/XmlToMoodleXMLConverter.java:161	Local variable 'parent' could be declared final
+src/main/java/dcll/mdrlv/jsontoxml/XmlToMoodleXMLConverter.java:174	Local variable 'suivant' could be declared final
+src/main/java/dcll/mdrlv/jsontoxml/XmlToMoodleXMLConverter.java:176	Found 'DD'-anomaly for variable 'frere' (lines '176'-'178').
+src/main/java/dcll/mdrlv/jsontoxml/XmlToMoodleXMLConverter.java:181	Avoid if (x != y) ..; else ..;
+src/main/java/dcll/mdrlv/jsontoxml/XmlToMoodleXMLConverter.java:191	Local variable 'suivant' could be declared final
+src/main/java/dcll/mdrlv/jsontoxml/XmlToMoodleXMLConverter.java:197	Avoid if (x != y) ..; else ..;
+src/main/java/dcll/mdrlv/jsontoxml/XmlToMoodleXMLConverter.java:212	Avoid if (x != y) ..; else ..;
+src/main/java/dcll/mdrlv/jsontoxml/XmlToMoodleXMLConverter.java:244	Found 'DD'-anomaly for variable 'fils' (lines '244'-'246').
+src/main/java/dcll/mdrlv/jsontoxml/XmlToMoodleXMLConverter.java:273	Found 'DU'-anomaly for variable 'name' (lines '273'-'303').
+src/main/java/dcll/mdrlv/jsontoxml/XmlToMoodleXMLConverter.java:312	Avoid variables with short names like f
+src/main/java/dcll/mdrlv/jsontoxml/XmlToMoodleXMLConverter.java:315	Avoid variables with short names like db
+src/main/java/dcll/mdrlv/jsontoxml/XmlToMoodleXMLConverter.java:332	Avoid printStackTrace(); use a logger call instead.
+src/main/java/dcll/mdrlv/jsontoxml/XmlToMoodleXMLConverter.java:338	Avoid printStackTrace(); use a logger call instead.
+src/main/java/dcll/mdrlv/jsontoxml/XmlToMoodleXMLConverter.java:343	Avoid printStackTrace(); use a logger call instead.
+src/main/java/dcll/mdrlv/jsontoxml/XmlToMoodleXMLConverter.java:349	Avoid printStackTrace(); use a logger call instead.
+src/main/java/dcll/mdrlv/tools/Tools.java:39	Found 'DD'-anomaly for variable 'fwriter' (lines '39'-'41').
+src/main/java/dcll/mdrlv/tools/Tools.java:80	Found 'DD'-anomaly for variable 'scan' (lines '80'-'83').
+src/main/java/dcll/mdrlv/tools/Tools.java:81	Found 'DD'-anomaly for variable 'text' (lines '81'-'84').
+src/main/java/dcll/mdrlv/tools/Tools.java:99	Found 'DD'-anomaly for variable 'osOfUser' (lines '99'-'101').
+src/main/java/dcll/mdrlv/tools/Tools.java:99	Found 'DD'-anomaly for variable 'osOfUser' (lines '99'-'103').
+src/main/java/dcll/mdrlv/tools/Tools.java:99	Found 'DD'-anomaly for variable 'osOfUser' (lines '99'-'105').
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonByDOM.java:23	This class has too many methods, consider refactoring it.
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonByDOM.java:38	Possible unsafe assignment to a non-final static field in a constructor.
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonByDOM.java:38	The Logger variable declaration does not contain the static and final modifiers
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonByDOM.java:118	Found 'DD'-anomaly for variable 'retour' (lines '118'-'124').
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonByDOM.java:124	Found 'DD'-anomaly for variable 'retour' (lines '124'-'124').
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonByDOM.java:136	Found 'DD'-anomaly for variable 'frerePrecedent' (lines '136'-'140').
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonByDOM.java:137	Found 'DD'-anomaly for variable 'frereSuivant' (lines '137'-'144').
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonByDOM.java:176	Found 'DD'-anomaly for variable 'frereSuivant' (lines '176'-'183').
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonByDOM.java:176	Found 'DU'-anomaly for variable 'frereSuivant' (lines '176'-'226').
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonByDOM.java:177	Found 'DD'-anomaly for variable 'frerePrecedent' (lines '177'-'180').
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonByDOM.java:183	Found 'DU'-anomaly for variable 'frereSuivant' (lines '183'-'226').
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonByDOM.java:200	The String literal "{\n" appears 4 times in this file; the first occurrence is on line 200
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonByDOM.java:206	Found 'DU'-anomaly for variable 'childNumber' (lines '206'-'226').
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonByDOM.java:269	Avoid if (x != y) ..; else ..;
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonByDOM.java:300	Found 'DD'-anomaly for variable 'frereSuivant' (lines '300'-'309').
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonByDOM.java:301	Found 'DD'-anomaly for variable 'frerePrecedent' (lines '301'-'306').
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonByDOM.java:301	Found 'DU'-anomaly for variable 'frerePrecedent' (lines '301'-'370').
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonByDOM.java:303	Found 'DU'-anomaly for variable 'childNumber' (lines '303'-'370').
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonByDOM.java:306	Found 'DU'-anomaly for variable 'frerePrecedent' (lines '306'-'370').
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonByDOM.java:326	Avoid if (x != y) ..; else ..;
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonByDOM.java:340	Avoid if (x != y) ..; else ..;
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonConverter.java:1	A high number of imports can indicate a high degree of coupling within an object.
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonConverter.java:48	Class contains more than one logger.
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonConverter.java:53	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonConverter.java:58	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonConverter.java:58	Perhaps 'document' could be replaced by a local variable.
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonConverter.java:63	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonConverter.java:63	Perhaps 'racine' could be replaced by a local variable.
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonConverter.java:68	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonConverter.java:82	This statement may have some unnecessary parentheses
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonConverter.java:93	Found 'DD'-anomaly for variable 'schemafac' (lines '93'-'96').
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonConverter.java:94	Local variable 'lOGGER' could be declared final
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonConverter.java:102	Local variable 'builder' could be declared final
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonConverter.java:110	A method should have only one exit point, and that should be the last statement in the method
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonConverter.java:113	A method should have only one exit point, and that should be the last statement in the method
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonConverter.java:125	Local variable 'type' could be declared final
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonConverter.java:129	Local variable 'uriFile' could be declared final
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonConverter.java:131	This statement may have some unnecessary parentheses
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonConverter.java:138	Avoid really long methods.
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonConverter.java:140	Local variable 'sxb' could be declared final
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonConverter.java:150	A method should have only one exit point, and that should be the last statement in the method
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonConverter.java:164	Substitute calls to size() == 0 (or size() != 0) with calls to isEmpty()
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonConverter.java:165	A method should have only one exit point, and that should be the last statement in the method
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonConverter.java:169	Avoid variables with short names like i
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonConverter.java:195	Avoid instantiating new objects inside loops
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonConverter.java:197	A method should have only one exit point, and that should be the last statement in the method
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonConverter.java:208	Avoid instantiating new objects inside loops
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonConverter.java:210	Avoid instantiating new objects inside loops
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonConverter.java:213	Avoid instantiating new objects inside loops
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonConverter.java:217	Avoid instantiating new objects inside loops
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonConverter.java:257	Found 'DD'-anomaly for variable 'outputDoc' (lines '257'-'273').
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonConverter.java:262	Found 'DD'-anomaly for variable 'docBuilder' (lines '262'-'266').
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonConverter.java:306	Found 'DD'-anomaly for variable 'retour' (lines '306'-'321').
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonConverter.java:314	Found 'DD'-anomaly for variable 'transformer' (lines '314'-'316').
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonConverter.java:321	Found 'DD'-anomaly for variable 'retour' (lines '321'-'331').
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonConverter.java:341	Found 'DU'-anomaly for variable 'inputFile' (lines '341'-'379').
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonConverter.java:344	Found 'DU'-anomaly for variable 'xslTransformer' (lines '344'-'379').
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonConverter.java:348	Found 'DD'-anomaly for variable 'outputFile' (lines '348'-'351').
+src/main/java/dcll/mdrlv/xmltojson/XmlToJsonConverter.java:351	Found 'DU'-anomaly for variable 'outputFile' (lines '351'-'379').
+src/test/java/dcll/mdrlv/moodle/xml/json/converter/JsonToXmlConverterTest.java:53	Assigning an Object to null is a code smell.  Consider refactoring.
+src/test/java/dcll/mdrlv/moodle/xml/json/converter/JsonToXmlConverterTest.java:61	Local variable 'isOk' could be declared final
+src/test/java/dcll/mdrlv/moodle/xml/json/converter/JsonToXmlConverterTest.java:62	JUnit assertions should include a message
+src/test/java/dcll/mdrlv/moodle/xml/json/converter/JsonToXmlConverterTest.java:70	Local variable 'ret' could be declared final
+src/test/java/dcll/mdrlv/moodle/xml/json/converter/JsonToXmlConverterTest.java:73	JUnit assertions should include a message
+src/test/java/dcll/mdrlv/moodle/xml/json/converter/JsonToXmlConverterTest.java:82	Local variable 'resultat' could be declared final
+src/test/java/dcll/mdrlv/moodle/xml/json/converter/JsonToXmlConverterTest.java:84	JUnit assertions should include a message
+src/test/java/dcll/mdrlv/moodle/xml/json/converter/XmlToJsonConverterTest.java:91	Assigning an Object to null is a code smell.  Consider refactoring.
+src/test/java/dcll/mdrlv/moodle/xml/json/converter/XmlToJsonConverterTest.java:92	Assigning an Object to null is a code smell.  Consider refactoring.
+src/test/java/dcll/mdrlv/moodle/xml/json/converter/XmlToJsonConverterTest.java:100	Local variable 'isOk' could be declared final
+src/test/java/dcll/mdrlv/moodle/xml/json/converter/XmlToJsonConverterTest.java:101	JUnit assertions should include a message
+src/test/java/dcll/mdrlv/moodle/xml/json/converter/XmlToJsonConverterTest.java:109	Local variable 'isOk' could be declared final
+src/test/java/dcll/mdrlv/moodle/xml/json/converter/XmlToJsonConverterTest.java:110	JUnit assertions should include a message
+src/test/java/dcll/mdrlv/moodle/xml/json/converter/XmlToJsonConverterTest.java:118	Local variable 'conform' could be declared final
+src/test/java/dcll/mdrlv/moodle/xml/json/converter/XmlToJsonConverterTest.java:119	JUnit assertions should include a message
+src/test/java/dcll/mdrlv/moodle/xml/json/converter/XmlToJsonConverterTest.java:127	Local variable 'ret' could be declared final
+src/test/java/dcll/mdrlv/moodle/xml/json/converter/XmlToJsonConverterTest.java:129	JUnit assertions should include a message
+src/test/java/dcll/mdrlv/moodle/xml/json/converter/XmlToJsonConverterTest.java:138	Local variable 'ret' could be declared final
+src/test/java/dcll/mdrlv/moodle/xml/json/converter/XmlToJsonConverterTest.java:141	JUnit assertions should include a message

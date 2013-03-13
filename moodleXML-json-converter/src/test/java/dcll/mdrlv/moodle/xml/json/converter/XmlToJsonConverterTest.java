@@ -1,4 +1,4 @@
-package dcll.mdrlv.moodleXML_json_converter;
+package dcll.mdrlv.moodle.xml.json.converter;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -17,17 +17,55 @@ import org.junit.Test;
 import dcll.mdrlv.tools.FileConformity;
 import dcll.mdrlv.xmltojson.XmlToJsonConverter;
 
+/**
+ * @author Axel Robert
+ *
+ */
 public class XmlToJsonConverterTest {
 
+	/**
+	 * file.
+	 */
 	private static File file;
+
+	/**
+	 * result.
+	 */
 	private static File result;
+
+	/**
+	 * stylesheet.
+	 */
 	private static File stylesheet;
+
+	/**
+	 * xtcj.
+	 */
 	private static XmlToJsonConverter xtjc;
+
+	/**
+	 * inputFile.
+	 */
 	private static StreamSource inputFile;
+
+	/**
+	 * xslt.
+	 */
 	private static StreamSource xslt;
+
+	/**
+	 * outputFile.
+	 */
 	private static StreamResult outputFile;
+
+	/**
+	 * writer.
+	 */
 	private static FileWriter writer;
 
+	/**
+	 * initialisation.
+	 */
 	@BeforeClass
     public static void initialisation() {
 		 file = new File("ressources/examples/rightmoodlexml.xml");
@@ -44,6 +82,9 @@ public class XmlToJsonConverterTest {
 		 outputFile = new StreamResult(writer);
     }
 
+	/**
+	 * apresTests.
+	 */
 	@AfterClass
     public static void apresTests() {
 		xtjc.getXMLFile().delete();
@@ -51,24 +92,36 @@ public class XmlToJsonConverterTest {
         xtjc = null;
     }
 
+	/**
+	 * Test de la conformite avec le standard.
+	 */
 	@Test
 	public final void testAccordanceWithStandard() {
 		boolean isOk = xtjc.accordanceWithStandard(file);
         assertTrue(isOk);
     }
 
+	/**
+	 * Test de la conformite avec le standard moodle.
+	 */
 	@Test
 	public final void testAccordanceWithMoodleStandard() {
 		boolean isOk = xtjc.accordanceWithMoodleStandard(file);
 		assertTrue(isOk);
 	}
 
+	/**
+	 * Test de validation.
+	 */
 	@Test
 	public final void testValidationFile() {
 		FileConformity conform = xtjc.fileValidation(file);
 		assertEquals(conform, FileConformity.OK);
 	}
 
+	/**
+	 * Test de transformation.
+	 */
 	@Test
 	public final void testTransformFile() {
 		int ret = xtjc.transformXmlToJsonViaXSLT(
@@ -77,6 +130,9 @@ public class XmlToJsonConverterTest {
 
 	}
 
+	/**
+	 * Test de conversion.
+	 */
 	@Test
 	public final void testConvert() {
 		int ret = xtjc.convert(

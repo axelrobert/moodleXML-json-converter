@@ -46,14 +46,14 @@ public class XmlToJsonByDOM {
 	}
 
 	/**
-	 * @param log :
+	 * @param log : nouveau logger
 	 */
 	public final void setlOGGER(final Logger log) {
 		lOGGER = log;
 	}
 
 	/**
-	 * @return :
+	 * @return : lOGGER
 	 */
 	public final Logger getlOGGER() {
 		return lOGGER;
@@ -110,28 +110,29 @@ public class XmlToJsonByDOM {
 	}
 
 	/**
-	 * @param str : string � tester
+	 * @param str : string a tester
 	 * @return : renvoie vrai si la chaine contient un
 	 * caractere num�rique [0-9] ou alphab�tique [A-Z a-z]
 	 */
 	public final boolean contientChiffreLettre(final String str) {
+		boolean retour = false;
 		if (str != null) {
 			for (int i = 0; i < str.length(); i++) {
 				final Character caract = str.charAt(i);
 				if (Character.isDigit(caract)
 					|| Character.isAlphabetic(caract)) {
-					return true;
+					retour = true;
 				}
 			}
 		}
-		return false;
+		return retour;
 	}
 
 	/**
 	 * @param node : contient le noeud a afficher
 	 */
 	public final void afficherNoeud(final Node node) {
-		/* si le noeud a un frere identique apr�s mais pas avant*/
+		/* si le noeud a un frere identique apres mais pas avant*/
 		Node frerePrecedent = null;
 		Node frereSuivant = null;
 		final Node precedent = node.getPreviousSibling();
@@ -143,7 +144,7 @@ public class XmlToJsonByDOM {
 			frereSuivant = suivant.getNextSibling();
 		}
 		final String nodeName = node.getNodeName();
-		//Si le noeud a un frere identique apr�s mais pas avant
+		//Si le noeud a un frere identique apres mais pas avant
 		if (((precedent != null && frerePrecedent != null
              && !frerePrecedent.getNodeName().equals(nodeName))
 			 || (precedent == null))
@@ -232,7 +233,7 @@ public class XmlToJsonByDOM {
 		final NamedNodeMap map = node.getAttributes();
 		for (int i = map.getLength() - 1; i >= 0; i--) {
 			final Node item = map.item(i);
-			afficher("\"-" + item.getNodeName() + "\": \""
+			afficher("\"" + item.getNodeName() + "\": \""
 			+ item.getNodeValue() + "\"");
 
 			// L'attribut n'est pas le dernier
@@ -261,18 +262,17 @@ public class XmlToJsonByDOM {
 	public final void afficherValeur(final Node node) {
 		if (node.hasChildNodes()) {
 			final Node fils = node.getFirstChild();
-			if (fils.getNodeType() == Node.TEXT_NODE) {
-				if (contientChiffreLettre(
-						fils.getNodeValue())) {
-					final NamedNodeMap map = node.getAttributes();
-					if (map.getLength() != 0) {
-						afficher("\"#text\": "
-						+ "\"" + fils.getNodeValue()
-						+ "\"\n");
-					} else {
-						afficher("\""
-					    + fils.getNodeValue() + "\"");
-					}
+			if (fils.getNodeType() == Node.TEXT_NODE
+				&& contientChiffreLettre(
+					fils.getNodeValue())) {
+				final NamedNodeMap map = node.getAttributes();
+				if (map.getLength() != 0) {
+					afficher("\"#text\": "
+					+ "\"" + fils.getNodeValue()
+					+ "\"\n");
+				} else {
+					afficher("\""
+				    + fils.getNodeValue() + "\"");
 				}
 			}
 		}
@@ -292,15 +292,15 @@ public class XmlToJsonByDOM {
 	/**
 	 * @param node
 	 * Determine le symbole de fin de phrase
-	 * en fonction du node en entr�e
+	 * en fonction du node en entree
 	 */
 	public final void choixSymboleFin(final Node node) {
 		final Node precedent = node.getPreviousSibling();
 		final Node suivant = node.getNextSibling();
 		Node frereSuivant = null;
 		Node frerePrecedent = null;
-		String nodeName = node.getNodeName();
-		int childNumber = node.getChildNodes().
+		final String nodeName = node.getNodeName();
+		final int childNumber = node.getChildNodes().
 				getLength();
 		if (precedent != null) {
 			frerePrecedent = precedent.getPreviousSibling();
@@ -308,7 +308,7 @@ public class XmlToJsonByDOM {
 		if (suivant != null) {
 			frereSuivant = suivant.getNextSibling();
 		}
-		//Si le noeud a un fr�re identique apr�s
+		//Si le noeud a un frere identique apres
 		if (suivant != null && frereSuivant != null
 		&& frereSuivant.getNodeName().equals(nodeName)) {
 			indent--;
@@ -316,7 +316,7 @@ public class XmlToJsonByDOM {
 			afficher("},\n");
 			indenter();
 		} else {
-			//si le noeud a un fr�re identique avant mais pas apr�s
+			//si le noeud a un frere identique avant mais pas apres
 			if (precedent != null && frerePrecedent != null
 			&& frerePrecedent.getNodeName().equals(nodeName)) {
 				indent--;
@@ -351,7 +351,7 @@ public class XmlToJsonByDOM {
 						afficher(",\n");
 						indenter();
 					}
-					//Le noeud n'a pas de fr�re,
+					//Le noeud n'a pas de frere,
 					//il est le dernier
 				} else {
 					//Si le noeud est le dernier
@@ -375,22 +375,22 @@ public class XmlToJsonByDOM {
 	 * Fonction d'appel pour la conversion XML Json
 	 * Pr� indentation et post indentation avant l'appel
 	 * de printDocument
-	 * @throws IOException :
-	 * @throws ParserConfigurationException :
-	 * @throws SAXException :
+	 * @throws IOException : erreurs sur lecture/ecriture
+	 * @throws ParserConfigurationException : erreur de parser
+	 * @throws SAXException : erreur de parsage
 	 */
 	public final void convertXMLtoJSON(final String input,
 			final String output)
 			throws IOException,
 				ParserConfigurationException,
 				SAXException {
-		File file = new File(input);
+		final File file = new File(input);
 		this.out = new BufferedWriter(new FileWriter(output));
-		DocumentBuilderFactory dbf =
+		final DocumentBuilderFactory dbf =
 			    DocumentBuilderFactory.newInstance();
-			  DocumentBuilder docbuilder =
+		final DocumentBuilder docbuilder =
 			    dbf.newDocumentBuilder();
-	    Document doc = docbuilder.parse(file);
+	    final Document doc = docbuilder.parse(file);
 		afficher("{\n");
 		indenter();
 		printDocument(doc);

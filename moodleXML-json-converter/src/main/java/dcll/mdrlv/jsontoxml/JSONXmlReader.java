@@ -82,12 +82,12 @@ public class JSONXmlReader implements XMLReader {
 
     /**
      * @param aNamespaceUri :
-     * @param aAddTypeAttributes :
+     * @param aTypeAttributes :
      */
     public JSONXmlReader(final String aNamespaceUri,
-    		final boolean aAddTypeAttributes) {
+    		final boolean aTypeAttributes) {
     	this.namespaceUri = aNamespaceUri;
-		this.addTypeAttributes = aAddTypeAttributes;
+		this.addTypeAttributes = aTypeAttributes;
 	}
 
 	/**
@@ -111,6 +111,7 @@ public class JSONXmlReader implements XMLReader {
     public final void setFeature(final String name, final boolean value)
     			throws SAXNotRecognizedException,
     			SAXNotSupportedException {
+    	//Méthode vide
     }
 
     /**
@@ -200,7 +201,7 @@ public class JSONXmlReader implements XMLReader {
      */
     public final void parse(final InputSource input)
     		throws IOException, SAXException {
-        JsonParser jsonParser = new JsonFactory().
+        final JsonParser jsonParser = new JsonFactory().
         		createJsonParser(input.getCharacterStream());
         new JSONSaxAdapter(jsonParser, contentHandler,
         		namespaceUri, addTypeAttributes).parse();

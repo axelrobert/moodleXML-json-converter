@@ -96,8 +96,6 @@ public class XmlToMoodleXMLConverter {
 		try {
 			buff.write(line);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 			lOGGER.warn("Erreur ecriture"
 			  + "dans xmlToMoodleXML");
 		}
@@ -119,16 +117,17 @@ public class XmlToMoodleXMLConverter {
 	 * caractere numerique [0-9] ou alphabetique [A-Z a-z]
 	 */
 	public final boolean contientChiffreLettre(final String str) {
+		boolean retour = false;
 		if (str != null) {
 			for (int i = 0; i < str.length(); i++) {
-				Character c = str.charAt(i);
-				if (Character.isDigit(c)
-					|| Character.isAlphabetic(c)) {
-					return true;
+				final Character caracter = str.charAt(i);
+				if (Character.isDigit(caracter)
+					|| Character.isAlphabetic(caracter)) {
+					retour = true;
 				}
 			}
 		}
-		return false;
+		return retour;
 	}
 
 	/**
@@ -150,7 +149,7 @@ public class XmlToMoodleXMLConverter {
 	 * @param node :
 	 */
 	public final void fermerNoeud(final Node node) {
-		String name = node.getNodeName();
+		final String name = node.getNodeName();
 		if (name.equals("type")
 				|| name.equals("format")
 				|| name.equals("fraction")) {
@@ -171,7 +170,7 @@ public class XmlToMoodleXMLConverter {
 					} else {
 						afficher("</"
 					+ node.getNodeName() + ">\n");
-						Node suivant =
+						final Node suivant =
 							node.getNextSibling();
 						Node frere = null;
 						if (suivant != null) {
@@ -188,7 +187,7 @@ public class XmlToMoodleXMLConverter {
 				} else {
 					afficher("</"
 				+ node.getNodeName() + ">\n");
-					Node suivant = node.getNextSibling();
+					final Node suivant = node.getNextSibling();
 					Node frere = null;
 					if (suivant != null) {
 						frere =
@@ -204,7 +203,7 @@ public class XmlToMoodleXMLConverter {
 			} else {
 				afficher("</"
 			+ node.getNodeName() + ">\n");
-				Node suivant = node.getNextSibling();
+				final Node suivant = node.getNextSibling();
 				Node frere = null;
 				if (suivant != null) {
 					frere = suivant.getNextSibling();
@@ -223,7 +222,7 @@ public class XmlToMoodleXMLConverter {
 	 * @param node noeud a traiter
 	 */
 	private void traiterfils(final Node node) {
-		NodeList child = node.getChildNodes();
+		final NodeList child = node.getChildNodes();
 		for (int i = 0; i < child.getLength(); i++) {
 			printDocument(child.item(i));
 		}
@@ -233,19 +232,18 @@ public class XmlToMoodleXMLConverter {
 	 * @param node noeud a afficher
 	 */
 	private void afficherNoeud(final Node node) {
-		// TODO Auto-generated method stub
-		String name = node.getNodeName();
+		final String name = node.getNodeName();
 
-		//Le noeud est egal � question
+		//Le noeud est egal a question
 		if (name.equals("question")
 				|| name.equals("answer")
 				|| name.equals("questiontext")) {
-			Node suivant = node.getFirstChild();
+			final Node suivant = node.getFirstChild();
 			Node fils = null;
 			if (suivant != null) {
 				fils = suivant.getNextSibling();
 			}
-			//Son fils est �galement question ou answer
+			//Son fils est egalement question ou answer
 			if (fils.getNodeName().
 					equals("question")
 			   || fils.getNodeName().equals("answer")) {
@@ -270,9 +268,9 @@ public class XmlToMoodleXMLConverter {
 	 * @param node noeud a traiter
 	 */
 	public final void afficherValeur(final Node node) {
-		String name = node.getNodeName();
+		final String name = node.getNodeName();
 		if (node.hasChildNodes()) {
-			Node fils = node.getFirstChild();
+			final Node fils = node.getFirstChild();
 			if (fils.getNodeType() == Node.TEXT_NODE) {
 				if (contientChiffreLettre(
 						fils.getNodeValue())) {
@@ -309,49 +307,36 @@ public class XmlToMoodleXMLConverter {
 	public final void convertXMLtoMoodleXML(final String input,
 			final String output) {
 			try {
-				File f = new File(input);
-				DocumentBuilderFactory dbf =
+				final File file = new File(input);
+				final DocumentBuilderFactory dbf =
 					    DocumentBuilderFactory.newInstance();
-					  DocumentBuilder db;
-				db = dbf.newDocumentBuilder();
+				DocumentBuilder docbuilder;
+				docbuilder = dbf.newDocumentBuilder();
 				Document doc;
 				try {
-					doc = db.parse(f);
+					doc = docbuilder.parse(file);
 				    try {
 						this.buff = new BufferedWriter(
 								new FileWriter(
 										new File(output)));
-					    afficher("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
+					    afficher(
+					    		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
 						printDocument(doc);
 						this.buff.flush();
 						this.buff.close();
 						this.indent = 0;
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
 						lOGGER.warn("Erreur fichier entree"
 						+ " XML-MoodleXML");
 					}
 				} catch (SAXException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
 					lOGGER.warn("Erreur parsage"
 					+ "XML-MoodleXML");
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
 					lOGGER.warn("Erreur lecture fichier");
 				}
-
 			} catch (ParserConfigurationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 				lOGGER.warn("Erreur parser XML-MoodleXML");
 			}
 	}
-
-	 public static void main(String []args){
-		 new XmlToMoodleXMLConverter().convertXMLtoMoodleXML("results/output.xml", "results/output2.xml");
-		 }
-
 }
