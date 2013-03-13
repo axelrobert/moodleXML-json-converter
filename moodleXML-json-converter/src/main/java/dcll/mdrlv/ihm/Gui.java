@@ -96,15 +96,25 @@ public class Gui extends javax.swing.JFrame {
 	// Variables declaration - do not modify
 
 
+	/**
+	 * 
+	 */
 	private javax.swing.ButtonGroup buttonGroupWAY;
 
+	/**
+	 * 
+	 */
 	private javax.swing.JRadioButton jRadioViaDOM;
+	
+	/**
+	 * 
+	 */
 	private javax.swing.JRadioButton jRadioViaXSLT;
 	/**
 	 * bouton regroupant les 2 radiobouton
 	 * xml_vers_json / json_vers_xml.
 	 */
-	private javax.swing.ButtonGroup GroupSensConverter;
+	private javax.swing.ButtonGroup groupSensConverter;
 
 	/**
 	 * bouton lançant la convertion du fichier en entrée.
@@ -238,7 +248,7 @@ public class Gui extends javax.swing.JFrame {
 	 */
 	private void initComponents() {
 
-		GroupSensConverter = new javax.swing.ButtonGroup();
+		groupSensConverter = new javax.swing.ButtonGroup();
 		jRadioButtonXMLtoJSON = new javax.swing.JRadioButton();
 		jRadioButtonJSONtoXML = new javax.swing.JRadioButton();
 		jPanel1 = new javax.swing.JPanel();
@@ -291,7 +301,7 @@ public class Gui extends javax.swing.JFrame {
 				"xhtml" });
 		jsonFilter = new CustomFileFilter("JSON", "json");
 
-		GroupSensConverter.add(jRadioButtonXMLtoJSON);
+		groupSensConverter.add(jRadioButtonXMLtoJSON);
 		jRadioButtonXMLtoJSON.setSelected(true);
 		jRadioButtonXMLtoJSON.setText("XML vers JSON");
 		jRadioButtonXMLtoJSON
@@ -305,7 +315,7 @@ public class Gui extends javax.swing.JFrame {
 					}
 				});
 
-		GroupSensConverter.add(jRadioButtonJSONtoXML);
+		groupSensConverter.add(jRadioButtonJSONtoXML);
 		jRadioButtonJSONtoXML.setText("JSON vers XML");
 		jRadioButtonJSONtoXML
 				.addActionListener(
@@ -690,302 +700,503 @@ public class Gui extends javax.swing.JFrame {
 		pack();
 	} // </editor-fold>
 
+	/**
+	 * @return
+	 */
 	public final Etat getEtat() {
 		return etat;
 	}
 
+	/**
+	 * @return
+	 */
 	public final CustomFileFilter getXmlFilter() {
 		return xmlFilter;
 	}
 
+	/**
+	 * @return
+	 */
 	public final CustomFileFilter getJsonFilter() {
 		return jsonFilter;
 	}
 
+	/**
+	 * @return
+	 */
 	public final SelecteurDeFichier getSelct() {
 		return selct;
 	}
 
+	/**
+	 * @return
+	 */
 	public final SelecteurDeDossier getSelctD() {
 		return selctD;
 	}
 
+	/**
+	 * @return
+	 */
 	public final Synchronizer getSync() {
 		return sync;
 	}
 
+	/**
+	 * @return
+	 */
 	public final XmlToJsonConverter getXmlConverter() {
 		return xmlConverter;
 	}
 
+	/**
+	 * @return
+	 */
 	public final JsonToXmlConverter getJsonConverter() {
 		return jsonConverter;
 	}
 
+	/**
+	 * @return
+	 */
 	public final XmlToJsonByDOM getXmlByDomConverter() {
 		return xmlByDomConverter;
 	}
 
+	/**
+	 * @return
+	 */
 	public final javax.swing.ButtonGroup getButtonGroupWAY() {
 		return buttonGroupWAY;
 	}
 
+	/**
+	 * @return
+	 */
 	public final javax.swing.JRadioButton getjRadioViaDOM() {
 		return jRadioViaDOM;
 	}
 
+	/**
+	 * @return
+	 */
 	public final javax.swing.JRadioButton getjRadioViaXSLT() {
 		return jRadioViaXSLT;
 	}
 
-	public final javax.swing.ButtonGroup getGroupSensConverter() {
-		return GroupSensConverter;
+	/**
+	 * @return
+	 */
+	public final javax.swing.ButtonGroup getgroupSensConverter() {
+		return groupSensConverter;
 	}
 
+	/**
+	 * @return
+	 */
 	public final javax.swing.JButton getjButtonConvertir() {
 		return jButtonConvertir;
 	}
 
+	/**
+	 * @return
+	 */
 	public final javax.swing.JButton getjButtonFermer() {
 		return jButtonFermer;
 	}
 
+	/**
+	 * @return
+	 */
 	public final javax.swing.JButton getjButtonParcourirIN() {
 		return jButtonParcourirIN;
 	}
 
+	/**
+	 * @return
+	 */
 	public final javax.swing.JButton getjButtonParcourirOut() {
 		return jButtonParcourirOut;
 	}
 
+	/**
+	 * @return
+	 */
 	public final javax.swing.JButton getjButtonReset() {
 		return jButtonReset;
 	}
 
+	/**
+	 * @return
+	 */
 	public final javax.swing.JButton getjButtonValider() {
 		return jButtonValider;
 	}
 
+	/**
+	 * @return
+	 */
 	public final javax.swing.JLabel getjLabelFichierIN() {
 		return jLabelFichierIN;
 	}
 
+	/**
+	 * @return
+	 */
 	public final javax.swing.JLabel getjLabelFichierOut() {
 		return jLabelFichierOut;
 	}
 
+	/**
+	 * @return
+	 */
 	public final javax.swing.JPanel getjPanel1() {
 		return jPanel1;
 	}
 
+	/**
+	 * @return
+	 */
 	public final javax.swing.JPanel getjPanel2() {
 		return jPanel2;
 	}
 
+	/**
+	 * @return
+	 */
 	public final javax.swing.JRadioButton getjRadioButtonJSONtoXML() {
 		return jRadioButtonJSONtoXML;
 	}
 
+	/**
+	 * @return
+	 */
 	public final javax.swing.JRadioButton getjRadioButtonXMLtoJSON() {
 		return jRadioButtonXMLtoJSON;
 	}
 
+	/**
+	 * @return
+	 */
 	public final javax.swing.JScrollPane getjScrollPane1() {
 		return jScrollPane1;
 	}
 
+	/**
+	 * @return
+	 */
 	public final javax.swing.JScrollPane getjScrollPane2() {
 		return jScrollPane2;
 	}
 
+	/**
+	 * @return
+	 */
 	public final javax.swing.JTextArea getjTextArea1() {
 		return jTextArea1;
 	}
 
+	/**
+	 * @return
+	 */
 	public final javax.swing.JTextArea getjTextArea2() {
 		return jTextArea2;
 	}
 
+	/**
+	 * @return
+	 */
 	public final javax.swing.JTextField getjTextFieldPathIN() {
 		return jTextFieldPathIN;
 	}
 
+	/**
+	 * @return
+	 */
 	public final javax.swing.JTextField getjTextFieldPathOut() {
 		return jTextFieldPathOut;
 	}
 
+	/**
+	 * @return
+	 */
 	public final String getDelimiteur() {
 		return delimiteur;
 	}
-	public void setEtat(final Etat etat) {
+	/**
+	 * @param etat
+	 */
+	public final void setEtat(final Etat etat) {
 		this.etat = etat;
 	}
 
-	public void setXmlFilter(
+	/**
+	 * @param xmlFil
+	 */
+	public final void setXmlFilter(
 			final CustomFileFilter xmlFil) {
 		this.xmlFilter = xmlFil;
 	}
 
-	public void setJsonFilter(
+	/**
+	 * @param jsonFil
+	 */
+	public final void setJsonFilter(
 			final CustomFileFilter jsonFil) {
 		this.jsonFilter = jsonFil;
 	}
 
-	public void setSelct(
+	/**
+	 * @param sel
+	 */
+	public final void setSelct(
 			final SelecteurDeFichier sel) {
 		this.selct = sel;
 	}
 
-	public void setSelctD(
+	/**
+	 * @param selc
+	 */
+	public final void setSelctD(
 			final SelecteurDeDossier selc) {
 		this.selctD = selc;
 	}
 
-	public void setButtonGroupWAY(
+	/**
+	 * @param buttonGrou
+	 */
+	public final void setButtonGroupWAY(
 			final javax.swing.ButtonGroup buttonGrou) {
 		this.buttonGroupWAY = buttonGrou;
 	}
 
-	public void setjRadioViaDOM(
+	/**
+	 * @param jRadioVia
+	 */
+	public final void setjRadioViaDOM(
 			final javax.swing.JRadioButton jRadioVia) {
 		this.jRadioViaDOM = jRadioVia;
 	}
 
-	public void setjRadioViaXSLT(
+	/**
+	 * @param jRadioViaX
+	 */
+	public final void setjRadioViaXSLT(
 			final javax.swing.JRadioButton jRadioViaX) {
 		this.jRadioViaXSLT = jRadioViaX;
 	}
 
-	public void setGroupSensConverter(
-			final javax.swing.ButtonGroup GroupSensConvert) {
-		this.GroupSensConverter = GroupSensConvert;
+	/**
+	 * @param groupSensConvert
+	 */
+	public final void setgroupSensConverter(
+			final javax.swing.ButtonGroup groupSensConvert) {
+		this.groupSensConverter = groupSensConvert;
 	}
 
-	public void setjButtonConvertir(
+	/**
+	 * @param jButtonConvert
+	 */
+	public final void setjButtonConvertir(
 			final javax.swing.JButton jButtonConvert) {
 		this.jButtonConvertir = jButtonConvert;
 	}
 
-	public void setjRadioButtonJSONtoXML(
+	/**
+	 * @param jRadioButtonJSONtoX
+	 */
+	public final void setjRadioButtonJSONtoXML(
 			final javax.swing.JRadioButton jRadioButtonJSONtoX) {
 		this.jRadioButtonJSONtoXML = jRadioButtonJSONtoX;
 	}
 
-	public void setjRadioButtonXMLtoJSON(
+	/**
+	 * @param jRadioButtonXMLtoJ
+	 */
+	public final void setjRadioButtonXMLtoJSON(
 			final javax.swing.JRadioButton jRadioButtonXMLtoJ) {
 		this.jRadioButtonXMLtoJSON = jRadioButtonXMLtoJ;
 	}
 
-	public void setSync(final Synchronizer syn) {
+	/**
+	 * @param syn
+	 */
+	public final void setSync(final Synchronizer syn) {
 		this.sync = syn;
 	}
 
-	public void setXmlConverter(
+	/**
+	 * @param xmlConvert
+	 */
+	public final void setXmlConverter(
 			final XmlToJsonConverter xmlConvert) {
 		this.xmlConverter = xmlConvert;
 	}
 
-	public void setJsonConverter(
+	/**
+	 * @param jsonConvert
+	 */
+	public final void setJsonConverter(
 			final JsonToXmlConverter jsonConvert) {
 		this.jsonConverter = jsonConvert;
 	}
 
-	public void setXmlByDomConverter(
+	/**
+	 * @param xmlByDomConvert
+	 */
+	public final void setXmlByDomConverter(
 			final XmlToJsonByDOM xmlByDomConvert) {
 		this.xmlByDomConverter = xmlByDomConvert;
 	}
 
 
+	/**
+	 * @return
+	 */
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
-	public void setjButtonFermer(
+	/**
+	 * @param jButtonFerm
+	 */
+	public final void setjButtonFermer(
 			final javax.swing.JButton jButtonFerm) {
 		this.jButtonFermer = jButtonFerm;
 	}
 	
+	/**
+	 * @return
+	 */
 	public static Logger getlOGGER() {
 		return lOGGER;
 	}
 
+	/**
+	 * @param lOGGE
+	 */
 	public static void setlOGGER(
 			final Logger lOGGE) {
 		Gui.lOGGER = lOGGE;
 	}
 
 
-	public void setjButtonParcourirIN(
+	/**
+	 * @param jButtonParcourir
+	 */
+	public final void setjButtonParcourirIN(
 			final javax.swing.JButton jButtonParcourir) {
 		this.jButtonParcourirIN = jButtonParcourir;
 	}
 
-	public void setjButtonParcourirOut(
+	/**
+	 * @param jButtonParcourir
+	 */
+	public final void setjButtonParcourirOut(
 			final javax.swing.JButton jButtonParcourir) {
 		this.jButtonParcourirOut = jButtonParcourir;
 	}
 
-	public void setjButtonReset(
+	/**
+	 * @param jButtonRes
+	 */
+	public final void setjButtonReset(
 			final javax.swing.JButton jButtonRes) {
 		this.jButtonReset = jButtonRes;
 	}
 
-	public void setjButtonValider(
+	/**
+	 * @param jButtonValid
+	 */
+	public final void setjButtonValider(
 			final javax.swing.JButton jButtonValid) {
 		this.jButtonValider = jButtonValid;
 	}
 
-	public void setjLabelFichierIN(
+	/**
+	 * @param jLabelFichier
+	 */
+	public final void setjLabelFichierIN(
 			final javax.swing.JLabel jLabelFichier) {
 		this.jLabelFichierIN = jLabelFichier;
 	}
 
-	public void setjLabelFichierOut(
+	/**
+	 * @param jLabelFichier
+	 */
+	public final void setjLabelFichierOut(
 			final javax.swing.JLabel jLabelFichier) {
 		this.jLabelFichierOut = jLabelFichier;
 	}
 
-	public void setjPanel1(
+	/**
+	 * @param jPanel
+	 */
+	public final void setjPanel1(
 			final javax.swing.JPanel jPanel) {
 		this.jPanel1 = jPanel;
 	}
 
-	public void setjPanel2(
+	/**
+	 * @param jPanel
+	 */
+	public final void setjPanel2(
 			final javax.swing.JPanel jPanel) {
 		this.jPanel2 = jPanel;
 	}
 
-	public void setjScrollPane1(
+	/**
+	 * @param jScrollPane
+	 */
+	public final void setjScrollPane1(
 			final javax.swing.JScrollPane jScrollPane) {
 		this.jScrollPane1 = jScrollPane;
 	}
 
-	public void setjScrollPane2(
+	/**
+	 * @param jScrollPane
+	 */
+	public final void setjScrollPane2(
 			final javax.swing.JScrollPane jScrollPane) {
 		this.jScrollPane2 = jScrollPane;
 	}
 
-	public void setjTextArea1(
+	/**
+	 * @param jTextArea
+	 */
+	public final void setjTextArea1(
 			final javax.swing.JTextArea jTextArea) {
 		this.jTextArea1 = jTextArea;
 	}
 
-	public void setjTextArea2(
+	/**
+	 * @param jTextArea
+	 */
+	public final void setjTextArea2(
 			final javax.swing.JTextArea jTextArea) {
 		this.jTextArea2 = jTextArea;
 	}
 
-	public void setjTextFieldPathIN(
+	/**
+	 * @param jTextFieldPath
+	 */
+	public final void setjTextFieldPathIN(
 			final javax.swing.JTextField jTextFieldPath) {
 		this.jTextFieldPathIN = jTextFieldPath;
 	}
 
-	public void setjTextFieldPathOut(
+	/**
+	 * @param jTextFieldPath
+	 */
+	public final void setjTextFieldPathOut(
 			final javax.swing.JTextField jTextFieldPath) {
 		this.jTextFieldPathOut = jTextFieldPath;
 	}
 
-	public void setDelimiteur(
+	/**
+	 * @param delimite
+	 */
+	public final void setDelimiteur(
 			final String delimite) {
 		this.delimiteur = delimite;
 	}
