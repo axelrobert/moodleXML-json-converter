@@ -94,7 +94,7 @@ public class XmlToJsonByDOM {
 		try {
 			out.write(line);
 		} catch (IOException e) {
-			System.out.print(
+			lOGGER.warn(
 			  "Erreur affichage : fichier non trouv�.");
 		}
 	}
