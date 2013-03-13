@@ -398,7 +398,7 @@ public class Gui extends javax.swing.JFrame {
 								javax.swing.GroupLayout.Alignment.TRAILING,
 								jPanel1Layout
 										.createSequentialGroup()
-										.addContainerGap(16, Short.MAX_VALUE)
+										.addContainerGap(12, Short.MAX_VALUE)
 										.addComponent(jButtonParcourirIN)
 										.addPreferredGap(
 												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -499,7 +499,7 @@ public class Gui extends javax.swing.JFrame {
 		                        .addGap(92, 92, 92))
 		                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
 		                        .addComponent(jRadioButtonViaXSLT)
-		                        .addGap(18, 18, 18)
+		                        .addGap(60, 60, 60)
 		                        .addComponent(jRadioButtonViaDOM)
 		                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 		                        .addComponent(jButtonConvertir)
