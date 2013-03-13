@@ -33,12 +33,12 @@ import dcll.mdrlv.tools.Tools;
 public class JsonToXmlConverter extends WebStandardConverter {
 
 	/**
-	 * error.
+	 * String error
 	 */
-	private String error;
+	private final String error;
 
 	/**
-	 * Constructeur.
+	 * Constructeur
 	 */
 	public JsonToXmlConverter() {
 		super();
@@ -46,9 +46,9 @@ public class JsonToXmlConverter extends WebStandardConverter {
 	}
 
 	/**
-	 * @param json
-	 *            :
-	 * @return :
+	 * @param json : un string contenant du JSON
+	 *
+	 * @return : XML String, null sinon
 	 */
 	public final String convertJsonStringToCompactedXmlString(
 			final String json) {
@@ -61,10 +61,8 @@ public class JsonToXmlConverter extends WebStandardConverter {
 					TransformerFactory.newInstance().
 					newTransformer();
 		} catch (TransformerConfigurationException e1) {
-			// TODO Auto-generated catch block
 			lOGGER.error("Instanciation de la transformation");
 		} catch (TransformerFactoryConfigurationError e1) {
-			// TODO Auto-generated catch block
 			lOGGER.error("TransformerFactoryConfigurations");
 		}
 		final InputSource source =
@@ -77,12 +75,10 @@ public class JsonToXmlConverter extends WebStandardConverter {
 			try {
 				transformer.transform(sax, result);
 			} catch (TransformerException e) {
-				// TODO Auto-generated catch block
 				ok = false;
 				lOGGER.error("TransformerException");
 			}
 		} catch (ParserException e) {
-			// TODO Auto-generated catch block
 			ok = false;
 			lOGGER.error("ParserException");
 		}
@@ -94,11 +90,8 @@ public class JsonToXmlConverter extends WebStandardConverter {
 		return output;
 	}
 
-	/**
-	 * @return :
-	 * @param file
-	 *            :
-	 */
+
+	@Override
 	public final boolean accordanceWithMoodleStandard(final File file) {
 		// On pensait, pour tester si le JSON du fichier était conforme
 		// à la norme MOODLE, le traduire en XML puis appeler la méthode
@@ -112,7 +105,6 @@ public class JsonToXmlConverter extends WebStandardConverter {
 
 	@Override
 	public final boolean accordanceWithStandard(final File file) {
-		// TODO Auto-generated method stub
 		final String json = Tools.readStringFromFile(file);
 		return (!convertJsonStringToCompactedXmlString(json).
 				contentEquals(error));
@@ -121,7 +113,6 @@ public class JsonToXmlConverter extends WebStandardConverter {
 	@Override
 	public final int convert(final String inputFileUri,
 			final String outputFileUri) {
-		// TODO Auto-generated method stub
 		final String text =
 				Tools.readStringFromFile(
 						new File(inputFileUri));
@@ -136,11 +127,11 @@ public class JsonToXmlConverter extends WebStandardConverter {
 		try {
 			doc = saxBuilder.build(outputFileUri);
 		} catch (JDOMException e) {
-			// TODO Auto-generated catch block
 			lOGGER.error("JDOM Exception");
+			return -1;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			lOGGER.error("IO Exception");
+			return -1;
 		}
 		final XMLOutputter xmlOutputter = new XMLOutputter(
 				Format.getPrettyFormat());

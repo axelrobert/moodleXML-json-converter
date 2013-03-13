@@ -48,27 +48,27 @@ import dcll.mdrlv.tools.Tools;
 public class XmlToJsonConverter extends WebStandardConverter {
 
 	/**
-	 *
+	 * Feuille de style XSLT
 	 */
 	private final String xsltStylesheet;
 
 	/**
-	 *
+	 * Document
 	 */
 	private Document document;
 
     /**
-     *
+     * Racine JDOM Tree
      */
     private Element racine;
 
     /**
-     *
+     * Fichier XML temporaire
      */
     private File xmlFile;
 
 	/**
-	 * @param chaine :
+	 * @param chaine : le nom du fichier XSLT
 	 */
 	public XmlToJsonConverter(final String chaine) {
 		super();
@@ -83,9 +83,9 @@ public class XmlToJsonConverter extends WebStandardConverter {
 	}
 
 	/**
-	 * @param anXmlFile :
-	 * @param xsdFile :
-	 * @return :
+	 * @param anXmlFile : le fichier XML à valider
+	 * @param xsdFile : le XML Schéma
+	 * @return : true si le XML est conforme au XSD, false sinon
 	 */
 	public final boolean isValidateXSD(final File anXmlFile,
 			final File xsdFile) {
@@ -116,8 +116,9 @@ public class XmlToJsonConverter extends WebStandardConverter {
 	}
 
 	/**
-	 * @param elt :
-	 * @return :
+	 * @param elt : element courant du JDOM Tree
+	 * @return : boolean (voir la valeur de retour de
+	 * {@link #isValidateXSD(File, File) isValidateXSD})
 	 */
 	public final boolean validateAccordingToType(final Element elt) {
 		//On récupère le type de la question
@@ -131,8 +132,8 @@ public class XmlToJsonConverter extends WebStandardConverter {
 	}
 
 	/**
-	 * @param file :
-	 * @return :
+	 * @param file : fichier XML à vérifier
+	 * @return : true si valide au format moodleXML, false sinon
 	 */
 	public final boolean accordanceWithMoodleXML(final File file) {
 		 //On crée une instance de SAXBuilder
@@ -155,12 +156,12 @@ public class XmlToJsonConverter extends WebStandardConverter {
 	      //On crée une List contenant tous les noeuds "question"
 	      //de l'Element racine
 	      List<Element> list = racine.getChildren("question");
-	      //Si la racine n'est pas de type quiz ou 
+	      //Si la racine n'est pas de type quiz ou
 	      // si il n'y a aucune balise de type question
 	      // Alors le fichier en entrée ne peut etre du MOODLE XML.
 	      // Inutile de continuer le test
 	     if (!racine.getName().contentEquals("quiz")
-	    		  || list.size() ==  0){
+	    		  || list.size() ==  0) {
 	    	  return false;
 	      }
 
@@ -247,8 +248,9 @@ public class XmlToJsonConverter extends WebStandardConverter {
 	}
 
 	/**
-	 * @param file :
-	 * @return :
+	 * @param file : fichier XML à vérifier
+	 * @return : org.w3c.dom.Document (fichier XML parsé)
+	 * / null si non valide au format XML
 	 */
 	public final org.w3c.dom.Document accordanceWithXML(
 			final File file) {
@@ -291,14 +293,17 @@ public class XmlToJsonConverter extends WebStandardConverter {
 	}
 
 	/**
-	 * @param inputFile :
-	 * @param anXsltStylesheet :
-	 * @param out :
+	 * @param inputFile : StreamSource du fichier XML
+	 * @param anXsltStylesheet : StreamSource du XSLT
+	 * @param out : StreamResult du fichier résultat JSON
+	 * @return 0 si OK, -1 si erreur de configuration du transformer,
+	 * 1 si erreur lors de la transformation
 	 */
-	public final void transformXmlToJsonViaXSLT(
+	public final int transformXmlToJsonViaXSLT(
 			final StreamSource inputFile,
 			final StreamSource anXsltStylesheet,
 			final StreamResult out) {
+		int retour = 0;
 		//On crée une nouvelle instance de Transformer factory
 		TransformerFactory transfact =
 				TransformerFactory.newInstance();
@@ -311,8 +316,9 @@ public class XmlToJsonConverter extends WebStandardConverter {
 			transformer = transfact.newTransformer(
 					anXsltStylesheet);
 		} catch (TransformerConfigurationException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			lOGGER.error("Erreur de "
+					+ "configuration du Transformer");
+			retour = -1;
 		}
 		try {
 			//On applique la méthode transform
@@ -322,7 +328,9 @@ public class XmlToJsonConverter extends WebStandardConverter {
 		} catch (TransformerException e) {
 			lOGGER.error("Erreur durant la "
 				+ "transformation du fichier");
+			retour = 1;
 		}
+		return retour;
 	}
 
 	@Override
@@ -338,12 +346,13 @@ public class XmlToJsonConverter extends WebStandardConverter {
 		//On créer un FileWriter du fichier résultat
 		//pour permettre l'écriture de flux de caractères
 		FileWriter outputFile = null;
+		Logger lOGGER = super.getlOGGER();
 		try {
 			outputFile = new FileWriter(
 					new File(outputFileUri));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			lOGGER.error("Erreur d'entrée-sortie");
+			return -1;
 		}
 		//On crée un StreamResult à partir du FileWriter
 		//pour pouvoir écrire dedans le résultat
@@ -365,6 +374,7 @@ public class XmlToJsonConverter extends WebStandardConverter {
 		//On fait appel à la méthode d'écriture
 		//d'un string dans un fichier
 		Tools.writeStringIntoFile(json, outputFileUri);
+
 		return 0;
 	}
 
@@ -394,7 +404,7 @@ public class XmlToJsonConverter extends WebStandardConverter {
 				"ressources/exemple-moodle.xml"))
 				== FileConformity.OK) {
 			converter.convert(
-					"exemple-moodle.xml",
+					"ressources/exemple-moodle.xml",
 					"exemple-moodle.json");
 			lOGGER.info(
 					"Fin de la conversion : "

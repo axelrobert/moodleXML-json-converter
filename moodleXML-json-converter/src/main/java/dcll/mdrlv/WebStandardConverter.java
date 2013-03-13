@@ -1,7 +1,9 @@
 package dcll.mdrlv;
 
 import java.io.File;
+
 import org.apache.log4j.Logger;
+
 import dcll.mdrlv.tools.FileConformity;
 
 /**
@@ -16,29 +18,29 @@ public abstract class WebStandardConverter {
 	private static Logger lOGGER;
 
 	/**
-	 * @param log :
+	 * @param log : le logger
 	 */
 	public final void setlOGGER(final Logger log) {
 		lOGGER = log;
 	}
 
 	/**
-	 * @return :
+	 * @return : le logger
 	 */
 	public final Logger getlOGGER() {
 		return lOGGER;
 	}
 
 	/**
-	 *
+	 * Constructeur : initialisation du logger
 	 */
 	public WebStandardConverter() {
 		lOGGER = Logger.getLogger(WebStandardConverter.class);
 	}
 
 	/**
-	 * @param file : fichier en entree
-	 * @return enum
+	 * @param file : fichier en entrée
+	 * @return une FileConformity enumération
 	 */
 	public final FileConformity fileValidation(final File file) {
 		//On teste si le fichier est bien valide
@@ -60,20 +62,20 @@ public abstract class WebStandardConverter {
 	}
 
 	/**
-	 * @param file :
-	 * @return :
+	 * @param file : fichier à vérifier
+	 * @return : boolean
 	 */
 	public abstract boolean accordanceWithMoodleStandard(File file);
 
 	/**
-	 * @param file :
-	 * @return :
+	 * @param file : fichier à vérifier
+	 * @return : boolean
 	 */
 	public abstract boolean accordanceWithStandard(File file);
 
     /**
-     * @param inputFileUri :
-     * @param outputFileUri :
+     * @param inputFileUri : URL du fichier en entrée
+     * @param outputFileUri : URL du fichier en sortie
      * @return :
 
      */

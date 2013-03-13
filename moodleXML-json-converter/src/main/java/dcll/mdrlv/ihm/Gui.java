@@ -9,12 +9,9 @@ import java.io.IOException;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.log4j.Logger;
-import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 import dcll.mdrlv.jsontoxml.JsonToXmlConverter;
@@ -78,7 +75,7 @@ public class Gui extends javax.swing.JFrame {
 	 * jsonConverter : Convertisseur de fichier json en xml.
 	 */
 	private JsonToXmlConverter jsonConverter;
-	
+
 	/**
 	 * xmlByDomConverter : Convertisseur de fichier xml et json
 	 * VIA DOM
@@ -93,7 +90,7 @@ public class Gui extends javax.swing.JFrame {
 	// Variables declaration - do not modify
 
 	private javax.swing.ButtonGroup buttonGroupWAY;
-	
+
 	private javax.swing.JRadioButton jRadioButtonViaDOM;
 	private javax.swing.JRadioButton jRadioButtonViaXSLT;
 	/**
@@ -898,7 +895,7 @@ public class Gui extends javax.swing.JFrame {
 				= xmlConverter
 					.fileValidation(
 						new File(
-					     fichierIN));				
+								fichierIN));
 				try {
 					if (result == FileConformity.OK) {
 						xmlConverter.convert(
@@ -967,8 +964,8 @@ public class Gui extends javax.swing.JFrame {
 				}
 			}
 			break;
-		case OUTPUT_XML_JSON_VIA_DOM: 
-			
+		case OUTPUT_XML_JSON_VIA_DOM:
+
 			if (jTextFieldPathOut.getText().equals("")) {
 				JOptionPane
 						.showMessageDialog(this,
@@ -1202,13 +1199,13 @@ public class Gui extends javax.swing.JFrame {
 		case OUTPUT_JSON_XML:
 			throw new RuntimeException("Bouton ViaDOM : "
 					+ "action interdite car "
-					+ "Etat OUTPUT_JSON_XML");			
+					+ "Etat OUTPUT_JSON_XML");
 		case OUTPUT_XML_JSON_VIA_DOM :
 			etat = Etat.OUTPUT_XML_JSON_VIA_DOM;
 			break;
 		case OUTPUT_XML_JSON:
 			etat = Etat.OUTPUT_XML_JSON_VIA_DOM;
-			break;			
+			break;
 		case VIEW_JSON_XML:
 			throw new RuntimeException("Bouton ViaXSLT : "
 					+ "action interdite car"
@@ -1353,7 +1350,7 @@ public class Gui extends javax.swing.JFrame {
 			case INIT_XML_JSON:
 			case OUTPUT_JSON_XML:
 			case OUTPUT_XML_JSON:
-			case OUTPUT_XML_JSON_VIA_DOM:	
+			case OUTPUT_XML_JSON_VIA_DOM:
 			case VIEW_JSON_XML:
 			case VIEW_XML_JSON:
 				etat = Etat.INIT_XML_JSON;
@@ -1507,7 +1504,7 @@ public class Gui extends javax.swing.JFrame {
 			jRadioButtonViaDOM.setEnabled(false);
 			jRadioButtonViaXSLT.setEnabled(false);
 			jRadioButtonViaDOM.setSelected(false);
-			jRadioButtonViaXSLT.setSelected(true);			
+			jRadioButtonViaXSLT.setSelected(true);
 
 			jLabelFichierIN.setText("Fichier JSON");
 			jLabelFichierOut.setText("Fichier XML");
