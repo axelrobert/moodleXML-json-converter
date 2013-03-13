@@ -139,7 +139,7 @@ public class XmlToJsonConverter extends WebStandardConverter {
 		 //On crée une instance de SAXBuilder
 	      SAXBuilder sxb = new SAXBuilder();
 	      Logger lOGGER = super.getlOGGER();
-
+	    
 	      try {
 	         //On crée un nouveau document JDOM
 	    	  //avec en argument le fichier XML
@@ -164,8 +164,15 @@ public class XmlToJsonConverter extends WebStandardConverter {
 	    		  || list.size() ==  0) {
 	    	  return false;
 	      }
-
-	      //On crée un Iterator sur notre liste
+	      Element root;
+	      Document xmlDoc;
+	      Element question;
+	      Attribute typeAtt;
+	     //On utilise ici un affichage classique avec getPrettyFormat()
+	      XMLOutputter sortie = new XMLOutputter(
+	        		 Format.getPrettyFormat());
+	
+	     	//On crée un Iterator sur notre liste
 	      Iterator<Element> i = list.iterator();
 	      while (i.hasNext()) {
 	         //On recrée l'Element courant à chaque tour de boucle
@@ -205,16 +212,19 @@ public class XmlToJsonConverter extends WebStandardConverter {
 	          */
 
 	         //On crée donc un nouvel Element racine quiz
-	         Element root = new Element("quiz");
+	         root = new Element("quiz");
 	         //On crée un nouveau Document à partir de la nouvelle racine
-	         Document xmlDoc = new Document(root);
+	         xmlDoc = new Document(root);
 	         //On crée un nouvel Element question et on l'ajoute
 	         //en tant qu'Element de racine
-	         Element question = new Element(courant.getName());
+	         question = new Element(courant.getName());
 	         root.addContent(question);
 	         //On crée un nouvel Attribut type et on l'ajoute à question
 	         //grâce à la méthode setAttribute
-	         Attribute typeAtt = new Attribute("type",
+	         if (courant.getAttributes().size() == 0) {
+	        	 return false;
+	         }
+	         typeAtt = new Attribute("type",
 	        		 courant.getAttributeValue("type"));
 	         question.setAttribute(typeAtt);
 	         //On clone le contenu du noeud courant
@@ -222,9 +232,7 @@ public class XmlToJsonConverter extends WebStandardConverter {
 	         //de l'Element question et on l'ajoute en tant qu'Element
 	         //du nouveau noeud question
 	         question.addContent(courant.cloneContent());
-	         //On utilise ici un affichage classique avec getPrettyFormat()
-	         XMLOutputter sortie = new XMLOutputter(
-	        		 Format.getPrettyFormat());
+	        
 	         try {
 	        	//Création du fichier XML qui contiendra
 	        	//l'arborescence de la question courante
