@@ -1,4 +1,4 @@
-package dcll_project.mdrlv.moodleXML_json_converter;
+package dcll.mdrlv.moodleXML_json_converter;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
